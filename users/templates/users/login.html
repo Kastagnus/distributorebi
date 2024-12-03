@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+  <!--================Login Box Area =================-->
+	<section class="login_box_area section-margin">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<div class="hover">
+							<h4>{% trans "New to our website?" %}</h4>
+							<p>{% trans "Be a part of the biggest Distributor Marketplace" %}</p>
+							<a class="button button-account" href="{% url 'register' %}">{% trans "Create an Account" %}</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>{% trans "Log in to enter" %}</h3>
+						<form class="row login_form" action="{% url 'login' %}" id="contactForm" method="post">
+                            {% csrf_token %}
+							<div class="col-md-12 form-group">
+								{{ form.username }}
+							</div>
+							<div class="col-md-12 form-group">
+                                {{ form.password }}
+							</div>
+							<div class="col-md-12 form-group">
+								<div class="creat_account">
+									<input type="checkbox" id="f-option2" name="selector">
+									<label for="f-option2">{% trans "Keep me logged in" %}</label>
+								</div>
+							</div>
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="button button-login w-100">{% trans "Log In" %}</button>
+								<a href="{% url 'password_reset' %}">{% trans "Forgot Password?" %}</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+	<!--================End Login Box Area =================-->

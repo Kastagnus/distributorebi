@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+    <style>
+.sidebar-categories .categories,
+.sidebar-categories .subcategories,
+.sidebar-categories .sub-subcategories {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-categories .category-item,
+.sidebar-categories .subcategory-item {
+    position: relative;
+    margin: 10px 0;
+    padding-left: 10px; /* Add some padding for all items */
+}
+
+.sidebar-categories .subcategories {
+    margin-left: 20px; /* Indent subcategories */
+}
+
+.sidebar-categories .sub-subcategories {
+    margin-left: 40px; /* Further indent sub-subcategories */
+}
+
+.sidebar-categories label {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.sidebar-categories .toggle-subcategories {
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    margin-left: 5px;
+    color: #007bff;
+    user-select: none;
+}
+
+.sidebar-categories .hidden {
+    display: none;
+}
+
+.sidebar-categories .toggle-subcategories:hover {
+    color: #0056b3;
+}
+
+.clear-filter-button {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.clear-filter-button:hover {
+    background-color: #c82333;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.page-link {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #007bff;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-link:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.page-item.disabled .page-link {
+    pointer-events: none;
+    background-color: #e9ecef;
+    color: #6c757d;
+}
+
+    </style>
+
+    	<!-- ================ start banner area ================= -->
+	<section class="blog-banner-area" id="category">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Shop Category</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Shop Category</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+
+
+	<!-- ================ category section start ================= -->
+  <section class="section-margin--small mb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-5">
+<div class="sidebar-categories">
+    <form method="get" action="">
+        <div class="head">Browse Categories</div>
+        <ul class="categories">
+            {% for category in categories %}
+            <li class="category-item">
+                <label>
+                    <input type="checkbox" class="pixel-radio" name="categories" value="{{ category.id }}"
+                        {% if category.id|stringformat:"s" in selected_categories %}
+                        checked
+                        {% endif %}
+                    >
+                    {{ category.name }}
+                </label>
+                {% if category.subcategories.all %}
+                <span class="toggle-subcategories" onclick="toggleSubcategories(this)">+</span>
+                <ul class="subcategories hidden">
+                    {% for subcategory in category.subcategories.all %}
+                    <li class="subcategory-item">
+                        <label>
+                            <input type="checkbox" class="pixel-radio" name="categories" value="{{ subcategory.id }}"
+                                {% if subcategory.id|stringformat:"s" in selected_categories %}
+                                checked
+                                {% endif %}
+                            >
+                            {{ subcategory.name }}
+                        </label>
+                        {% if subcategory.subcategories.all %}
+                        <span class="toggle-subcategories" onclick="toggleSubcategories(this)">+</span>
+                        <ul class="sub-subcategories hidden">
+                            {% for sub_subcategory in subcategory.subcategories.all %}
+                            <li>
+                                <label>
+                                    <input type="checkbox" class="pixel-radio" name="categories" value="{{ sub_subcategory.id }}"
+                                        {% if sub_subcategory.id|stringformat:"s" in selected_categories %}
+                                        checked
+                                        {% endif %}
+                                    >
+                                    {{ sub_subcategory.name }}
+                                </label>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        <button type="submit" class="button">Filter</button>
+        <a href="{% url 'sellers' %}" class="clear-filter-button">Clear Filters</a>
+    </form>
+</div>
+        </div>
+        <div class="col-xl-9 col-lg-8 col-md-7">
+          <!-- Start Filter Bar -->
+          <div class="filter-bar d-flex flex-wrap align-items-center">
+            <div>
+                <form method="get" action="">
+              <div class="input-group filter-bar-search">
+                <input type="text" placeholder="Search" name="search" value="{{ request.GET.search|default_if_none:'' }}">
+                <div class="input-group-append">
+                  <button type="submit"><i class="ti-search"></i></button>
+                </div>
+              </div>
+                </form>
+            </div>
+          </div>
+          <!-- End Filter Bar -->
+          <!-- Start Best Seller -->
+          <section class="lattest-product-area pb-40 category-list">
+            <div class="row">
+                {% for seller in sellers %}
+              <div class="col-md-6 col-lg-4">
+                <div class="card text-center card-product">
+                  <div class="card-product__img">
+                    <img class="card-img" src="{% static 'img/product/seller_default_img.png' %}" alt="">
+                  </div>
+                  <div class="card-body">
+{#                    <p>Accessories</p>#}
+                    <h4 class="card-product__title"><a href="#">{{ seller.ltd_name }}</a></h4>
+{#                    <p class="card-product__price">$150.00</p>#}
+                  </div>
+                </div>
+              </div>
+                {% endfor %}
+            </div>
+          </section>
+          <!-- End Best Seller -->
+        </div>
+      </div>
+    </div>
+  </section>
+	<!-- ================ category section end ================= -->
+    <!-- ================ pagination section start ================= -->
+<div class="pagination-container">
+    <nav>
+        <ul class="pagination">
+            <!-- Previous Button -->
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">&laquo;</span>
+            </li>
+            {% endif %}
+
+            <!-- Page Numbers -->
+            {% for num in page_obj.paginator.page_range %}
+            {% if num >= page_obj.number|add:-2 and num <= page_obj.number|add:2 %}
+            {% if page_obj.number == num %}
+            <li class="page-item active">
+                <span class="page-link">{{ num }}</span>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ num }}">{{ num }}</a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+
+            <!-- Next Button -->
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">&raquo;</span>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+
+        <!-- ================ pagination section end ================= -->
+
+
+
+	<!-- ================ Subscribe section start ================= -->
+  <section class="subscribe-position">
+    <div class="container">
+      <div class="subscribe text-center">
+        <h3 class="subscribe__title">Get Update From Anywhere</h3>
+        <p>Bearing Void gathering light light his eavening unto dont afraid</p>
+        <div id="mc_embed_signup">
+          <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe-form form-inline mt-5 pt-1">
+            <div class="form-group ml-sm-auto">
+              <input class="form-control mb-1" type="email" name="EMAIL" placeholder="Enter your email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address '" >
+              <div class="info"></div>
+            </div>
+            <button class="button button-subscribe mr-auto mb-1" type="submit">Subscribe Now</button>
+            <div style="position: absolute; left: -5000px;">
+              <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+	<!-- ================ Subscribe section end ================= -->
+
+<script>
+function toggleSubcategories(element) {
+    const subcategories = element.nextElementSibling;
+    if (subcategories) {
+        if (subcategories.classList.contains('hidden')) {
+            subcategories.classList.remove('hidden');
+            element.textContent = '-'; // Change to collapse icon
+        } else {
+            subcategories.classList.add('hidden');
+            element.textContent = '+'; // Change to expand icon
+        }
+    }
+}
+
+</script>
+
+
+{% endblock %}

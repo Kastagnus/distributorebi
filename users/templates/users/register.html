@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+  <!-- ================ start banner area ================= -->
+	<section class="blog-banner-area" id="category">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Register</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+
+  <!--================Login Box Area =================-->
+	<section class="login_box_area section-margin">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<div class="hover">
+							<h4>Already have an account?</h4>
+							<p>Biggest marketplace of distributors, join us!</p>
+							<a class="button button-account" href="{% url 'login' %}">Login Now</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner register_form_inner">
+						<h3>Create an account</h3>
+						<form class="row login_form" action="#" id="register_form" method="post" >
+                            {% csrf_token %}
+							<div class="col-md-12 form-group">
+								{{ form.email }}
+							</div>
+							<div class="col-md-12 form-group">
+								{{ form.full_name }}
+              </div>
+              <div class="col-md-12 form-group">
+                                {{ form.ltd_name }}
+              </div>
+              <div class="col-md-12 form-group">
+								{{ form.identification_number }}
+							</div>
+                            <div class="col-md-12 form-group">
+								{{ form.phone_number }}
+							</div>
+                            <div class="col-md-12 form-group">
+								{{ form.brand_name }}
+							</div>
+                            <div class="col-md-12 form-group">
+								{{ form.password1 }}
+							</div>
+                            <div class="col-md-12 form-group">
+								{{ form.password2 }}
+							</div>
+							<div class="col-md-12 form-group">
+								<button type="submit" class="button button-register w-100">Register</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
+{% endblock %}
