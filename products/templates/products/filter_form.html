@@ -1,0 +1,58 @@
+<form id="filter-form" method="get" action="#" >
+        <div class="head">Browse Categories</div>
+        <ul class="categories">
+            {% for category in categories %}
+                <li class="category-item">
+                    <label>
+                        <input type="checkbox" class="pixel-radio level-0" name="categories" value="{{ category.id }}"
+                            data-level="0" onclick="selectSubcategories(this)"
+                            {% if category.id|stringformat:"s" in selected_categories %}
+                            checked
+                            {% endif %}
+                        >
+                        {{ category.name }}
+                    </label>
+
+                    {% if category.filtered_subcategories %}
+                    <span class="toggle-subcategories" onclick="toggleSubcategories(this)">+</span>
+                    <ul class="subcategories hidden">
+                        {% for subcategory in category.filtered_subcategories %}
+                        <li class="subcategory-item">
+                            <label>
+                                <input type="checkbox" class="pixel-radio level-1" name="categories" value="{{ subcategory.id }}"
+                                    data-level="1" data-parent="{{ category.id }}" onclick="selectSubcategories(this)"
+                                    {% if subcategory.id|stringformat:"s" in selected_categories %}
+                                    checked
+                                    {% endif %}
+                                >
+                                {{ subcategory.name }}
+                            </label>
+
+                            {% if subcategory.filtered_sub_subcategories %}
+                            <span class="toggle-subcategories" onclick="toggleSubcategories(this)">+</span>
+                            <ul class="sub-subcategories hidden">
+                                {% for sub_subcategory in subcategory.filtered_sub_subcategories %}
+                                <li>
+                                    <label>
+                                        <input type="checkbox" class="pixel-radio level-2" name="categories" value="{{ sub_subcategory.id }}"
+                                            data-level="2" data-parent="{{ subcategory.id }}" onclick="selectSubcategories(this)"
+                                            {% if sub_subcategory.id|stringformat:"s" in selected_categories %}
+                                            checked
+                                            {% endif %}
+                                        >
+                                        {{ sub_subcategory.name }}
+                                    </label>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        <button type="submit" class="button">Filter</button>
+        <a href="{% url 'dashboard' user.pk %}" class="clear-filter-button">Clear Filters</a>
+    </form>

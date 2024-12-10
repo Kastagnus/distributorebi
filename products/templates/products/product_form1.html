@@ -1,0 +1,12 @@
+<div class="product-form-container">
+    <h1 class="product-form-title">Edit Product</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p|safe }}
+
+        <div style="text-align: center;">
+            <button type="submit" class="product-form-button">Save</button>
+            <a href="{% url 'dashboard' user.pk %}" class="product-form-cancel-button">Cancel</a>
+        </div>
+    </form>
+</div>

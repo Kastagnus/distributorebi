@@ -1,9 +1,15 @@
 from django.urls import path
-from .views import company_dashboard
+from .views import dashboard, load_subcategories, \
+    ProductUpdateView, ProductDeleteView, ProductCreateView
 
 urlpatterns = [
     # Company Dashboard
-    path('dashboard/<int:company_id>/', company_dashboard, name='dashboard'),
+    path('dashboard/<int:company_id>/', dashboard, name='dashboard'),
+    path('add_product/', ProductCreateView.as_view(), name='add_product'),
+    path('load-subcategories/', load_subcategories, name='load_subcategories'),
+    path('product/<int:pk>/edit/', ProductUpdateView.as_view(), name='product_edit'),
+    path('product/<int:pk>/delete/', ProductDeleteView.as_view(), name='product_delete'),
+
 
     # Company Actions (for authenticated users only)
     # path('company/<int:company_id>/modify/', views.modify_company, name='modify_company'),
