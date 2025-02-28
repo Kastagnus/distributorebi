@@ -5,8 +5,8 @@
         {{ form.as_p|safe }}
 
         <div style="text-align: center;">
-            <button type="submit" class="product-form-button">Save</button>
-            <a href="{% url 'dashboard' user.pk %}" class="product-form-cancel-button">Cancel</a>
+            <button type="submit" class="product-form-button">{% trans 'Save' %}</button>
+            <a href="{% url 'dashboard' user.pk %}" class="product-form-cancel-button">{% trans 'Cancel' %}</a>
         </div>
     </form>
 </div>
