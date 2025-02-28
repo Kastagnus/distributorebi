@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load static %}
 {% block title %}Edit Product{% endblock %}
 
@@ -10,53 +11,53 @@
 
 {% block content %}
     <div class="edit-product-container">
-        <h1 class="edit-product-header">Edit Product</h1>
+        <h1 class="edit-product-header">{% trans 'Edit Product' %}</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
             <div class="edit-product-row">
                 <div class="edit-product-group">
-                    <label for="edit-product-name"><i class="fas fa-user"></i> Name</label>
+                    <label for="edit-product-name"><i class="fas fa-user"></i> {% trans 'Name' %}</label>
                     {{ form.name }}
                 </div>
                 <div class="edit-product-group">
-                    <label for="edit-product-price"><i class="fas fa-dollar-sign"></i> Price</label>
+                    <label for="edit-product-price"><i class="fas fa-dollar-sign"></i> {% trans 'Price' %}</label>
                     {{ form.price }}
                 </div>
             </div>
 
             <div class="edit-product-row">
                 <div class="edit-product-group">
-                    <label for="edit-product-unit"><i class="fas fa-balance-scale"></i> Unit</label>
+                    <label for="edit-product-unit"><i class="fas fa-balance-scale"></i> {% trans 'Unit' %}</label>
                     {{ form.unit }}
                 </div>
                 <div class="edit-product-group">
-                    <label for="edit-product-size"><i class="fas fa-ruler"></i> Size</label>
+                    <label for="edit-product-size"><i class="fas fa-ruler"></i> {% trans 'Size' %}</label>
                     {{ form.size }}
                 </div>
             </div>
 
             <div class="edit-product-group">
-                <label for="edit-product-description"><i class="fas fa-align-left"></i> Description</label>
+                <label for="edit-product-description"><i class="fas fa-align-left"></i> {% trans 'Description' %}</label>
                 {{ form.description }}
             </div>
 
             <div class="edit-product-group">
-                <label for="Category" id="level_0_category"><i class="fas fa-tags"></i> Category</label>
+                <label for="Category" id="level_0_category"><i class="fas fa-tags"></i> {% trans 'Category' %}</label>
                 {{ form.level_0_category }}
             </div>
             <div class="edit-product-group">
-                <label for="Subcategory" id="level_1_category"><i class="fas fa-tags"></i> Subcategory</label>
+                <label for="Subcategory" id="level_1_category"><i class="fas fa-tags"></i> {% trans 'Subcategory' %}</label>
                 {{ form.level_1_category }}
             </div>
             <div class="edit-product-group">
-                <label for="Sub-subcategory" id="level_2_category" ><i class="fas fa-tags"></i>Sub-Subcategory</label>
+                <label for="Sub-subcategory" id="level_2_category" ><i class="fas fa-tags"></i>{% trans 'Sub-Subcategory' %}</label>
                 {{ form.level_2_category }}
             </div>
 
             <div class="edit-product-footer">
-                <button type="submit" class="edit-product-btn edit-product-btn-primary">Save</button>
-                <a href="{% url 'dashboard' user.pk %}" class="edit-product-btn edit-product-btn-secondary">Cancel</a>
+                <button type="submit" class="edit-product-btn edit-product-btn-primary">{% trans 'Save' %}</button>
+                <a href="{% url 'dashboard' user.pk %}" class="edit-product-btn edit-product-btn-secondary">{% trans 'Cancel' %}</a>
             </div>
         </form>
     </div>

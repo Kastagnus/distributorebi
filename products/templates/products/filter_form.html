@@ -1,5 +1,6 @@
+{% load i18n %}
 <form id="filter-form" method="get" action="#" >
-        <div class="head">Browse Categories</div>
+        <div class="head">{% trans 'Browse Categories' %}</div>
         <ul class="categories">
             {% for category in categories %}
                 <li class="category-item">
@@ -53,6 +54,6 @@
                 </li>
             {% endfor %}
         </ul>
-        <button type="submit" class="button">Filter</button>
-        <a href="{% url 'dashboard' user.pk %}" class="clear-filter-button">Clear Filters</a>
+        <button type="submit" class="button">{% trans 'Filter' %}</button>
+        <a href="{% url 'dashboard' user.pk %}" class="clear-filter-button">{% trans 'Clear Filters' %}</a>
     </form>
