@@ -1,5 +1,4 @@
 {% extends 'base.html' %} {% load static %} {% load i18n %} {% block content %}
-
 <!-- ================ category section start ================= -->
 <section class="section-margin--small mb-5">
   <div class="container">
@@ -39,54 +38,8 @@
           </div>
           <div id="company-info-tab" class="tab-content">
             <!-- Company Info Content -->
-            {% include 'sellers/company_info.html' %}
+            {% include 'sellers/company_info.html' with user=user company_info=company_info regions=regions %}
 
-            <!-- Structured Company Info Start -->
-            <div class="info-container">
-              <h2>Company Information</h2>
-              <div class="info-section">
-                <div class="info-title">Company Name</div>
-                <div class="info-content">Your Company Name</div>
-              </div>
-              <div class="info-section">
-                <div class="info-title">Company Type</div>
-                <div class="info-content">Industry / Business Type</div>
-              </div>
-              <div class="info-section">
-                <div class="info-title">Description</div>
-                <div class="info-content">
-                  Brief description of your company, services, and
-                  specialization.
-                </div>
-              </div>
-              <div class="info-section">
-                <div class="info-title">Location</div>
-                <div class="info-content">Your company address</div>
-              </div>
-              <div class="info-section">
-                <div class="info-title">Contact</div>
-                <div class="info-content">
-                  Email:
-                  <a href="mailto:example@email.com">example@email.com</a>
-                </div>
-                <div class="info-content">Phone: +1 (234) 567-8900</div>
-              </div>
-              <div class="info-section">
-                <div class="info-title">Website</div>
-                <div class="info-content">
-                  <a href="https://www.example.com" target="_blank"
-                    >https://www.example.com</a
-                  >
-                </div>
-              </div>
-              <div class="info-section">
-                <div class="info-title">Social Media</div>
-                <div class="info-content">
-                  <a href="#">Facebook</a> | <a href="#">Twitter</a> |
-                  <a href="#">LinkedIn</a>
-                </div>
-              </div>
-            </div>
             <!-- Structured Company Info End -->
           </div>
 
@@ -144,5 +97,6 @@
 </section>
 
 <script src="{% static 'js/dashboard.js' %}"></script>
+
 
 {% endblock %}

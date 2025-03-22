@@ -7,6 +7,8 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
+from regions.models import Region
 from .forms import ProductCreateForm
 # views.py
 from django.core.paginator import Paginator
@@ -23,6 +25,7 @@ def dashboard(request, company_id):
     products = Product.objects.filter(seller=user).order_by('-id')
     company_info = CompanyProfile.objects.get(user=user)
     category_ids = list(products.values_list('category', flat=True).distinct())
+    regions = Region.objects.prefetch_related('cities').all()
     relevant_category_ids = set(category_ids)
 
     for category_id in category_ids:
@@ -70,6 +73,7 @@ def dashboard(request, company_id):
         'products': page_obj.object_list,
         'page_obj': page_obj,
         'company_info': company_info,
+        'regions': regions,
     }
     return render(request, 'products/products.html', context)
 

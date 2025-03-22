@@ -221,8 +221,13 @@
                 {% for seller in sellers %}
               <div class="col-md-6 col-lg-4">
                 <div class="card text-center card-product">
+
                   <div class="card-product__img">
+                {% if seller.companyprofile.image %}
+                 <img src="{{ seller.companyprofile.image.url }}">
+                      {% else %}
                     <img class="card-img" src="{% static 'img/product/seller_default_img.png' %}" alt="">
+                      {% endif %}
                   </div>
                   <div class="card-body">
 {#                    <p>Accessories</p>#}

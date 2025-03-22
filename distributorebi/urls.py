@@ -17,7 +17,6 @@ Including another URLconf
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path, include
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('users.urls')),
@@ -27,5 +26,8 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('', include('users.urls')),
     path('', include('products.urls')),
-    path('', include('sellers.urls'))# Your app-specific URLs
+    path('', include('sellers.urls')),
+    # path('select2/', include('django_select2.urls')),
+    # Your app-specific URLs
 )
+

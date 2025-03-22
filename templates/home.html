@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load i18n %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/category_carousel.css' %}">
+{% endblock %}
 {% block content %}
   <main class="site-main">
     
@@ -14,7 +18,7 @@
               <p>
                   This platform allows you to easily find distribution companies and their products. Whether you're searching for specific goods or exploring new options, we provide a comprehensive selection to meet your needs. 
               </p>
-              <a href="#" class="button">Find a Company</a>
+              <a href="{% url 'sellers' %}" class="button">Find a Company</a>
           </div>
       </div>
   </section>
@@ -26,16 +30,21 @@
           <h2>{% trans 'New' %}  <span class="section-intro__style">{% trans 'Company' %}</span></h2>
         </div>
         <!-- აქ უნდა ჩაჯდეს კომპანიები 9 ც-->
-                             <div class="card_parent">
+         <div class="card_parent">
+         {% for seller in sellers %}
            <div class="card">
              <div class="discount">New</div>
              <div  class="image_container">
+                 {% if seller.companyprofile.image %}
+                 <img src="{{ seller.companyprofile.image.url }}" alt="{{ seller.ltd_name }}">
+                 {% else %}
                <img src="/static/img/logo2.png" alt="Products Name" class="card-img">
+                 {% endif %}
 
              </div>
              <div class="card-content">
-                 <h2 class="cp-name">შპს ვიზიტორს გრუპი</h2>
-                 <p class="cp-description">Qr Page გაძლევთ საშუალებას მიაწოდოთ ინფორმაცია ფართო აუდიტორიას</p>
+                 <h2 class="cp-name"><a href="{% url 'dashboard' seller.id %}">{{ seller.ltd_name }} </a></h2>
+                 <p class="cp-description"> {{ seller.companyprofile.about_us }}</p>
                  <div class="price-section">
                      <span class="unit"></span>
                      <span class="new-price"></span>
@@ -43,122 +52,10 @@
                  </div>
                
              </div>
-           </div>
 
-           <div class="card">
-            <div class="discount">New</div>
-            <div  class="image_container">
-              <img src="/static/img/logo2.png" alt="Products Name" class="card-img">
 
-            </div>
-            <div class="card-content">
-                <h2 class="cp-name">შპს ვიზიტორს გრუპი</h2>
-                <p class="cp-description">Qr Page გაძლევთ საშუალებას მიაწოდოთ ინფორმაცია ფართო აუდიტორიას</p>
-                <div class="price-section">
-                    <span class="unit"></span>
-                    <span class="new-price"></span>
-                    <span class="savings"></span>
-                </div>
-              
-            </div>
           </div>
-
-
-          <div class="card">
-            <div class="discount">New</div>
-            <div  class="image_container">
-              <img src="/static/img/logo2.png" alt="Products Name" class="card-img">
-
-            </div>
-            <div class="card-content">
-                <h2 class="cp-name">შპს ვიზიტორს გრუპი</h2>
-                <p class="cp-description">Qr Page გაძლევთ საშუალებას მიაწოდოთ ინფორმაცია ფართო აუდიტორიას</p>
-                <div class="price-section">
-                    <span class="unit"></span>
-                    <span class="new-price"></span>
-                    <span class="savings"></span>
-                </div>
-              
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="discount">New</div>
-            <div  class="image_container">
-              <img src="/static/img/logo2.png" alt="Products Name" class="card-img">
-
-            </div>
-            <div class="card-content">
-                <h2 class="cp-name">შპს ვიზიტორს გრუპი</h2>
-                <p class="cp-description">Qr Page გაძლევთ საშუალებას მიაწოდოთ ინფორმაცია ფართო აუდიტორიას</p>
-                <div class="price-section">
-                    <span class="unit"></span>
-                    <span class="new-price"></span>
-                    <span class="savings"></span>
-                </div>
-              
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="discount">New</div>
-            <div  class="image_container">
-              <img src="/static/img/logo2.png" alt="Products Name" class="card-img">
-
-            </div>
-            <div class="card-content">
-                <h2 class="cp-name">შპს ვიზიტორს გრუპი</h2>
-                <p class="cp-description">Qr Page გაძლევთ საშუალებას მიაწოდოთ ინფორმაცია ფართო აუდიტორიას</p>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="discount">New</div>
-            <div  class="image_container">
-              <img src="/static/img/logo2.png" alt="Products Name" class="card-img">
-
-            </div>
-            <div class="card-content">
-                <h2 class="cp-name">შპს ვიზიტორს გრუპი</h2>
-                <p class="cp-description">Qr Page გაძლევთ საშუალებას მიაწოდოთ ინფორმაცია ფართო აუდიტორიას</p>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="discount">New</div>
-            <div  class="image_container">
-              <img src="/static/img/logo2.png" alt="Products Name" class="card-img">
-            </div>
-            <div class="card-content">
-                <h2 class="cp-name">შპს ვიზიტორს გრუპი</h2>
-                <p class="cp-description">Qr Page გაძლევთ საშუალებას მიაწოდოთ ინფორმაცია ფართო აუდიტორიას</p>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="discount">New</div>
-            <div  class="image_container">
-              <img src="/static/img/logo2.png" alt="Products Name" class="card-img">
-
-            </div>
-            <div class="card-content">
-                <h2 class="cp-name">შპს ვიზიტორს გრუპი</h2>
-                <p class="cp-description">Qr Page გაძლევთ საშუალებას მიაწოდოთ ინფორმაცია ფართო აუდიტორიას</p>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="discount">New</div>
-            <div  class="image_container">
-              <img src="/static/img/logo2.png" alt="Products Name" class="card-img">
-
-            </div>
-            <div class="card-content">
-                <h2 class="cp-name">შპს ვიზიტორს გრუპი</h2>
-                <p class="cp-description">Qr Page გაძლევთ საშუალებას მიაწოდოთ ინფორმაცია ფართო აუდიტორიას</p>
-            </div>
-          </div>
-
+        {% endfor %}
       <style>
         
         
@@ -177,7 +74,7 @@
             <div class="offer__content text-center">
               <h3>{% trans 'An Efficient Sourcing Process for Growth' %}</h3>
               <p class="slogan">{% trans "We connect businesses with reliable distributors to simplify the sourcing process and open new opportunities for growth and development across industries." %}</p>
-              <a class="button button--active mt-3 mt-xl-4" href="#">{% trans 'Company list' %}</a>
+              <a class="button button--active mt-3 mt-xl-4" href="{% url 'sellers' %}">{% trans 'Company list' %}</a>
             </div>
           </div>
         </div>
@@ -186,80 +83,36 @@
     <!-- ================ offer section end ================= --> 
 
     <!-- ================ Popular Selling Products  carousel start ================= --> 
-    <section class="section-margin calc-60px">
+<section class="section-margin calc-60px">
       <div class="container">
         <div class="section-intro pb-60px">
           <h2>Popular <span class="section-intro__style">Categories</span></h2>
         </div>
 
         <div class="owl-carousel owl-theme" id="bestSellerCarousel">
-
-
-          <div class="card">
-            <div class="discount">Popular</div>
-            <div  class="image_container">
-              <img src="/static/img/gallery/dzexvi.jpg" alt="Category Name" class="card-img">
-
+          {% for category in categories %}
+            <div class="card">
+              <div class="discount">Popular</div>
+              <div class="image_container">
+                {% if category.image %}
+                <a href="{% url 'sellers' %}?{% for cat in category.get_all_descendants %}&categories={{ cat.id }}{% endfor %}">
+                  <img src="{{ category.image.url }}" alt="{{ category.name }}" class="card-img">
+                </a>
+                {% else %}
+                <a href="{% url 'sellers' %}?{% for cat in category.get_all_descendants %}&categories={{ cat.id }}{% endfor %}">
+                  <img src="/static/img/category/default_category.jpg" alt="{{ category.name }}" class="card-img">
+                </a>
+                {% endif %}
+              </div>
+              <div class="card-content">
+              <a href="{% url 'sellers' %}?{% for cat in category.get_all_descendants %}&categories={{ cat.id }}{% endfor %}">
+                <h2 class="cp-name">{{ category.name }}</h2>
+              </a>
+              </div>
             </div>
-            <div class="card-content">
-                <h2 class="cp-name">ხორცეული</h2>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="discount">Popular</div>
-            <div  class="image_container">
-              <img src="/static/img/gallery/dzexvi.jpg" alt="Category Name" class="card-img">
-
-            </div>
-            <div class="card-content">
-                <h2 class="cp-name">ბოსტნეული</h2>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="discount">Popular</div>
-            <div  class="image_container">
-              <img src="/static/img/gallery/dzexvi.jpg" alt="Category Name" class="card-img">
-
-            </div>
-            <div class="card-content">
-                <h2 class="cp-name">ნიკორა ძეხვი</h2>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="discount">Popular</div>
-            <div  class="image_container">
-              <img src="/static/img/gallery/dzexvi.jpg" alt="Category Name" class="card-img">
-
-            </div>
-            <div class="card-content">
-                <h2 class="cp-name">ნიკორა ძეხვი</h2>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="discount">Popular</div>
-            <div  class="image_container">
-              <img src="/static/img/gallery/dzexvi.jpg" alt="Category Name" class="card-img">
-
-            </div>
-            <div class="card-content">
-                <h2 class="cp-name">ნიკორა ძეხვი</h2>
-            </div>
-          </div>
-
-          
-         
-
-          
-
-        
-
-          
-
-          
+          {% empty %}
+            <p>No categories available.</p>
+          {% endfor %}
         </div>
       </div>
     </section>
@@ -270,7 +123,7 @@
       <div class="container">
         <div class="subscribe text-center">
           <h3 class="subscribe__title">{% trans 'Get Update From Anywhere' %}</h3>
-          <p>{% trans 'Bearing Void gathering light light his eavening unto dont afraid' %}</p>
+          <p>{% trans 'You can sign up for newsletter here' %}</p>
           <div id="mc_embed_signup">
             <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe-form form-inline mt-5 pt-1">
               <div class="form-group ml-sm-auto">
@@ -290,5 +143,6 @@
     </section>
   </main>
     <!-- ================ Subscribe section end ================= -->
+
 
 {% endblock %}

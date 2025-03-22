@@ -1,6 +1,19 @@
 # forms.py
 from django import forms
+
+from sellers.models import CompanyProfile
 from .models import Product, Category
+from django_select2.forms import Select2MultipleWidget
+from regions.models import City
+
+class CompanyProfileForm(forms.ModelForm):
+    class Meta:
+        model = City
+        fields = ['name']
+        widgets = {
+            'cities': Select2MultipleWidget(attrs={'data-placeholder': 'Select cities'})
+        }
+
 
 class ProductCreateForm(forms.ModelForm):
     class Meta:

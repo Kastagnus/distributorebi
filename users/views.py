@@ -1,13 +1,18 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.core.cache import cache
+from django.db.models import Prefetch
 from django.shortcuts import render
 from django.contrib.auth.views import FormView, LoginView
 from django.urls import reverse_lazy
 from django.core.mail import send_mail
+
+from products.models import Category
 from .forms import UserForm, MyLoginForm
 from distributorebi import settings
 from django.http import HttpResponse
 from django.utils.translation import gettext as _
 from django.utils.translation import activate
+from .models import CustomUser
 
 
 class RegistrationView(FormView):
@@ -58,7 +63,19 @@ class MyLoginView(LoginView):
         return self.render_to_response(self.get_context_data(form=form))
 
 def home(request):
-    return render(request, 'home.html')
+    recent_companies = CustomUser.objects.filter(is_seller=True).order_by('-date_joined').prefetch_related('companyprofile')[:9]
+
+    cache_key = 'top_level_categories'
+    categories = cache.get(cache_key)
+    if not categories:
+        categories = Category.objects.filter(level=0).prefetch_related('subcategories')[:6]
+        cache.set(cache_key, categories, timeout=60 * 60)  # Cache for 1 hour
+
+    context = {
+        'sellers': recent_companies,
+        'categories': categories,
+    }
+    return render(request, 'home.html', context)
 
 # Create your views here.
 

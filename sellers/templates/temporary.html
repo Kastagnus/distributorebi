@@ -1,0 +1,426 @@
+<div class="info-container">
+    <h2>Company Information
+        {% if request.user == user %}
+            <button id="edit-btn" class="edit-btn">Edit</button>
+        {% endif %}
+    </h2>
+
+    <!-- Display Mode -->
+    <div id="company-info-display" class="info-display">
+        <div class="info-section">
+            <div class="info-title">{{ user.brand_name|default:'' }}</div>
+            <div class="info-content">{{ user.ltd_name|default:'' }}</div>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Description</div>
+            <div class="info-content">{{ company_info.about_us|default:'' }}</div>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Location</div>
+            <div class="info-content">{{ company_info.address|default:'' }}</div>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Contact</div>
+            <div class="info-content">Email: {{ user.email|default:'' }}</div>
+            <div class="info-content">Phone: {{ user.phone_number|default:'' }}</div>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Operating Regions and Cities</div>
+            <div class="cities-edit-container">
+                <!-- Selected Cities -->
+                <div class="selected-cities">
+                    <span class="section-label">Selected Cities:</span>
+                    <div class="selected-list">
+                        <!-- Selected cities will appear here as tags -->
+                    </div>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search regions or cities..."/>
+                </div>
+
+                <!-- Regions and Cities List -->
+                <div class="regions-list">
+                    <!-- Regions and cities will be dynamically populated here -->
+                </div>
+
+                <!-- Bulk Actions -->
+                <div class="bulk-actions">
+                    <label>
+                        <input type="checkbox" id="select-all"/>
+                        <span>Select All</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Branch Contacts</div>
+            {% for branch in company_info.branch_contacts.all %}
+                <div class="info-content">
+                    {{ branch.contact_name|default:'' }} ({{ branch.position|default:'' }})
+                    - {{ branch.phone_number|default:'' }} - {{ branch.region|default:'' }}
+                </div>
+            {% empty %}
+                <div class="info-content">No branch contacts available.</div>
+            {% endfor %}
+        </div>
+        <div class="info-section">
+            <div class="info-title">Website</div>
+            <div class="info-content">
+                {% if company_info.website %}
+                    <a href="{{ company_info.website }}" target="_blank">{{ company_info.website }}</a>
+                {% else %}
+                    <a href="#">No website info</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Social Media</div>
+            <div class="info-content">
+                {% if company_info.facebook %}
+                    <a href="{{ company_info.facebook }}" target="_blank">Facebook</a>
+                {% else %}
+                    <a href="https://facebook.com" target="_blank">Facebook</a>
+                {% endif %} |
+                {% if company_info.twitter %}
+                    <a href="{{ company_info.twitter }}" target="_blank">Twitter</a>
+                {% else %}
+                    <a href="https://x.com" target="_blank">Twitter</a>
+                {% endif %} |
+                {% if company_info.linkedin %}
+                    <a href="{{ company_info.linkedin }}" target="_blank">LinkedIn</a>
+                {% else %}
+                    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Mode -->
+    <form id="company-info-form" class="info-form" style="display: none;" method="post"
+          action="{% url 'edit_company_profile' user.id %}">
+        {% csrf_token %}
+        <div class="info-section">
+            <div class="info-title">Brand Name</div>
+            <input type="text" name="brand_name" value="{{ user.brand_name|default:'' }}" class="info-content">
+        </div>
+        <div class="info-section">
+            <div class="info-title">LTD Name</div>
+            <input type="text" name="ltd_name" value="{{ user.ltd_name|default:'' }}" class="info-content">
+        </div>
+        <div class="info-section">
+            <div class="info-title">Description</div>
+            <textarea name="about_us" class="info-content">{{ company_info.about_us|default:'' }}</textarea>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Location</div>
+            <input type="text" name="address" value="{{ company_info.address|default:'' }}" class="info-content">
+        </div>
+        <div class="info-section">
+            <div class="info-title">Contact</div>
+            <input type="email" name="email" value="{{ user.email|default:'' }}" class="info-content">
+            <input type="text" name="phone_number" value="{{ user.phone_number|default:'' }}" class="info-content">
+        </div>
+        <div class="info-section">
+            <div class="info-title">Operating Regions and Cities</div>
+            <div id="cities-edit" class="cities-edit-container"></div>
+        </div>
+        <div class="info-section branch-contacts-section">
+            <div class="info-title">Branch Contacts</div>
+            <div id="branch-contacts">
+                {% for branch in company_info.branch_contacts.all %}
+                    <div class="branch-contact">
+                        <input type="text" name="branch_name_{{ forloop.counter }}"
+                               value="{{ branch.contact_name|default:'' }}" placeholder="Contact Name">
+                        <input type="text" name="branch_position_{{ forloop.counter }}"
+                               value="{{ branch.position|default:'' }}" placeholder="Position">
+                        <input type="text" name="branch_phone_{{ forloop.counter }}"
+                               value="{{ branch.phone_number|default:'' }}" placeholder="Phone Number">
+                        <input type="text" name="branch_region_{{ forloop.counter }}"
+                               value="{{ branch.region|default:'' }}" placeholder="Region">
+                    </div>
+                {% endfor %}
+                <button type="button" id="add-branch-btn" class="add-branch-btn">Add Branch</button>
+            </div>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Website</div>
+            <input type="url" name="website" value="{{ company_info.website|default:'' }}" class="info-content">
+        </div>
+        <div class="info-section">
+            <div class="info-title">Social Media</div>
+            <input type="url" name="facebook" value="{{ company_info.facebook|default:'' }}" class="info-content">
+            <input type="url" name="twitter" value="{{ company_info.twitter|default:'' }}" class="info-content">
+            <input type="url" name="linkedin" value="{{ company_info.linkedin|default:'' }}" class="info-content">
+        </div>
+        <button type="submit" class="save-btn">Save</button>
+        <button type="button" id="cancel-btn" class="cancel-btn">Cancel</button>
+    </form>
+</div>
+
+<style>
+    .cities-edit-container {
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        direction: ltr; /* Force left-to-right direction */
+    }
+
+    .selected-cities {
+        margin-bottom: 20px;
+    }
+
+    .section-label {
+        display: block;
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .selected-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .city-tag {
+        display: flex;
+        align-items: center;
+        background-color: #e9f4ff;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 13px;
+        color: #007bff;
+    }
+
+    .city-tag .remove-btn {
+        margin-left: 8px;
+        cursor: pointer;
+        color: #ff4d4d;
+        font-weight: bold;
+    }
+
+    .search-bar {
+        margin-bottom: 20px;
+    }
+
+    .search-bar input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .regions-list {
+        max-height: 300px;
+        overflow-y: auto;
+        margin-bottom: 20px;
+    }
+
+    .region-item {
+        margin-bottom: 10px;
+    }
+
+    .region-header {
+        padding: 8px;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .region-header:hover {
+        background-color: #ececec;
+    }
+
+    .region-check {
+        margin-right: 10px;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+    }
+
+    .region-name {
+        font-size: 14px;
+        color: #003087;
+        font-weight: bold;
+    }
+
+    .city-list {
+        padding: 5px 0 5px 26px;
+        display: none; /* Hidden by default */
+    }
+
+    .city-list.visible {
+        display: block;
+    }
+
+    .city-option {
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+        color: #333;
+        margin: 5px 0;
+    }
+
+    .city-check {
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .bulk-actions {
+        margin-top: 10px;
+    }
+
+    .bulk-actions label {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: #555;
+        cursor: pointer;
+    }
+
+    .bulk-actions input {
+        margin-right: 8px;
+        cursor: pointer;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const regions = [
+            {% for region in regions %}
+                {
+                    name: "{{ region.name }}",
+                    cities: [
+                        {% for city in region.cities.all %}
+                            {
+                                id: {{ city.id }},
+                                name: "{{ city.name }}" {% if city in company_info.cities.all %},
+                                    selected: true{% endif %}
+                            },
+                        {% endfor %}
+                    ]
+                },
+            {% endfor %}
+        ];
+
+        const selectedCityIds = new Set([{% for city in company_info.cities.all %}{{ city.id }}, {% endfor %}]);
+
+        const selectedCitiesContainer = document.querySelector('.selected-list');
+        const regionsListContainer = document.querySelector('.regions-list');
+        const searchInput = document.getElementById('search-input');
+        const selectAllCheckbox = document.getElementById('select-all');
+
+// Render selected cities as tags
+        function renderSelectedCities() {
+            selectedCitiesContainer.innerHTML = '';
+            selectedCityIds.forEach(cityId => {
+                const city = regions
+                    .flatMap(region => region.cities)
+                    .find(city => city.id === cityId);
+                if (city) {
+                    const tag = document.createElement('div');
+                    tag.className = 'city-tag';
+                    tag.innerHTML = `
+<span>${city.name}</span>
+<span class="remove-btn" data-city-id="${city.id}">×</span>
+`;
+                    selectedCitiesContainer.appendChild(tag);
+                }
+            });
+
+// Add event listeners to remove buttons
+            document.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const cityId = parseInt(btn.getAttribute('data-city-id'));
+                    selectedCityIds.delete(cityId);
+                    renderSelectedCities();
+                    renderRegionsList();
+                });
+            });
+        }
+
+// Render regions and cities list
+        function renderRegionsList(filterText = '') {
+            regionsListContainer.innerHTML = '';
+            regions.forEach(region => {
+                const regionItem = document.createElement('div');
+                regionItem.className = 'region-item';
+
+                const regionHeader = document.createElement('div');
+                regionHeader.className = 'region-header';
+                regionHeader.innerHTML = `
+<input type="checkbox" class="region-check" data-region="${region.name}">
+<span class="region-name">${region.name}</span>
+`;
+                regionItem.appendChild(regionHeader);
+
+                const cityList = document.createElement('div');
+                cityList.className = 'city-list';
+                region.cities.forEach(city => {
+                    if (filterText && !city.name.toLowerCase().includes(filterText.toLowerCase())) return;
+                    const cityOption = document.createElement('label');
+                    cityOption.className = 'city-option';
+                    cityOption.innerHTML = `
+<input type="checkbox" class="city-check" data-city-id="${city.id}" ${selectedCityIds.has(city.id) ? 'checked' : ''}>
+<span>${city.name}</span>
+`;
+                    cityList.appendChild(cityOption);
+                });
+                regionItem.appendChild(cityList);
+
+                regionsListContainer.appendChild(regionItem);
+
+// Toggle city list visibility
+                regionHeader.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('region-check')) return;
+                    cityList.classList.toggle('visible');
+                });
+
+// Region checkbox logic
+                const regionCheckbox = regionHeader.querySelector('.region-check');
+                regionCheckbox.addEventListener('change', () => {
+                    region.cities.forEach(city => {
+                        if (regionCheckbox.checked) {
+                            selectedCityIds.add(city.id);
+                        } else {
+                            selectedCityIds.delete(city.id);
+                        }
+                    });
+                    renderSelectedCities();
+                    renderRegionsList();
+                });
+            });
+        }
+
+// Search functionality
+        searchInput.addEventListener('input', () => {
+            renderRegionsList(searchInput.value);
+        });
+
+// Select All functionality
+        selectAllCheckbox.addEventListener('change', () => {
+            regions.forEach(region => {
+                region.cities.forEach(city => {
+                    if (selectAllCheckbox.checked) {
+                        selectedCityIds.add(city.id);
+                    } else {
+                        selectedCityIds.delete(city.id);
+                    }
+                });
+            });
+            renderSelectedCities();
+            renderRegionsList();
+        });
+
+// Initial render
+        renderSelectedCities();
+        renderRegionsList();
+    });
+</script>

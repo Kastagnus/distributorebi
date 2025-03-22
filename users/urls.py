@@ -1,6 +1,8 @@
+from django.conf.urls.static import static
 from django.urls import path, reverse_lazy
 from django.views.i18n import set_language
 
+from distributorebi import settings
 from .views import home, RegistrationView, MyLoginView, test_view
 from django.contrib.auth.views import LogoutView, PasswordResetView, PasswordResetCompleteView, \
     PasswordResetDoneView, PasswordResetConfirmView
@@ -25,3 +27,6 @@ urlpatterns = [
     path('set-language/', set_language, name='set_language'),
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
