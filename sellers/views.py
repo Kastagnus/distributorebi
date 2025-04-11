@@ -88,7 +88,7 @@ def edit_company_profile(request, company_id):
         user.brand_name = request.POST.get('brand_name')
         user.ltd_name = request.POST.get('ltd_name')
         user.email = request.POST.get('email')
-        user.phone_number = request.POST.get('phone_number')
+        user.phone_number = request.POST.get('phone_number') if request.POST.get('phone_number') else None
         user.save()
 
         # Update company profile fields
