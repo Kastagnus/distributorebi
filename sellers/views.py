@@ -1,4 +1,6 @@
 # views.py
+import os
+
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse
@@ -21,7 +23,10 @@ class SellerListView(ListView):
     def get_queryset(self):
         category_ids = self.request.GET.getlist('categories')  # Get selected category IDs
         search_term = self.request.GET.get('search', '')
-        queryset = CustomUser.objects.filter(is_seller=True)
+        region_ids = self.request.GET.getlist('regions')
+        city_ids = self.request.GET.getlist('cities')
+        # queryset = CustomUser.objects.filter(is_seller=True)
+        queryset = CustomUser.objects.filter(is_seller=True).prefetch_related('companyprofile__cities__region')
 
         if category_ids:
             # Fetch all relevant category IDs including parents and children for selected categories
@@ -42,20 +47,30 @@ class SellerListView(ListView):
                 Q(seller_categories__category_id__in=relevant_category_ids) |
                 Q(products__category_id__in=relevant_category_ids)
             ).distinct().order_by('-id')
+        if region_ids:
+            # Filter by regions (sellers whose companyprofile.cities have the selected regions)
+            queryset = queryset.filter(companyprofile__cities__region__id__in=region_ids)
 
+        if city_ids:
+            # Filter by cities
+            queryset = queryset.filter(companyprofile__cities__id__in=city_ids)
         if search_term:
             queryset = queryset.filter(
                 products__name__icontains=search_term
             ).distinct().order_by('-id')
 
-        return queryset
+        return queryset.distinct().order_by('-id')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Fetch top-level categories and prefetch related subcategories
         categories = Category.objects.filter(level=0).prefetch_related('subcategories__subcategories')
+        regions = Region.objects.prefetch_related('cities')
         context['categories'] = categories
         context['selected_categories'] = self.request.GET.getlist('categories')
+        context['regions'] = regions
+        context['selected_regions'] = self.request.GET.getlist('regions')
+        context['selected_cities'] = self.request.GET.getlist('cities')
         return context
 
 # # Create your views here.
@@ -85,9 +100,9 @@ def edit_company_profile(request, company_id):
         company_info.linkedin = request.POST.get('linkedin')
 
         # Update cities from POST
-        city_ids = request.POST.getlist('cities')  # Get list of checked city IDs
+        city_ids = request.POST.getlist('cities')
+        city_ids = [int(cid) for cid in city_ids[0].split(',') if cid]
         company_info.cities.set(city_ids)
-
         # Handle branch contacts
         company_info.branch_contacts.all().delete()
         branch_counter = 1
@@ -105,16 +120,36 @@ def edit_company_profile(request, company_id):
                     region=region
                 )
             branch_counter += 1
+        if 'catalogue' in request.FILES:
+            if company_info.catalog:
+                if os.path.isfile(company_info.catalog.path):
+                    os.remove(company_info.catalog.path)
+            company_info.catalog = request.FILES['catalogue']
+        elif request.POST.get('remove_catalogue'):
+            if company_info.catalog:
+                if os.path.isfile(company_info.catalog.path):
+                    os.remove(company_info.catalog.path)
+                company_info.catalog = None
 
+            # Handle presentation file
+        if 'presentation' in request.FILES:
+            if company_info.presentation:
+                if os.path.isfile(company_info.presentation.path):
+                    os.remove(company_info.presentation.path)
+            company_info.presentation = request.FILES['presentation']
+        elif request.POST.get('remove_presentation'):
+            if company_info.presentation:
+                if os.path.isfile(company_info.presentation.path):
+                    os.remove(company_info.presentation.path)
+                company_info.presentation = None
         company_info.save()
         return redirect('dashboard', company_id=company_id)
 
     # Fetch all regions with their cities for the template
     regions = Region.objects.prefetch_related('cities').all()
-    print("Regions:", list(regions))
-    print("Company Cities:", list(company_info.cities.all()))
-    print("Displayyyy")
-    return render(request, 'sellers/company_info.html', {
+    # pass
+
+    return render(request, 'sellers/edit_info.html', {
         'user': user,
         'company_info': company_info,
         'regions': regions,

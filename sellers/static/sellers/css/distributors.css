@@ -1,0 +1,111 @@
+.sidebar-categories .categories,
+.sidebar-categories .subcategories,
+.sidebar-categories .sub-subcategories {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-categories .category-item,
+.sidebar-categories .subcategory-item {
+    position: relative;
+    margin: 10px 0;
+    padding-left: 10px; /* Add some padding for all items */
+}
+
+.sidebar-categories .subcategories {
+    margin-left: 20px; /* Indent subcategories */
+}
+
+.sidebar-categories .sub-subcategories {
+    margin-left: 40px; /* Further indent sub-subcategories */
+}
+
+.sidebar-categories label {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.sidebar-categories .toggle-subcategories {
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    margin-left: 5px;
+    color: #007bff;
+    user-select: none;
+}
+
+.sidebar-categories .hidden {
+    display: none;
+}
+
+.sidebar-categories .toggle-subcategories:hover {
+    color: #0056b3;
+}
+
+.clear-filter-button {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.clear-filter-button:hover {
+    background-color: #c82333;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.page-link {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #007bff;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-link:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.page-item.disabled .page-link {
+    pointer-events: none;
+    background-color: #e9ecef;
+    color: #6c757d;
+}
+
+.card-img {
+    border-radius: 10px;
+}

@@ -1,184 +1,3 @@
-<div class="info-container">
-    <h2>Company Information
-        {% if request.user == user %}
-            <button id="edit-btn" class="edit-btn">Edit</button>
-        {% endif %}
-    </h2>
-
-    <!-- Display Mode -->
-    <div id="company-info-display" class="info-display">
-        <div class="info-section">
-            <div class="info-title">{{ user.brand_name|default:'' }}</div>
-            <div class="info-content">{{ user.ltd_name|default:'' }}</div>
-        </div>
-        <div class="info-section">
-            <div class="info-title">Description</div>
-            <div class="info-content">{{ company_info.about_us|default:'' }}</div>
-        </div>
-        <div class="info-section">
-            <div class="info-title">Location</div>
-            <div class="info-content">{{ company_info.address|default:'' }}</div>
-        </div>
-        <div class="info-section">
-            <div class="info-title">Contact</div>
-            <div class="info-content">Email: {{ user.email|default:'' }}</div>
-            <div class="info-content">Phone: {{ user.phone_number|default:'' }}</div>
-        </div>
-        <div class="info-section">
-            <div class="info-title">Operating Regions and Cities</div>
-            <div id="cities-preview" class="info-content">
-                <!-- Preview of selected regions and cities -->
-                <div class="preview-container">
-                    {% regroup company_info.cities.all by region as regions %}
-                    {% for region in regions %}
-                        <div class="region-preview">
-                            <h4>{{ region.grouper.name }}</h4>
-                            <ul>
-                                {% for city in region.list %}
-                                    <li>{{ city.name }}</li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <div class="info-section">
-            <div class="info-title">Branch Contacts</div>
-            {% for branch in company_info.branch_contacts.all %}
-                <div class="info-content">
-                    {{ branch.contact_name|default:'' }} ({{ branch.position|default:'' }})
-                    - {{ branch.phone_number|default:'' }} - {{ branch.region|default:'' }}
-                </div>
-            {% empty %}
-                <div class="info-content">No branch contacts available.</div>
-            {% endfor %}
-        </div>
-        <div class="info-section">
-            <div class="info-title">Website</div>
-            <div class="info-content">
-                {% if company_info.website %}
-                    <a href="{{ company_info.website }}" target="_blank">{{ company_info.website }}</a>
-                {% else %}
-                    <a href="#">No website info</a>
-                {% endif %}
-            </div>
-        </div>
-        <div class="info-section">
-            <div class="info-title">Social Media</div>
-            <div class="info-content">
-                {% if company_info.facebook %}
-                    <a href="{{ company_info.facebook }}" target="_blank">Facebook</a>
-                {% else %}
-                    <a href="https://facebook.com" target="_blank">Facebook</a>
-                {% endif %} |
-                {% if company_info.twitter %}
-                    <a href="{{ company_info.twitter }}" target="_blank">Twitter</a>
-                {% else %}
-                    <a href="https://x.com" target="_blank">Twitter</a>
-                {% endif %} |
-                {% if company_info.linkedin %}
-                    <a href="{{ company_info.linkedin }}" target="_blank">LinkedIn</a>
-                {% else %}
-                    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit Mode -->
-    <form id="company-info-form" class="info-form" style="display: none;" method="post"
-          action="{% url 'edit_company_profile' user.id %}">
-        {% csrf_token %}
-        <div class="info-section">
-            <div class="info-title">Brand Name</div>
-            <input type="text" name="brand_name" value="{{ user.brand_name|default:'' }}" class="info-content">
-        </div>
-        <div class="info-section">
-            <div class="info-title">LTD Name</div>
-            <input type="text" name="ltd_name" value="{{ user.ltd_name|default:'' }}" class="info-content">
-        </div>
-        <div class="info-section">
-            <div class="info-title">Description</div>
-            <textarea name="about_us" class="info-content">{{ company_info.about_us|default:'' }}</textarea>
-        </div>
-        <div class="info-section">
-            <div class="info-title">Location</div>
-            <input type="text" name="address" value="{{ company_info.address|default:'' }}" class="info-content">
-        </div>
-        <div class="info-section">
-            <div class="info-title">Contact</div>
-            <input type="email" name="email" value="{{ user.email|default:'' }}" class="info-content">
-            <input type="text" name="phone_number" value="{{ user.phone_number|default:'' }}" class="info-content">
-        </div>
-        <div class="info-section">
-            <div class="info-title">Operating Regions and Cities</div>
-            <div class="cities-edit-container">
-                <!-- Selected Cities -->
-                <div class="selected-cities">
-                    <span class="section-label">Selected Cities:</span>
-                    <div class="selected-list">
-                        <!-- Selected cities will appear here as tags -->
-                    </div>
-                </div>
-
-                <!-- Search Bar -->
-                <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="Search regions or cities..."/>
-                </div>
-
-                <!-- Regions and Cities List -->
-                <div class="regions-list">
-                    <!-- Regions and cities will be dynamically populated here -->
-                </div>
-
-                <!-- Bulk Actions -->
-                <div class="bulk-actions">
-                    <label>
-                        <input type="checkbox" id="select-all"/>
-                        <span>Select All</span>
-                    </label>
-                </div>
-
-                <!-- Hidden input to store selected city IDs -->
-                <input type="hidden" name="selected_cities" id="selected-cities-input" value="">
-            </div>
-        </div>
-        <div class="info-section branch-contacts-section">
-            <div class="info-title">Branch Contacts</div>
-            <div id="branch-contacts">
-                {% for branch in company_info.branch_contacts.all %}
-                    <div class="branch-contact">
-                        <input type="text" name="branch_name_{{ forloop.counter }}"
-                               value="{{ branch.contact_name|default:'' }}" placeholder="Contact Name">
-                        <input type="text" name="branch_position_{{ forloop.counter }}"
-                               value="{{ branch.position|default:'' }}" placeholder="Position">
-                        <input type="text" name="branch_phone_{{ forloop.counter }}"
-                               value="{{ branch.phone_number|default:'' }}" placeholder="Phone Number">
-                        <input type="text" name="branch_region_{{ forloop.counter }}"
-                               value="{{ branch.region|default:'' }}" placeholder="Region">
-                    </div>
-                {% endfor %}
-                <button type="button" id="add-branch-btn" class="add-branch-btn">Add Branch</button>
-            </div>
-        </div>
-        <div class="info-section">
-            <div class="info-title">Website</div>
-            <input type="url" name="website" value="{{ company_info.website|default:'' }}" class="info-content">
-        </div>
-        <div class="info-section">
-            <div class="info-title">Social Media</div>
-            <input type="url" name="facebook" value="{{ company_info.facebook|default:'' }}" class="info-content">
-            <input type="url" name="twitter" value="{{ company_info.twitter|default:'' }}" class="info-content">
-            <input type="url" name="linkedin" value="{{ company_info.linkedin|default:'' }}" class="info-content">
-        </div>
-        <div class="button-group">
-            <button type="submit" class="save-btn">Save</button>
-            <button type="button" id="cancel-btn" class="cancel-btn">Cancel</button>
-        </div>
-    </form>
-</div>
-
 <style>
     /* General Styles */
     .info-container {
@@ -219,41 +38,6 @@
 
     .edit-btn:hover {
         background-color: #2980b9;
-    }
-
-    .save-btn {
-        background-color: #2ecc71;
-        color: white;
-    }
-
-    .save-btn:hover {
-        background-color: #27ae60;
-    }
-
-    .cancel-btn {
-        background-color: #e74c3c;
-        color: white;
-    }
-
-    .cancel-btn:hover {
-        background-color: #c0392b;
-    }
-
-    .add-branch-btn {
-        background-color: #9b59b6;
-        color: white;
-        margin-top: 10px;
-    }
-
-    .add-branch-btn:hover {
-        background-color: #8e44ad;
-    }
-
-    .button-group {
-        display: flex;
-        gap: 10px;
-        justify-content: flex-end;
-        margin-top: 20px;
     }
 
     /* Info Section Styles */
@@ -338,49 +122,6 @@
         border-bottom: none;
     }
 
-    /* Edit Mode Styles */
-    .cities-edit-container {
-        padding: 15px;
-        border: 1px solid #e0e0e0;
-        border-radius: 6px;
-        background-color: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    .selected-cities {
-        margin-bottom: 20px;
-    }
-
-    .section-label {
-        display: block;
-        font-size: 14px;
-        color: #555;
-        margin-bottom: 10px;
-        font-weight: bold;
-    }
-
-    .selected-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        min-height: 40px;
-        padding: 10px;
-        border: 1px dashed #ccc;
-        border-radius: 4px;
-        background-color: #fafafa;
-    }
-
-    .city-tag {
-        display: flex;
-        align-items: center;
-        background-color: #e9f4ff;
-        padding: 5px 10px;
-        border-radius: 15px;
-        font-size: 13px;
-        color: #3498db;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
     .city-tag .remove-btn {
         margin-left: 8px;
         cursor: pointer;
@@ -390,10 +131,6 @@
 
     .city-tag .remove-btn:hover {
         color: #c0392b;
-    }
-
-    .search-bar {
-        margin-bottom: 20px;
     }
 
     .search-bar input {
@@ -410,77 +147,6 @@
         box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
     }
 
-    .regions-list {
-        max-height: 300px;
-        overflow-y: auto;
-        margin-bottom: 20px;
-        border: 1px solid #eee;
-        border-radius: 4px;
-    }
-
-    .region-item {
-        margin-bottom: 5px;
-    }
-
-    .region-header {
-        padding: 10px;
-        background-color: #f5f5f5;
-        border-radius: 4px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        transition: background-color 0.2s;
-    }
-
-    .region-header:hover {
-        background-color: #ececec;
-    }
-
-    .region-check {
-        margin-right: 10px;
-        width: 16px;
-        height: 16px;
-        cursor: pointer;
-    }
-
-    .region-name {
-        font-size: 14px;
-        color: #2980b9;
-        font-weight: bold;
-    }
-
-    .city-list {
-        padding: 5px 0 5px 26px;
-        display: none; /* Hidden by default */
-        background-color: #fafafa;
-        border-top: 1px solid #eee;
-        border-bottom: 1px solid #eee;
-    }
-
-    .city-list.visible {
-        display: block;
-    }
-
-    .city-option {
-        display: flex;
-        align-items: center;
-        font-size: 13px;
-        color: #333;
-        margin: 8px 0;
-    }
-
-    .city-check {
-        margin-right: 10px;
-        cursor: pointer;
-    }
-
-    .bulk-actions {
-        margin-top: 15px;
-        padding: 10px;
-        background-color: #f9f9f9;
-        border-radius: 4px;
-    }
-
     .bulk-actions label {
         display: flex;
         align-items: center;
@@ -492,13 +158,6 @@
     .bulk-actions input {
         margin-right: 8px;
         cursor: pointer;
-    }
-
-    .branch-contact {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-        gap: 10px;
     }
 
     .branch-contact input {
@@ -537,267 +196,95 @@
         top: 50%;
         transform: translate(-50%, -50%);
     }
+
 </style>
+<div class="info-container">
+    <h2>Company Information
+        {% if request.user == user %}
+            <a href="{% url 'edit_company_profile' user.pk %}">
+                <button id="edit-btn" class="edit-btn">Edit</button>
+            </a>
+        {% endif %}
+    </h2>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const regions = [
-            {% for region in regions %}
-                {
-                    name: "{{ region.name }}",
-                    cities: [
-                        {% for city in region.cities.all %}
-                            {
-                                id: {{ city.id }},
-                                name: "{{ city.name }}" {% if city in company_info.cities.all %},
-                                    selected: true{% endif %} },
-                        {% endfor %}
-                    ]
-                },
+    <!-- Display Mode -->
+    <div id="company-info-display" class="info-display">
+        <div class="info-section">
+            <div class="info-title">{{ user.brand_name|default:'' }}</div>
+            <div class="info-content">{{ user.ltd_name|default:'' }}</div>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Description</div>
+            <div class="info-content">{{ company_info.about_us|default:'' }}</div>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Location</div>
+            <div class="info-content">{{ company_info.address|default:'' }}</div>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Contact</div>
+            <div class="info-content">Email: {{ user.email|default:'' }}</div>
+            <div class="info-content">Phone: {{ user.phone_number|default:'' }}</div>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Operating Regions and Cities</div>
+            <div id="cities-preview" class="info-content">
+                <!-- Preview of selected regions and cities -->
+                <div class="preview-container">
+                    {% regroup company_info.cities.all by region as regions %}
+                    {% for region in regions %}
+                        <div class="region-preview">
+                            <h4>{{ region.grouper.name }}</h4>
+                            <ul>
+                                {% for city in region.list %}
+                                    <li>{{ city.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Branch Contacts</div>
+            {% for branch in company_info.branch_contacts.all %}
+                <div class="info-content">
+                    {{ branch.contact_name|default:'' }} ({{ branch.position|default:'' }})
+                    - {{ branch.phone_number|default:'' }} - {{ branch.region|default:'' }}
+                </div>
+            {% empty %}
+                <div class="info-content">No branch contacts available.</div>
             {% endfor %}
-        ];
-
-        // Initialize with the cities that are already selected
-        const selectedCityIds = new Set([{% for city in company_info.cities.all %}{{ city.id }}, {% endfor %}]);
-
-        const editBtn = document.getElementById('edit-btn');
-        const cancelBtn = document.getElementById('cancel-btn');
-        const displayDiv = document.getElementById('company-info-display');
-        const form = document.getElementById('company-info-form');
-        const selectedCitiesInput = document.getElementById('selected-cities-input');
-
-        const selectedCitiesContainer = document.querySelector('.selected-list');
-        const regionsListContainer = document.querySelector('.regions-list');
-        const searchInput = document.getElementById('search-input');
-        const selectAllCheckbox = document.getElementById('select-all');
-
-        // Update hidden input with selected city IDs
-        function updateSelectedCitiesInput() {
-            selectedCitiesInput.value = Array.from(selectedCityIds).join(',');
-        }
-
-        // Render selected cities as tags
-        function renderSelectedCities() {
-            selectedCitiesContainer.innerHTML = '';
-            if (selectedCityIds.size === 0) {
-                selectedCitiesContainer.innerHTML = '<em>No cities selected</em>';
-                return;
-            }
-
-            // Get all cities from regions data
-            const allCities = regions.flatMap(region => region.cities);
-
-            // Create tags for selected cities
-            Array.from(selectedCityIds).forEach(cityId => {
-                const city = allCities.find(c => c.id === cityId);
-                if (city) {
-                    const tag = document.createElement('div');
-                    tag.className = 'city-tag';
-                    tag.innerHTML = `
-                        <span>${city.name}</span>
-                        <span class="remove-btn" data-city-id="${city.id}">×</span>
-                    `;
-                    selectedCitiesContainer.appendChild(tag);
-                }
-            });
-
-            // Add event listeners to remove buttons
-            document.querySelectorAll('.remove-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const cityId = parseInt(btn.getAttribute('data-city-id'));
-                    selectedCityIds.delete(cityId);
-                    renderSelectedCities();
-                    renderRegionsList();
-                    updateSelectedCitiesInput();
-                });
-            });
-
-            updateSelectedCitiesInput();
-        }
-
-        // Check if all cities in a region are selected
-        function areAllCitiesSelectedInRegion(region) {
-            return region.cities.every(city => selectedCityIds.has(city.id));
-        }
-
-        // Check if any cities in a region are selected
-        function areAnyCitiesSelectedInRegion(region) {
-            return region.cities.some(city => selectedCityIds.has(city.id));
-        }
-
-        // Render regions and cities list
-        function renderRegionsList(filterText = '') {
-            regionsListContainer.innerHTML = '';
-            let visibleRegionsCount = 0;
-            let visibleCitiesCount = 0;
-
-            regions.forEach(region => {
-                // Filter cities based on search text
-                const filteredCities = region.cities.filter(city =>
-                    !filterText || city.name.toLowerCase().includes(filterText.toLowerCase()) ||
-                    region.name.toLowerCase().includes(filterText.toLowerCase())
-                );
-
-                // Skip region if no cities match filter
-                if (filteredCities.length === 0 && filterText) return;
-                visibleRegionsCount++;
-
-                const regionItem = document.createElement('div');
-                regionItem.className = 'region-item';
-
-                // Create region header with checkbox
-                const regionHeader = document.createElement('div');
-                regionHeader.className = 'region-header';
-
-                const isAllSelected = areAllCitiesSelectedInRegion(region);
-                const isPartiallySelected = !isAllSelected && areAnyCitiesSelectedInRegion(region);
-
-                regionHeader.innerHTML = `
-                    <input type="checkbox" class="region-check" data-region="${region.name}"
-                        ${isAllSelected ? 'checked' : ''}>
-                    <span class="region-name">${region.name} (${filteredCities.length} cities)</span>
-                `;
-
-                regionItem.appendChild(regionHeader);
-
-                // Create city list with checkboxes
-                const cityList = document.createElement('div');
-                cityList.className = 'city-list';
-
-                // Show city list if filtering is active
-                if (filterText) {
-                    cityList.classList.add('visible');
-                }
-
-                filteredCities.forEach(city => {
-                    visibleCitiesCount++;
-                    const cityOption = document.createElement('label');
-                    cityOption.className = 'city-option';
-                    cityOption.innerHTML = `
-                        <input type="checkbox" class="city-check" data-city-id="${city.id}"
-                            ${selectedCityIds.has(city.id) ? 'checked' : ''}>
-                        <span>${city.name}</span>
-                    `;
-                    cityList.appendChild(cityOption);
-                });
-
-                regionItem.appendChild(cityList);
-                regionsListContainer.appendChild(regionItem);
-
-                // Toggle city list visibility when clicking region header
-                regionHeader.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('region-check')) return;
-                    cityList.classList.toggle('visible');
-                });
-
-                // Region checkbox logic
-                const regionCheckbox = regionHeader.querySelector('.region-check');
-                regionCheckbox.addEventListener('change', () => {
-                    const isChecked = regionCheckbox.checked;
-                    region.cities.forEach(city => {
-                        if (isChecked) {
-                            selectedCityIds.add(city.id);
-                        } else {
-                            selectedCityIds.delete(city.id);
-                        }
-                    });
-                    renderSelectedCities();
-                    renderRegionsList(searchInput.value);
-                });
-
-                // City checkbox logic
-                cityList.querySelectorAll('.city-check').forEach(cityCheck => {
-                    cityCheck.addEventListener('change', () => {
-                        const cityId = parseInt(cityCheck.getAttribute('data-city-id'));
-                        if (cityCheck.checked) {
-                            selectedCityIds.add(cityId);
-                        } else {
-                            selectedCityIds.delete(cityId);
-                        }
-                        renderSelectedCities();
-                        renderRegionsList(searchInput.value);
-                    });
-                });
-            });
-
-            // Update Select All checkbox state
-            const allCitiesCount = regions.flatMap(r => r.cities).length;
-            selectAllCheckbox.checked = selectedCityIds.size === allCitiesCount;
-            selectAllCheckbox.indeterminate = selectedCityIds.size > 0 && selectedCityIds.size < allCitiesCount;
-
-            // Show message if no regions match the search
-            if (visibleRegionsCount === 0 && filterText) {
-                regionsListContainer.innerHTML = `<div class="no-results">No matches found for "${filterText}"</div>`;
-            }
-        }
-
-        // Search functionality
-        searchInput.addEventListener('input', () => {
-            renderRegionsList(searchInput.value);
-        });
-
-        // Select All functionality
-        selectAllCheckbox.addEventListener('change', () => {
-            const allCities = regions.flatMap(region => region.cities);
-
-            if (selectAllCheckbox.checked) {
-                // Select all cities
-                allCities.forEach(city => selectedCityIds.add(city.id));
-            } else {
-                // Deselect all cities
-                selectedCityIds.clear();
-            }
-
-            renderSelectedCities();
-            renderRegionsList(searchInput.value);
-        });
-
-        // Edit button logic
-        if (editBtn) {
-            editBtn.addEventListener('click', () => {
-                displayDiv.style.display = 'none';
-                form.style.display = 'block';
-                renderSelectedCities();
-                renderRegionsList();
-            });
-        }
-
-        // Cancel button logic
-        if (cancelBtn) {
-            cancelBtn.addEventListener('click', () => {
-                form.style.display = 'none';
-                displayDiv.style.display = 'block';
-            });
-        }
-
-        // Form submission logic
-        form.addEventListener('submit', (e) => {
-            // Make sure the selected cities are saved
-            updateSelectedCitiesInput();
-        });
-
-        // Add Branch button logic
-        const addBranchBtn = document.getElementById('add-branch-btn');
-        const branchContacts = document.getElementById('branch-contacts');
-        let branchCounter = {{ company_info.branch_contacts.count|default:0 }};
-
-        if (addBranchBtn) {
-            addBranchBtn.addEventListener('click', () => {
-                branchCounter++;
-                const newBranch = document.createElement('div');
-                newBranch.className = 'branch-contact';
-                newBranch.innerHTML = `
-                    <input type="text" name="branch_name_${branchCounter}" placeholder="Contact Name">
-                    <input type="text" name="branch_position_${branchCounter}" placeholder="Position">
-                    <input type="text" name="branch_phone_${branchCounter}" placeholder="Phone Number">
-                    <input type="text" name="branch_region_${branchCounter}" placeholder="Region">
-                `;
-                branchContacts.insertBefore(newBranch, addBranchBtn);
-            });
-        }
-
-        // Initialize the UI
-        renderSelectedCities();
-        updateSelectedCitiesInput();
-    });
-</script>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Website</div>
+            <div class="info-content">
+                {% if company_info.website %}
+                    <a href="{{ company_info.website }}" target="_blank">{{ company_info.website }}</a>
+                {% else %}
+                    <a href="#">No website info</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="info-section">
+            <div class="info-title">Social Media</div>
+            <div class="info-content">
+                {% if company_info.facebook %}
+                    <a href="{{ company_info.facebook }}" target="_blank">Facebook</a>
+                {% else %}
+                    <a href="https://facebook.com" target="_blank">Facebook</a>
+                {% endif %} |
+                {% if company_info.twitter %}
+                    <a href="{{ company_info.twitter }}" target="_blank">Twitter</a>
+                {% else %}
+                    <a href="https://x.com" target="_blank">Twitter</a>
+                {% endif %} |
+                {% if company_info.linkedin %}
+                    <a href="{{ company_info.linkedin }}" target="_blank">LinkedIn</a>
+                {% else %}
+                    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

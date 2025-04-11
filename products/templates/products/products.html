@@ -1,102 +1,109 @@
-{% extends 'base.html' %} {% load static %} {% load i18n %} {% block content %}
-<!-- ================ category section start ================= -->
-<section class="section-margin--small mb-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-xl-3 col-lg-4 col-md-5">
-        <div class="sidebar-categories" id="filter-section">
-          {% include 'products/filter_form.html' %}
-        </div>
-      </div>
-      <div class="col-xl-9 col-lg-8 col-md-7">
-        <!-- Start Filter Bar -->
-        <div class="filter-bar" id="dashboard">
-          <a href="#" class="product_list_flex active" data-tab="product-tab">
-            <div class="productFlex">
-              <i class="fas fa-box"></i>
-              <p>{% trans 'Product' %}</p>
+{% extends 'base.html' %} {% load static %} {% load i18n %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/company_info.css' %}"/>
+{% endblock %}
+{% block content %}
+    <!-- ================ category section start ================= -->
+    <section class="section-margin--small mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-5">
+                    <div class="sidebar-categories" id="filter-section">
+                        {% include 'products/filter_form.html' %}
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-8 col-md-7">
+                    <!-- Start Filter Bar -->
+                    <div class="filter-bar" id="dashboard">
+                        <a href="#" class="product_list_flex active" data-tab="product-tab">
+                            <div class="productFlex">
+                                <i class="fas fa-box"></i>
+                                <p>{% trans 'Product' %}</p>
+                            </div>
+                        </a>
+                        <a href="#" class="company_info_flex" data-tab="company-info-tab">
+                            <div class="CompanyInfoFlex">
+                                <i class="fas fa-info-circle"></i>
+                                <p>{% trans 'Company Info' %}</p>
+                            </div>
+                        </a>
+                        {% if is_owner %}
+                        <a href="#" class="add_product_flex" data-tab="add-product-tab">
+                            <div class="addProductFlex">
+                                <i class="fas fa-plus-circle"></i>
+                                <p>{% trans 'Add Product' %}</p>
+                            </div>
+                        </a>
+                        {% endif %}
+                    </div>
+
+                    <div id="tabs-container">
+                        <div id="product-tab" class="tab-content active">
+                            <!-- Product List Content -->
+                            {% include 'products/product_list.html' %}
+                        </div>
+                        <div id="company-info-tab" class="tab-content">
+                            <!-- Company Info Content -->
+                            {% include 'sellers/company_info.html' with user=user company_info=company_info regions=regions %}
+
+                            <!-- Structured Company Info End -->
+                        </div>
+                        {% if is_owner %}
+                            <div id="add-product-tab" class="tab-content">
+                                <!-- Add Product Content -->
+                                {% include 'products/product_create_form.html' with form=form %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-          </a>
-          <a href="#" class="company_info_flex" data-tab="company-info-tab">
-            <div class="CompanyInfoFlex">
-              <i class="fas fa-info-circle"></i>
-              <p>{% trans 'Company Info' %}</p>
-            </div>
-          </a>
-          <a href="#" class="add_product_flex" data-tab="add-product-tab">
-            <div class="addProductFlex">
-              <i class="fas fa-plus-circle"></i>
-              <p>{% trans 'Add Product' %}</p>
-            </div>
-          </a>
         </div>
+    </section>
 
-        <div id="tabs-container">
-          <div id="product-tab" class="tab-content active">
-            <!-- Product List Content -->
-            {% include 'products/product_list.html' %}
-          </div>
-          <div id="company-info-tab" class="tab-content">
-            <!-- Company Info Content -->
-            {% include 'sellers/company_info.html' with user=user company_info=company_info regions=regions %}
-
-            <!-- Structured Company Info End -->
-          </div>
-
-          <div id="add-product-tab" class="tab-content">
-            <!-- Add Product Content -->
-            {% include 'products/product_create_form.html' %}
-          </div>
+    <section class="subscribe-position">
+        <div class="container">
+            <div class="subscribe text-center">
+                <h3 class="subscribe__title">{% trans 'Get Update From Anywhere' %}</h3>
+                <p>
+                    {% trans 'Bearing Void gathering light light his eavening unto don afraid' %}
+                </p>
+                <div id="mc_embed_signup">
+                    <form
+                            target="_blank"
+                            action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                            method="get"
+                            class="subscribe-form form-inline mt-5 pt-1"
+                    >
+                        <div class="form-group ml-sm-auto">
+                            <input
+                                    class="form-control mb-1"
+                                    type="email"
+                                    name="EMAIL"
+                                    placeholder="Enter your email"
+                                    onfocus="this.placeholder = ''"
+                                    onblur="this.placeholder = 'Your Email Address '"
+                            />
+                            <div class="info"></div>
+                        </div>
+                        <button class="button button-subscribe mr-auto mb-1" type="submit">
+                            {% trans 'Subscribe Now' %}
+                        </button>
+                        <div style="position: absolute; left: -5000px">
+                            <input
+                                    name="b_36c4fd991d266f23781ded980_aefe40901a"
+                                    tabindex="-1"
+                                    value=""
+                                    type="text"
+                            />
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="subscribe-position">
-  <div class="container">
-    <div class="subscribe text-center">
-      <h3 class="subscribe__title">{% trans 'Get Update From Anywhere' %}</h3>
-      <p>
-        {% trans 'Bearing Void gathering light light his eavening unto dont
-        afraid' %}
-      </p>
-      <div id="mc_embed_signup">
-        <form
-          target="_blank"
-          action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-          method="get"
-          class="subscribe-form form-inline mt-5 pt-1"
-        >
-          <div class="form-group ml-sm-auto">
-            <input
-              class="form-control mb-1"
-              type="email"
-              name="EMAIL"
-              placeholder="Enter your email"
-              onfocus="this.placeholder = ''"
-              onblur="this.placeholder = 'Your Email Address '"
-            />
-            <div class="info"></div>
-          </div>
-          <button class="button button-subscribe mr-auto mb-1" type="submit">
-            {% trans 'Subscribe Now' %}
-          </button>
-          <div style="position: absolute; left: -5000px">
-            <input
-              name="b_36c4fd991d266f23781ded980_aefe40901a"
-              tabindex="-1"
-              value=""
-              type="text"
-            />
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<script src="{% static 'js/dashboard.js' %}"></script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
 
 
 {% endblock %}

@@ -49,10 +49,15 @@ class CompanyProfile(models.Model):
             max_size = 5 * 1024 * 1024  # 5 MB in bytes
             if self.image.size > max_size:
                 raise ValidationError("Image file too large (max 5 MB).")
-        if self.catalog or self.presentation:
+        if self.catalog:
             max_size = 20 * 1024 * 1024  # 20 MB in bytes
             if self.catalog.size > max_size:
                 raise ValidationError("Catalog file too large (max 20 MB).")
+        if self.presentation:
+            max_size = 20 * 1024 * 1024  # 20 MB in bytes
+            if self.presentation.size > max_size:
+                raise ValidationError("Catalog file too large (max 20 MB).")
+
 
     def resize_image(self):
         """Resize the image to 150x150 pixels."""
@@ -86,7 +91,7 @@ class CompanyProfile(models.Model):
                 # Delete the old image if a new one is uploaded
                 if os.path.isfile(old_instance.image.path):
                     os.remove(old_instance.image.path)
-        self.clean()
+        # self.clean()
         self.resize_image()
         super().save(*args, **kwargs)
 

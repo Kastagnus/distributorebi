@@ -3,30 +3,30 @@
 <section class="lattest-product-area pb-40 category-list">
     <div class="row">
 
-            {% for product in products %}
+        {% for product in products %}
             <div class="card-cont">
                 <div class="card">
                     <div class="discount">Product</div>
-                    <div  class="image_container">
+                    <div class="image_container">
                         {% if product.image %}
-                        <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                            <img src="{{ product.image.url }}" alt="{{ product.title }}">
                         {% else %}
-                      <img src="/static/img/product/product_default.jpg" alt="Products Name" class="card-img">
+                            <img src="/static/img/product/product_default.jpg" alt="Products Name" class="card-img">
                         {% endif %}
                     </div>
                     <div class="card-content">
                         <h2 class="cp-name">{{ product.name }}</h2>
                         <div class="price-section">
-                          <span class="new-price">{{ product.price }} GEL</span>
+                            <span class="new-price">{{ product.price }} GEL</span>
 
                             <span class="size">{{ product.size }}</span>
                             <span class="unit">{{ product.unit }}</span>
                         </div>
                         {% if request.user == product.seller %}
                             <div class="card-product__actions mt-3">
-                    <a href="{% url 'product_edit' product.id %}" class="btn btn-primary btn-sm">
-                        <i class="fa fa-edit"></i> {% trans 'Edit' %}
-                    </a>
+                                <a href="{% url 'product_edit' product.id %}" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-edit"></i> {% trans 'Edit' %}
+                                </a>
                                 <form action="{% url 'product_delete' product.id %}" method="post"
                                       style="display: inline;">
                                     {% csrf_token %}
@@ -38,9 +38,9 @@
                             </div>
                         {% endif %}
                     </div>
-                  </div>
+                </div>
             </div>
-                
+
         {% endfor %}
     </div>
 </section>
@@ -52,7 +52,8 @@
             <!-- Previous Button -->
             {% if page_obj.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}"
+                    <a class="page-link" href="?
+                            {% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}"
                        aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
@@ -72,7 +73,8 @@
                         </li>
                     {% else %}
                         <li class="page-item">
-                            <a class="page-link" href="?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ num }}">{{ num }}</a>
+                            <a class="page-link" href="?
+                                    {% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ num }}">{{ num }}</a>
                         </li>
                     {% endif %}
                 {% endif %}
@@ -81,7 +83,8 @@
             <!-- Next Button -->
             {% if page_obj.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?{% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.next_page_number }}"
+                    <a class="page-link" href="?
+                            {% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.next_page_number }}"
                        aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>

@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from regions.models import Region
+from regions.models import Region, City
 from .forms import ProductCreateForm
 # views.py
 from django.core.paginator import Paginator
@@ -18,7 +18,6 @@ from .models import CustomUser, Product, Category
 from sellers.models import CompanyProfile
 
 
-
 def dashboard(request, company_id):
     user = get_object_or_404(CustomUser, id=company_id)
     is_owner = request.user.is_authenticated and request.user == user
@@ -26,11 +25,42 @@ def dashboard(request, company_id):
     company_info = CompanyProfile.objects.get(user=user)
     category_ids = list(products.values_list('category', flat=True).distinct())
     regions = Region.objects.prefetch_related('cities').all()
-    relevant_category_ids = set(category_ids)
+    if request.method == 'POST':
+        form = ProductCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.seller = request.user
+            # Determine the appropriate category
+            level_2_category = form.cleaned_data.get('level_2_category')
+            level_1_category = form.cleaned_data.get('level_1_category')
+            level_0_category = form.cleaned_data.get('level_0_category')
+            if level_2_category:
+                product.category = level_2_category
+            elif level_1_category:
+                product.category = level_1_category
+            elif level_0_category:
+                product.category = level_0_category
+            else:
+                form.add_error(None, "Please select a valid category.")
+                return render(request, 'products/products.html', {
+                    'user': user,
+                    'is_owner': is_owner,
+                    'company_info': company_info,
+                    'regions': regions,
+                    'form': form,
+                    'categories': Category.objects.filter(level=0).prefetch_related('subcategories__subcategories'),
+                    'selected_categories': request.GET.getlist('categories'),
+                    'products': products,
+                    'page_obj': Paginator(products, 3).get_page(request.GET.get('page')),
+                })
+            product.save()
+            return redirect('dashboard', company_id=user.id)
+    else:
+        form = ProductCreateForm()
 
+    relevant_category_ids = set(category_ids)
     for category_id in category_ids:
         category = Category.objects.get(id=category_id)
-
         # Add parents of level 2 categories
         if category.level == 2:
             if category.parent:
@@ -63,8 +93,6 @@ def dashboard(request, company_id):
     paginator = Paginator(products, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
-
     context = {
         'user': user,
         'is_owner': is_owner,
@@ -74,6 +102,7 @@ def dashboard(request, company_id):
         'page_obj': page_obj,
         'company_info': company_info,
         'regions': regions,
+        "form": form
     }
     return render(request, 'products/products.html', context)
 
@@ -105,16 +134,18 @@ class ProductCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy('dashboard', kwargs={'company_id': self.request.user.id})
 
+
 # View to load subcategories dynamically
 def load_subcategories(request):
     category_id = request.GET.get('category_id')
     print("hello", category_id)
-    level = request.GET.get('level')
-
+    level = int(request.GET.get('level', 0))
+    subcategories = []
     if category_id:
-        subcategories = Category.objects.filter(parent_id=category_id)
-        return JsonResponse(list(subcategories.values('id', 'name')), safe=False)
+        subcategories = Category.objects.filter(parent_id=category_id).values('id', 'name')
+        return JsonResponse(list(subcategories), safe=False)
     return JsonResponse({'subcategories': []})
+
 
 class ProductUpdateView(UpdateView):
     model = Product
@@ -130,6 +161,8 @@ class ProductUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('dashboard', kwargs={'company_id': self.request.user.id})
+
+
 class ProductDeleteView(DeleteView):
     model = Product
 
@@ -142,8 +175,6 @@ class ProductDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('dashboard', kwargs={'company_id': self.request.user.id})
-
-
 
 # def company_dashboard(request, company_id):
 #     # Fetch the company and its products
