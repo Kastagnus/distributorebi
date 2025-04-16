@@ -107,38 +107,41 @@ def dashboard(request, company_id):
     return render(request, 'products/products.html', context)
 
 
-class ProductCreateView(CreateView):
-    model = Product
-    form_class = ProductCreateForm
-    template_name = 'products/product_create_form.html'
-    success_url = reverse_lazy('sellers')
-
-    def form_valid(self, form):
-        # Determine the appropriate category
-        level_2_category = form.cleaned_data.get('level_2_category')
-        level_1_category = form.cleaned_data.get('level_1_category')
-        level_0_category = form.cleaned_data.get('level_0_category')
-        form.instance.seller = self.request.user
-        if level_2_category:
-            form.instance.category = level_2_category
-        elif level_1_category:
-            form.instance.category = level_1_category
-        elif level_0_category:
-            form.instance.category = level_0_category
-        else:
-            form.add_error(None, "Please select a valid category.")
-            return self.form_invalid(form)
-
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse_lazy('dashboard', kwargs={'company_id': self.request.user.id})
+# class ProductCreateView(CreateView):
+#     model = Product
+#     form_class = ProductCreateForm
+#     template_name = 'products/product_create_form.html'
+#     success_url = reverse_lazy('sellers')
+#
+#     def form_valid(self, form):
+#         # Determine the appropriate category
+#         level_2_category = form.cleaned_data.get('level_2_category')
+#         level_1_category = form.cleaned_data.get('level_1_category')
+#         level_0_category = form.cleaned_data.get('level_0_category')
+#         form.instance.seller = self.request.user
+#         print(form.cleaned_data)
+#         if level_2_category:
+#             form.instance.category = level_2_category
+#         elif level_1_category:
+#             form.instance.category = level_1_category
+#         elif level_0_category:
+#             form.instance.category = level_0_category
+#         else:
+#             form.add_error(None, "Please select a valid category.")
+#             return self.form_invalid(form)
+#
+#         return super().form_valid(form)
+#
+#     def form_invalid(self, form):
+#         print(form.errors)
+#         return super().form_invalid(form)
+#     def get_success_url(self):
+#         return reverse_lazy('dashboard', kwargs={'company_id': self.request.user.id})
 
 
 # View to load subcategories dynamically
 def load_subcategories(request):
     category_id = request.GET.get('category_id')
-    print("hello", category_id)
     level = int(request.GET.get('level', 0))
     subcategories = []
     if category_id:

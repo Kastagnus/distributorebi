@@ -32,7 +32,10 @@
                 {{ form.size }}
             </div>
         </div>
-
+        <div class="edit-product-group">
+            <label for="edit-product-image"><i class="fas fa-image"></i> {% trans 'Product Image' %}</label>
+            {{ form.image }}
+        </div>
         <div class="edit-product-group">
             <label for="edit-product-description"><i class="fas fa-align-left"></i> {% trans 'Description' %}</label>
             {{ form.description }}
@@ -61,87 +64,87 @@
 </div>
 
 <script>
-console.log("hello");
-document.addEventListener('DOMContentLoaded', function () {
-    const level0Select = document.getElementById('id_level_0_category');
-    const level1Select = document.getElementById('id_level_1_category');
-    const level2Select = document.getElementById('id_level_2_category');
-    console.log(level0Select, "level0Select");
+    console.log("hello");
+    document.addEventListener('DOMContentLoaded', function () {
+        const level0Select = document.getElementById('id_level_0_category');
+        const level1Select = document.getElementById('id_level_1_category');
+        const level2Select = document.getElementById('id_level_2_category');
+        console.log(level0Select, "level0Select");
 
-    if (level0Select && level1Select && level2Select) {
-        // Ensure jQuery and NiceSelect are loaded
-        if (typeof jQuery !== 'undefined' && typeof jQuery.fn.niceSelect !== 'undefined') {
-            // Initialize NiceSelect (redundant if already in main.js, but ensures control)
-            $(level0Select).niceSelect();
-            $(level1Select).niceSelect();
-            $(level2Select).niceSelect();
+        if (level0Select && level1Select && level2Select) {
+            // Ensure jQuery and NiceSelect are loaded
+            if (typeof jQuery !== 'undefined' && typeof jQuery.fn.niceSelect !== 'undefined') {
+                // Initialize NiceSelect (redundant if already in main.js, but ensures control)
+                $(level0Select).niceSelect();
+                $(level1Select).niceSelect();
+                $(level2Select).niceSelect();
 
-            // Handle level 0 category change
-            $(level0Select).on('change', function () {
-                const categoryId = $(this).val();
-                console.log(categoryId, "category selected via NiceSelect");
-                if (categoryId) {
-                    fetch(`/load-subcategories/?category_id=${categoryId}&level=0`)
-                        .then(response => response.json())
-                        .then(data => {
-                            // Update level 1 options
-                            level1Select.innerHTML = '<option value="">Select Subcategory</option>';
-                            data.forEach(subcategory => {
-                                const option = document.createElement('option');
-                                option.value = subcategory.id;
-                                option.textContent = subcategory.name;
-                                level1Select.appendChild(option);
+                // Handle level 0 category change
+                $(level0Select).on('change', function () {
+                    const categoryId = $(this).val();
+                    console.log(categoryId, "category selected via NiceSelect");
+                    if (categoryId) {
+                        fetch(`/load-subcategories/?category_id=${categoryId}&level=0`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Update level 1 options
+                                level1Select.innerHTML = '<option value="">Select Subcategory</option>';
+                                data.forEach(subcategory => {
+                                    const option = document.createElement('option');
+                                    option.value = subcategory.id;
+                                    option.textContent = subcategory.name;
+                                    level1Select.appendChild(option);
+                                });
+                                // Update NiceSelect for level 1
+                                $(level1Select).niceSelect('update');
+                                // Reset level 2
+                                level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
+                                $(level2Select).niceSelect('update');
+                            })
+                            .catch(error => {
+                                console.error('Error loading subcategories:', error);
+                                level1Select.innerHTML = '<option value="">No subcategories available</option>';
+                                $(level1Select).niceSelect('update');
                             });
-                            // Update NiceSelect for level 1
-                            $(level1Select).niceSelect('update');
-                            // Reset level 2
-                            level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
-                            $(level2Select).niceSelect('update');
-                        })
-                        .catch(error => {
-                            console.error('Error loading subcategories:', error);
-                            level1Select.innerHTML = '<option value="">No subcategories available</option>';
-                            $(level1Select).niceSelect('update');
-                        });
-                } else {
-                    level1Select.innerHTML = '<option value="">Select Subcategory</option>';
-                    level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
-                    $(level1Select).niceSelect('update');
-                    $(level2Select).niceSelect('update');
-                }
-            });
+                    } else {
+                        level1Select.innerHTML = '<option value="">Select Subcategory</option>';
+                        level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
+                        $(level1Select).niceSelect('update');
+                        $(level2Select).niceSelect('update');
+                    }
+                });
 
-            // Handle level 1 category change
-            $(level1Select).on('change', function () {
-                const subcategoryId = $(this).val();
-                if (subcategoryId) {
-                    fetch(`/load-subcategories/?category_id=${subcategoryId}&level=1`)
-                        .then(response => response.json())
-                        .then(data => {
-                            level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
-                            data.forEach(subSubcategory => {
-                                const option = document.createElement('option');
-                                option.value = subSubcategory.id;
-                                option.textContent = subSubcategory.name;
-                                level2Select.appendChild(option);
+                // Handle level 1 category change
+                $(level1Select).on('change', function () {
+                    const subcategoryId = $(this).val();
+                    if (subcategoryId) {
+                        fetch(`/load-subcategories/?category_id=${subcategoryId}&level=1`)
+                            .then(response => response.json())
+                            .then(data => {
+                                level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
+                                data.forEach(subSubcategory => {
+                                    const option = document.createElement('option');
+                                    option.value = subSubcategory.id;
+                                    option.textContent = subSubcategory.name;
+                                    level2Select.appendChild(option);
+                                });
+                                $(level2Select).niceSelect('update');
+                            })
+                            .catch(error => {
+                                console.error('Error loading sub-subcategories:', error);
+                                level2Select.innerHTML = '<option value="">No sub-subcategories available</option>';
+                                $(level2Select).niceSelect('update');
                             });
-                            $(level2Select).niceSelect('update');
-                        })
-                        .catch(error => {
-                            console.error('Error loading sub-subcategories:', error);
-                            level2Select.innerHTML = '<option value="">No sub-subcategories available</option>';
-                            $(level2Select).niceSelect('update');
-                        });
-                } else {
-                    level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
-                    $(level2Select).niceSelect('update');
-                }
-            });
+                    } else {
+                        level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
+                        $(level2Select).niceSelect('update');
+                    }
+                });
+            } else {
+                console.error("jQuery or NiceSelect not loaded. Check main.js or template includes.");
+            }
         } else {
-            console.error("jQuery or NiceSelect not loaded. Check main.js or template includes.");
+            console.error("One or more select elements not found:", {level0Select, level1Select, level2Select});
         }
-    } else {
-        console.error("One or more select elements not found:", { level0Select, level1Select, level2Select });
-    }
-});
+    });
 </script>

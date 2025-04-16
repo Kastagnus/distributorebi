@@ -142,6 +142,15 @@ def edit_company_profile(request, company_id):
                 if os.path.isfile(company_info.presentation.path):
                     os.remove(company_info.presentation.path)
                 company_info.presentation = None
+
+        if "logo" in request.FILES:
+            if company_info.image and os.path.isfile(company_info.image.path):
+                os.remove(company_info.image.path)
+            company_info.image = request.FILES['logo']
+        elif request.POST.get('remove_logo'):
+            if company_info.image and os.path.isfile(company_info.image.path):
+                os.remove(company_info.image.path)
+            company_info.image = None
         company_info.save()
         return redirect('dashboard', company_id=company_id)
 

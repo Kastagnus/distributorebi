@@ -104,7 +104,10 @@ from .models import Product, Category
 class ProductCreateForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'description', 'price', 'unit', 'size']
+        fields = ['name', 'description', 'price', 'unit', 'size', "image"]
+        widgets = {"price": forms.NumberInput(attrs={'min': 0}),
+                   "size": forms.NumberInput(attrs={'min': 0}),}
+
 
     # Additional fields for category selection
     level_0_category = forms.ModelChoiceField(
@@ -122,7 +125,10 @@ class ProductCreateForm(forms.ModelForm):
         required=False,
         label="Sub-subcategory"
     )
-
+    image = forms.ImageField(
+        required=False,
+        label="Product Image"
+    )
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

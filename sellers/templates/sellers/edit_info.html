@@ -8,7 +8,8 @@
     <div class="edit-container">
         <h2>Edit Company Information</h2>
 
-        <form id="company-info-form" class="edit-form" method="post" action="{% url 'edit_company_profile' user.pk %}" enctype="multipart/form-data">
+        <form id="company-info-form" class="edit-form" method="post" action="{% url 'edit_company_profile' user.pk %}"
+              enctype="multipart/form-data">
             {% csrf_token %}
 
             <!-- User Fields -->
@@ -46,6 +47,22 @@
                 <div class="form-group">
                     <label>Website</label>
                     <input type="url" name="website" value="{{ company_info.website|default:'' }}">
+                </div>
+                <div class="form-group">
+                    <label>Company Logo</label>
+                    <input type="file" name="logo" accept=".png,.jpg,.jpeg,.svg">
+                    {% if company_info.image %}
+                        <p class="current-file">
+                            Current logo: <a href="{{ company_info.image.url }}">{{ company_info.image.name }}</a>
+                            <br>
+                            <img src="{{ company_info.image.url }}" alt="Company Logo"
+                                 style="max-width: 100px; margin-top: 0.5rem;">
+                        </p>
+                        <div class="remove-option">
+                            <input type="checkbox" name="remove_logo" id="remove_logo">
+                            <label for="remove_logo">Remove Logo</label>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="form-group">
                     <label>Social Media</label>
