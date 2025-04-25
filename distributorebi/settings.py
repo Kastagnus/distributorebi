@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 from django.urls import reverse_lazy
@@ -65,7 +65,7 @@ LANGUAGES = [
     ('ru', 'Russian')
 ]
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'ka'
 
 LOCALE_PATHS = [
     BASE_DIR / 'locale'
@@ -165,3 +165,4 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r"C:\Users\User\Downloads\djangotranslation-165c5864f135.json"

@@ -161,3 +161,25 @@ class Product(models.Model):
 
 
 # Create your models here.
+class TranslationCache(models.Model):
+    text = models.CharField(max_length=255, db_index=True)
+    source_language = models.CharField(max_length=2, choices=[
+        ('en', 'English'),
+        ('ka', 'Georgian'),
+        ('ru', 'Russian')
+    ])
+    target_language = models.CharField(max_length=2, choices=[
+        ('en', 'English'),
+        ('ka', 'Georgian'),
+        ('ru', 'Russian')
+    ])
+    translated_text = models.CharField(max_length=255)
+
+    class Meta:
+        # unique_together = ('text', 'source_language', 'target_language')
+        indexes = [
+            models.Index(fields=['text', 'target_language'])
+        ]
+
+    def __str__(self):
+        return f"{self.text} ({self.source_language} → {self.target_language}): {self.translated_text}"

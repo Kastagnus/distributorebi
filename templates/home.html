@@ -36,7 +36,7 @@
              <div class="discount">New</div>
              <div  class="image_container">
                  {% if seller.companyprofile.image %}
-                 <img src="{{ seller.companyprofile.image.url }}" alt="{{ seller.ltd_name }}">
+                 <img src="{{ seller.companyprofile.image.url }}" alt="{{ seller.ltd_name }}" class="card-img">
                  {% else %}
                <img src="/static/img/logo2.png" alt="Products Name" class="card-img">
                  {% endif %}

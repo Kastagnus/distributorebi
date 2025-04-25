@@ -102,6 +102,11 @@ from django import forms
 from .models import Product, Category
 
 class ProductCreateForm(forms.ModelForm):
+    language = forms.ChoiceField(choices=[
+        ('en', 'English'),
+        ('ka', 'Georgian'),
+        ('ru', 'Russian')
+    ], label="Input Language")
     class Meta:
         model = Product
         fields = ['name', 'description', 'price', 'unit', 'size', "image"]

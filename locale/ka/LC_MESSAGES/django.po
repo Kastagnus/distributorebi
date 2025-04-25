@@ -4,6 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
+
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -34,8 +35,7 @@ msgid "Keep me logged in"
 msgstr "დატოვეთ ავტორიზაცია"
 
 msgid "Log In"
-msgstr "teeest"
+msgstr "შესვლა"
 
 msgid "Forgot Password?"
 msgstr "დაგავიწყდათ პაროლი?"
-

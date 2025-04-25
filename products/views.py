@@ -1,21 +1,15 @@
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
-from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
-from django.template.loader import render_to_string
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
-from regions.models import Region, City
+from django.views.generic import UpdateView, DeleteView
+from regions.models import Region
 from .forms import ProductCreateForm
-# views.py
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Q
-from .models import CustomUser, Product, Category
+from .models import CustomUser, Product, Category, TranslationCache
 from sellers.models import CompanyProfile
+from google.cloud import translate_v2 as translate
 
 
 def dashboard(request, company_id):
@@ -54,6 +48,30 @@ def dashboard(request, company_id):
                     'page_obj': Paginator(products, 3).get_page(request.GET.get('page')),
                 })
             product.save()
+            input_language = form.cleaned_data['language']
+            name = product.name.lower()  # Normalize to lowercase
+            client = translate.Client()
+            if not input_language:
+                detection = client.detect_language(name)
+                input_language = detection['language']
+                if input_language not in ['en', 'ka', 'ru']:
+                    input_language = 'en'
+
+            target_languages = ['en', 'ka', 'ru']
+            target_languages.remove(input_language)
+
+            TranslationCache.objects.update_or_create(
+                text=name, source_language=input_language, target_language=input_language,
+                defaults={'translated_text': name}
+            )
+            for target_lang in target_languages:
+                if not TranslationCache.objects.filter(text=name, source_language=input_language,
+                                                       target_language=target_lang).exists():
+                    result = client.translate(name, source_language=input_language, target_language=target_lang)
+                    TranslationCache.objects.create(
+                        text=name, source_language=input_language, target_language=target_lang,
+                        translated_text=result['translatedText']
+                    )
             return redirect('dashboard', company_id=user.id)
     else:
         form = ProductCreateForm()
@@ -90,7 +108,7 @@ def dashboard(request, company_id):
     if selected_categories:
         products = products.filter(category__id__in=selected_categories)
 
-    paginator = Paginator(products, 3)
+    paginator = Paginator(products, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
