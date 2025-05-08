@@ -1,34 +1,34 @@
 {% load i18n %}
 <style>
     /* File list styling */
-.categories.file-list {
-    margin-top: 0.5rem;
-    padding-left: 0;
-}
+    .categories.file-list {
+        margin-top: 0.5rem;
+        padding-left: 0;
+    }
 
-.file-item {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 0.1rem;
-    border-bottom: 1px solid #eee;
-    transition: background-color 0.2s;
-}
+    .file-item {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0.1rem;
+        border-bottom: 1px solid #eee;
+        transition: background-color 0.2s;
+    }
 
-.file-item:hover {
-    background-color: #f8f9fa;
-}
+    .file-item:hover {
+        background-color: #f8f9fa;
+    }
 
-.file-icon {
-    margin-right: 0.75rem;
-    font-size: 1.2rem;
-    color: #555;
-}
+    .file-icon {
+        margin-right: 0.75rem;
+        font-size: 1.2rem;
+        color: #555;
+    }
 
-.file-label {
-    font-weight: 500;
-    color: #333;
-    width: 100px; /* Adjust based on your layout */
-}
+    .file-label {
+        font-weight: 500;
+        color: #333;
+        width: 100px; /* Adjust based on your layout */
+    }
 
     .file-link {
         color: #007bff;
@@ -67,11 +67,19 @@
                 <label>
                     <input type="checkbox" class="pixel-radio level-0" name="categories" value="{{ category.id }}"
                            data-level="0" onclick="selectSubcategories(this)"
-                           {% if category.id|stringformat:"s" in selected_categories %}
+                            {% if category.id|stringformat:"s" in selected_categories %}
                            checked
-                           {% endif %}
+                            {% endif %}
                     >
-                    {{ category.name }}
+                    {% if language_code == 'ka' %}
+                        {{ category.name }}
+                    {% elif language_code == 'en' %}
+                        {{ category.name_en }}
+                    {% elif language_code == 'ru' %}
+                        {{ category.name_ru }}
+                    {% else %}
+                        {{ category.name }}
+                    {% endif %}
                 </label>
 
                 {% if category.filtered_subcategories %}
@@ -84,11 +92,19 @@
                                            value="{{ subcategory.id }}"
                                            data-level="1" data-parent="{{ category.id }}"
                                            onclick="selectSubcategories(this)"
-                                           {% if subcategory.id|stringformat:"s" in selected_categories %}
+                                            {% if subcategory.id|stringformat:"s" in selected_categories %}
                                            checked
-                                           {% endif %}
+                                            {% endif %}
                                     >
-                                    {{ subcategory.name }}
+                                    {% if language_code == 'ka' %}
+                                        {{ subcategory.name }}
+                                    {% elif language_code == 'en' %}
+                                        {{ subcategory.name_en }}
+                                    {% elif language_code == 'ru' %}
+                                        {{ subcategory.name_ru }}
+                                    {% else %}
+                                        {{ subcategory.name }}
+                                    {% endif %}
                                 </label>
 
                                 {% if subcategory.filtered_sub_subcategories %}
@@ -101,11 +117,19 @@
                                                            value="{{ sub_subcategory.id }}"
                                                            data-level="2" data-parent="{{ subcategory.id }}"
                                                            onclick="selectSubcategories(this)"
-                                                           {% if sub_subcategory.id|stringformat:"s" in selected_categories %}
+                                                            {% if sub_subcategory.id|stringformat:"s" in selected_categories %}
                                                            checked
-                                                           {% endif %}
+                                                            {% endif %}
                                                     >
-                                                    {{ sub_subcategory.name }}
+                                                    {% if language_code == 'ka' %}
+                                                        {{ sub_subcategory.name }}
+                                                    {% elif language_code == 'en' %}
+                                                        {{ sub_subcategory.name_en }}
+                                                    {% elif language_code == 'ru' %}
+                                                        {{ sub_subcategory.name_ru }}
+                                                    {% else %}
+                                                        {{ sub_subcategory.name }}
+                                                    {% endif %}
                                                 </label>
                                             </li>
                                         {% endfor %}

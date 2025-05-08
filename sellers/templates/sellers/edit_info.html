@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 {% block extra_css %}
     <link rel="stylesheet" href={% static 'css/company_info.css' %}>
 {% endblock %}
 
 {% block content %}
     <div class="edit-container">
-        <h2>Edit Company Information</h2>
+        <h2>{% trans 'Edit Company Information' %}</h2>
 
         <form id="company-info-form" class="edit-form" method="post" action="{% url 'edit_company_profile' user.pk %}"
               enctype="multipart/form-data">
@@ -14,58 +14,58 @@
 
             <!-- User Fields -->
             <fieldset class="form-section">
-                <legend>Company Basics</legend>
+                <legend>{% trans 'Company Basics' %}</legend>
                 <div class="form-group">
-                    <label>Brand Name</label>
+                    <label>{% trans "Brand Name" %}</label>
                     <input type="text" name="brand_name" value="{{ user.brand_name|default:'' }}">
                 </div>
                 <div class="form-group">
-                    <label>LTD Name</label>
+                    <label>{% trans "LTD Name" %}</label>
                     <input type="text" name="ltd_name" value="{{ user.ltd_name|default:'' }}">
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
+                    <label>{% trans "Email" %}</label>
                     <input type="email" name="email" value="{{ user.email|default:'' }}">
                 </div>
                 <div class="form-group">
-                    <label>Phone Number</label>
+                    <label>{% trans "Phone Number" %}</label>
                     <input type="text" name="phone_number" value="{{ user.phone_number|default:'' }}">
                 </div>
             </fieldset>
 
             <!-- Company Profile Fields -->
             <fieldset class="form-section">
-                <legend>Profile Details</legend>
+                <legend>{% trans 'Profile Details' %}</legend>
                 <div class="form-group">
-                    <label>Description</label>
+                    <label>{% trans "Description" %}</label>
                     <textarea name="about_us">{{ company_info.about_us|default:'' }}</textarea>
                 </div>
                 <div class="form-group">
-                    <label>Location</label>
+                    <label>{% trans "Location" %}</label>
                     <input type="text" name="address" value="{{ company_info.address|default:'' }}">
                 </div>
                 <div class="form-group">
-                    <label>Website</label>
+                    <label>{% trans "Website" %}</label>
                     <input type="url" name="website" value="{{ company_info.website|default:'' }}">
                 </div>
                 <div class="form-group">
-                    <label>Company Logo</label>
+                    <label>{% trans "Company Logo" %}</label>
                     <input type="file" name="logo" accept=".png,.jpg,.jpeg,.svg">
                     {% if company_info.image %}
                         <p class="current-file">
-                            Current logo: <a href="{{ company_info.image.url }}">{{ company_info.image.name }}</a>
+                            {% trans 'Current logo' %}: <a href="{{ company_info.image.url }}">{{ company_info.image.name }}</a>
                             <br>
                             <img src="{{ company_info.image.url }}" alt="Company Logo"
                                  style="max-width: 100px; margin-top: 0.5rem;">
                         </p>
                         <div class="remove-option">
                             <input type="checkbox" name="remove_logo" id="remove_logo">
-                            <label for="remove_logo">Remove Logo</label>
+                            <label for="remove_logo">{% trans 'Remove Logo' %}</label>
                         </div>
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    <label>Social Media</label>
+                    <label>{% trans "Social Media" %}</label>
                     <div class="social-links">
                         <input type="url" name="facebook" value="{{ company_info.facebook|default:'' }}"
                                placeholder="Facebook">
@@ -79,12 +79,12 @@
 
             <!-- Regions and Cities -->
             <fieldset class="form-section">
-                <legend>Operating Regions and Cities</legend>
+                <legend>{% trans 'Operating Regions and Cities' %}</legend>
                 <div class="cities-edit">
                     <div class="selected-cities">
-                        <h3>Selected Cities</h3>
+                        <h3>{% trans 'Selected Cities' %}</h3>
                         <div class="selected-list"></div>
-                        <button type="button" class="clear-all-btn">Clear All</button>
+                        <button type="button" class="clear-all-btn">{% trans 'Clear All' %}</button>
                     </div>
                     <div class="search-bar">
                         <input type="text" id="search-input" placeholder="Search regions or cities...">
@@ -96,49 +96,49 @@
 
             <!-- Branch Contacts -->
             <fieldset class="form-section">
-                <legend>Branch Contacts</legend>
+                <legend>{% trans 'Branch Contacts' %}</legend>
                 <div id="branch-contacts">
                     {% for branch in company_info.branch_contacts.all %}
                         <div class="branch-contact">
                             <input type="text" name="branch_name_{{ forloop.counter }}"
-                                   value="{{ branch.contact_name|default:'' }}" placeholder="Contact Name">
+                                   value="{{ branch.contact_name|default:'' }}" placeholder={% trans 'Contact Name' %}>
                             <input type="text" name="branch_position_{{ forloop.counter }}"
-                                   value="{{ branch.position|default:'' }}" placeholder="Position">
+                                   value="{{ branch.position|default:'' }}" placeholder={% trans "Position" %}>
                             <input type="text" name="branch_phone_{{ forloop.counter }}"
-                                   value="{{ branch.phone_number|default:'' }}" placeholder="Phone Number">
+                                   value="{{ branch.phone_number|default:'' }}" placeholder={% trans "Phone Number" %}>
                             <input type="text" name="branch_region_{{ forloop.counter }}"
-                                   value="{{ branch.region|default:'' }}" placeholder="Region">
-                            <button type="button" class="remove-branch-btn">Remove</button>
+                                   value="{{ branch.region|default:'' }}" placeholder={% trans "Region" %}>
+                            <button type="button" class="remove-branch-btn">{% trans 'Remove' %}</button>
                         </div>
                     {% empty %}
-                        <p>No branch contacts yet.</p>
+                        <p>{% trans 'No branch contacts yet.' %}</p>
                     {% endfor %}
-                    <button type="button" id="add-branch-btn" class="add-branch-btn">Add Branch</button>
+                    <button type="button" id="add-branch-btn" class="add-branch-btn">{% trans 'Add Branch' %}</button>
                 </div>
             </fieldset>
             <fieldset class="form-section">
-                <legend>Company Documents</legend>
+                <legend>{% trans 'Company Documents' %}</legend>
                 <div class="form-group">
-                    <label>Catalogue</label>
+                    <label>{% trans "Catalogue" %}</label>
                     <input type="file" name="catalogue" accept=".pdf,.doc,.docx">
                     {% if company_info.catalog %}
-                        <p class="current-file">Current file: <a
+                        <p class="current-file">{% trans 'Current file' %}: <a
                                 href="{{ company_info.catalog.url }}">{{ company_info.catalog.name }}</a></p>
                         <div class="remove-option">
                             <input type="checkbox" name="remove_catalogue" id="remove_catalogue">
-                            <label for="remove_catalogue">Remove Catalogue</label>
+                            <label for="remove_catalogue">{% trans 'Remove Catalogue' %}</label>
                         </div>
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    <label>Presentation</label>
+                    <label>{% trans "Presentation" %}</label>
                     <input type="file" name="presentation" accept=".pdf,.ppt,.pptx">
                     {% if company_info.presentation %}
                         <p class="current-file">Current file: <a
                                 href="{{ company_info.presentation.url }}">{{ company_info.presentation.name }}</a></p>
                         <div class="remove-option">
                             <input type="checkbox" name="remove_presentation" id="remove_presentation">
-                            <label for="remove_presentation">Remove Presentation</label>
+                            <label for="remove_presentation">{% trans 'Remove Presentation' %}</label>
                         </div>
                     {% endif %}
                 </div>
@@ -146,8 +146,8 @@
 
             <!-- Form Buttons -->
             <div class="form-actions">
-                <button type="submit" class="save-btn">Save</button>
-                <a href="{% url 'dashboard' user.pk %}" class="cancel-btn">Cancel</a>
+                <button type="submit" class="save-btn">{% trans 'Save' %}</button>
+                <a href="{% url 'dashboard' user.pk %}" class="cancel-btn">{% trans 'Cancel' %}</a>
             </div>
         </form>
     </div>
@@ -196,7 +196,7 @@
             function renderSelectedCities() {
                 selectedCitiesContainer.innerHTML = '';
                 if (selectedCityIds.size === 0) {
-                    selectedCitiesContainer.innerHTML = '<span class="empty-message">No cities selected</span>';
+                    selectedCitiesContainer.innerHTML = '<span class="empty-message">{% trans 'No cities selected' %}</span>';
                     return;
                 }
                 const allCities = regions.flatMap(region => region.cities);
@@ -245,7 +245,7 @@
                         <button type="button" class="toggle-btn">+</button>
                     </div>
                     <div class="city-list">
-                        ${filteredCities.length === 0 && filterText ? '<span class="empty-message">No matching cities</span>' : filteredCities.map(city => `
+                        ${filteredCities.length === 0 && filterText ? '<span class="empty-message">{% trans 'No matching cities' %}</span>' : filteredCities.map(city => `
                             <div class="city-option">
                                 <label>
                                     <input type="checkbox" class="city-check" data-city-id="${city.id}" ${selectedCityIds.has(city.id) ? 'checked' : ''}>
@@ -340,10 +340,10 @@
                 const newBranch = document.createElement('div');
                 newBranch.className = 'branch-contact';
                 newBranch.innerHTML = `
-                <input type="text" name="branch_name_${branchCounter}" placeholder="Contact Name">
-                <input type="text" name="branch_position_${branchCounter}" placeholder="Position">
-                <input type="text" name="branch_phone_${branchCounter}" placeholder="Phone Number">
-                <input type="text" name="branch_region_${branchCounter}" placeholder="Region">
+                <input type="text" name="branch_name_${branchCounter}" placeholder={% trans "Contact Name" %}>
+                <input type="text" name="branch_position_${branchCounter}" placeholder={% trans "Position" %}>
+                <input type="text" name="branch_phone_${branchCounter}" placeholder={% trans "Phone Number" %}>
+                <input type="text" name="branch_region_${branchCounter}" placeholder={% trans "Region" %}>
                 <button type="button" class="remove-branch-btn">Remove</button>
             `;
                 branchContacts.insertBefore(newBranch, addBranchBtn);

@@ -15,10 +15,10 @@
     <link rel="stylesheet" href="{% static 'css/vendors/owl-carousel/owl.theme.default.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/vendors/owl-carousel/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-{#    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />#}
+    {#    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />#}
     <link rel="stylesheet" href="{% static "css/style.css" %}">
     {% block extra_css %}
-        
+
     {% endblock %}
 </head>
 <body>
@@ -29,7 +29,8 @@
     <div class="main_menu">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-                <a class="navbar-brand logo_h" href="{% url 'home' %}"><img src="{% static "img/logo2.png" %}" width="100" alt=""></a>
+                <a class="navbar-brand logo_h" href="{% url 'home' %}"><img src="{% static "img/logo2.png" %}"
+                                                                            width="100" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,14 +40,16 @@
                 </button>
                 <div class="collapse  navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-                        <li class="nav-item active"><a class="nav-link" href="{% url 'home' %}">{% trans 'home' %}</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="{% url 'home' %}">{% trans 'home' %}</a>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'sellers' %}">{% trans 'Company' %}</a>
                         <li class="nav-item"><a class="nav-link" href="#scroll">{% trans 'Contact' %}</a></li>
                     </ul>
 
                     <ul class="nav-shop">
                         {% if request.user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' user.pk %}">{% trans 'Dashboard' %}</a>
+                            <li class="nav-item"><a class="nav-link"
+                                                    href="{% url 'dashboard' user.pk %}">{% trans 'Dashboard' %}</a>
                             </li>
                             <li>
 
@@ -58,20 +61,21 @@
                                 </form>
                             </li>
                         {% else %}
-                            <li class="nav-item"><a class="button button-header" href="{% url 'login' %}">{% trans 'Login' %}</a></li>
+                            <li class="nav-item"><a class="button button-header"
+                                                    href="{% url 'login' %}">{% trans 'Login' %}</a></li>
                         {% endif %}
                         <li>
                             <form method="post" action="{% url 'set_language' %}">
                                 {% csrf_token %}
                                 <select name="language" onchange="this.form.submit()">
                                     <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>
-                                    English
+                                        English
                                     </option>
                                     <option value="ka" {% if LANGUAGE_CODE == 'ka' %}selected{% endif %}>
-                                    ქართული
+                                        ქართული
                                     </option>
                                     <option value="ru" {% if LANGUAGE_CODE == 'ru' %}selected{% endif %}>
-                                    Russian
+                                        Русский
                                     </option>
                                 </select>
                             </form>
@@ -81,7 +85,7 @@
             </div>
         </nav>
     </div>
-    
+
 
 </header>
 
@@ -107,7 +111,7 @@
                 </div>
                 <div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
                     <div class="single-footer-widget tp_widgets">
-                        
+
                     </div>
                 </div>
                 <div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
@@ -125,7 +129,7 @@
 
                             <p class="sm-head">
                                 <span class="fa fa-envelope"></span>
-                                Email
+                                {% trans 'Email' %}
                             </p>
                             <p>
                                 support@momarageba.ge <br>

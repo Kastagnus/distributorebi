@@ -12,6 +12,7 @@ from sellers.models import CompanyProfile, BranchContact
 from users.models import CustomUser
 from products.models import Category
 from regions.models import City, Region
+from django.utils.translation import get_language
 
 
 class SellerListView(ListView):
@@ -71,6 +72,7 @@ class SellerListView(ListView):
         context['regions'] = regions
         context['selected_regions'] = self.request.GET.getlist('regions')
         context['selected_cities'] = self.request.GET.getlist('cities')
+        context['language_code'] = get_language()
         return context
 
 # # Create your views here.
@@ -157,7 +159,6 @@ def edit_company_profile(request, company_id):
     # Fetch all regions with their cities for the template
     regions = Region.objects.prefetch_related('cities').all()
     # pass
-
     return render(request, 'sellers/edit_info.html', {
         'user': user,
         'company_info': company_info,

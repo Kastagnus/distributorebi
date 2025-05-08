@@ -28,7 +28,15 @@
                                                    checked
                                                     {% endif %}
                                             >
-                                            {{ category.name }}
+                                            {% if language_code == 'ka' %}
+                                                {{ category.name }}
+                                            {% elif language_code == 'en' %}
+                                                {{ category.name_en }}
+                                            {% elif language_code == 'ru' %}
+                                                {{ category.name_ru }}
+                                            {% else %}
+                                                {{ category.name }}
+                                            {% endif %}
                                         </label>
                                         {% if category.subcategories.all %}
                                             <span class="toggle-subcategories"
@@ -45,7 +53,15 @@
                                                                    checked
                                                                     {% endif %}
                                                             >
-                                                            {{ subcategory.name }}
+                                                            {% if language_code == 'ka' %}
+                                                                {{ subcategory.name }}
+                                                            {% elif language_code == 'en' %}
+                                                                {{ subcategory.name_en }}
+                                                            {% elif language_code == 'ru' %}
+                                                                {{ subcategory.name_ru }}
+                                                            {% else %}
+                                                                {{ subcategory.name }}
+                                                            {% endif %}
                                                         </label>
                                                         {% if subcategory.subcategories.all %}
                                                             <span class="toggle-subcategories"
@@ -64,7 +80,15 @@
                                                                                    checked
                                                                                     {% endif %}
                                                                             >
-                                                                            {{ sub_subcategory.name }}
+                                                                            {% if language_code == 'ka' %}
+                                                                                {{ sub_subcategory.name }}
+                                                                            {% elif language_code == 'en' %}
+                                                                                {{ sub_subcategory.name_en }}
+                                                                            {% elif language_code == 'ru' %}
+                                                                                {{ sub_subcategory.name_ru }}
+                                                                            {% else %}
+                                                                                {{ sub_subcategory.name }}
+                                                                            {% endif %}
                                                                         </label>
                                                                     </li>
                                                                 {% endfor %}
@@ -91,7 +115,15 @@
                                                    checked
                                                     {% endif %}
                                             >
-                                            {{ region.name }}
+                                            {% if language_code == 'ka' %}
+                                                {{ region.name }}
+                                            {% elif language_code == 'en' %}
+                                                {{ region.name_en }}
+                                            {% elif language_code == 'ru' %}
+                                                {{ region.name_ru }}
+                                            {% else %}
+                                                {{ region.name }}
+                                            {% endif %}
                                         </label>
                                         {% if region.cities.all %}
                                             <span class="toggle-subcategories"
@@ -108,7 +140,15 @@
                                                                    checked
                                                                     {% endif %}
                                                             >
-                                                            {{ city.name }}
+                                                            {% if language_code == 'ka' %}
+                                                                {{ city.name }}
+                                                            {% elif language_code == 'en' %}
+                                                                {{ city.name_en }}
+                                                            {% elif language_code == 'ru' %}
+                                                                {{ city.name_ru }}
+                                                            {% else %}
+                                                                {{ city.name }}
+                                                            {% endif %}
                                                         </label>
                                                     </li>
                                                 {% endfor %}
@@ -182,6 +222,12 @@
                         <a class="page-link" href="?
 
 
+
+
+
+
+
+
                                 {% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}"
                            aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
@@ -205,6 +251,12 @@
                                 <a class="page-link" href="?
 
 
+
+
+
+
+
+
                                         {% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ num }}">{{ num }}</a>
                             </li>
                         {% endif %}
@@ -215,6 +267,12 @@
                 {% if page_obj.has_next %}
                     <li class="page-item">
                         <a class="page-link" href="?
+
+
+
+
+
+
 
 
                                 {% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.next_page_number }}"
@@ -243,14 +301,15 @@
         <div class="container">
             <div class="subscribe text-center">
                 <h3 class="subscribe__title">{% trans 'Get Update From Anywhere' %}</h3>
-                <p>{% trans 'Bearing Void gathering light light his eavening unto dont afraid' %}</p>
+                <p>{% trans 'You can sign up for newsletter here' %}</p>
                 <div id="mc_embed_signup">
                     <form target="_blank"
                           action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
                           method="get" class="subscribe-form form-inline mt-5 pt-1">
                         <div class="form-group ml-sm-auto">
-                            <input class="form-control mb-1" type="email" name="EMAIL" placeholder="Enter your email"
-                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address '">
+                            <input class="form-control mb-1" type="email" name="EMAIL"
+                                   onfocus="this.placeholder = ''"
+                            placeholder={% trans "Email" %}>
                             <div class="info"></div>
                         </div>
                         <button class="button button-subscribe mr-auto mb-1"

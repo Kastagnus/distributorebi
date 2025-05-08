@@ -11,12 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
-
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -28,7 +27,6 @@ SECRET_KEY = 'django-insecure-)1^!41a)tpe8ukwf!+u0633l=56gwje_c#d%my5^hx&avf$csj
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -49,6 +47,7 @@ INSTALLED_APPS = [
 SELECT2_JS = 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js'
 SELECT2_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css'
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -59,13 +58,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-LANGUAGES = [
-    ('en', 'English'),
-    ('ka', 'Georgian'),
-    ('ru', 'Russian')
-]
 
 LANGUAGE_CODE = 'ka'
+LANGUAGES = [
+    ('ka', _('Georgian')),
+    ('en', _('English')),
+    ('ru', _('Russian')),
+]
+
+
+
 
 LOCALE_PATHS = [
     BASE_DIR / 'locale'
@@ -85,13 +87,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n'
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'distributorebi.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -102,7 +104,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -123,7 +124,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -132,10 +132,8 @@ AUTH_PASSWORD_VALIDATORS = [
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
-
-
+USE_L10N = True
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -152,17 +150,19 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ucha95@gmail.com'  # Your email address
 EMAIL_HOST_PASSWORD = 'lmqt hzkh gzwi ejsi'  # Your email password
 
-LOGIN_REDIRECT_URL = "/home"
+LOGIN_REDIRECT_URL = "/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#Caching
+# Caching
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'unique-snowflake',
     }
 }
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r"C:\Users\User\Downloads\djangotranslation-165c5864f135.json"
+
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 43200

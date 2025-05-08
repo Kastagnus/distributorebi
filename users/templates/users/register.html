@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block content %}
-  <!-- ================ start banner area ================= -->
-	<!-- <section class="blog-banner-area" id="category">
+    <!-- ================ start banner area ================= -->
+    <!-- <section class="blog-banner-area" id="category">
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
@@ -13,58 +13,68 @@
 			</div>
     </div>
 	</section> -->
-	<!-- ================ end banner area ================= -->
+    <!-- ================ end banner area ================= -->
 
-  <!--================Login Box Area =================-->
-	<section class="login_box_area section-margin">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="login_box_img">
-						<div class="hover">
-							<h4>{% trans 'Already have an account?' %}</h4>
-							<p>{% trans 'Biggest marketplace of distributors, join us!' %}</p>
-							<a class="button button-account" href="{% url 'login' %}">{% trans 'Login Now' %}</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<div class="login_form_inner register_form_inner">
-						<h3>Create an account</h3>
-						<form class="row login_form" action="#" id="register_form" method="post" >
+    <!--================Login Box Area =================-->
+    <section class="login_box_area section-margin">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="login_box_img">
+                        <div class="hover">
+                            <h4>{% trans 'Already have an account?' %}</h4>
+                            <p>{% trans 'Biggest marketplace of distributors, join us!' %}</p>
+                            <a class="button button-account" href="{% url 'login' %}">{% trans 'Login Now' %}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="login_form_inner register_form_inner">
+                        <h3>{% trans 'Create an account' %}</h3>
+                        <form class="row login_form" action="#" id="register_form" method="post">
                             {% csrf_token %}
-							<div class="col-md-12 form-group">
-								{{ form.email }}
-							</div>
-							<div class="col-md-12 form-group">
-								{{ form.full_name }}
-              </div>
-              <div class="col-md-12 form-group">
-                                {{ form.ltd_name }}
-              </div>
-              <div class="col-md-12 form-group">
-								{{ form.identification_number }}
-							</div>
                             <div class="col-md-12 form-group">
-								{{ form.phone_number }}
-							</div>
+                                <input type="email" name="email" id="{{ form.email.id_for_label }}" class="form-control"
+                                       placeholder="{% trans 'Email' %}" required>
+                            </div>
                             <div class="col-md-12 form-group">
-								{{ form.brand_name }}
-							</div>
+                                <input type="text" name="full_name" id="{{ form.full_name.id_for_label }}"
+                                       class="form-control" placeholder="{% trans 'Full Name' %}">
+                            </div>
                             <div class="col-md-12 form-group">
-								{{ form.password1 }}
-							</div>
+                                <input type="text" name="ltd_name" id="{{ form.ltd_name.id_for_label }}"
+                                       class="form-control" placeholder="{% trans 'LTD Name' %}" required>
+                            </div>
                             <div class="col-md-12 form-group">
-								{{ form.password2 }}
-							</div>
-							<div class="col-md-12 form-group">
-								<button type="submit" class="button button-register w-100">{% trans 'Register' %}</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!--================End Login Box Area =================-->
+                                <input type="text" name="identification_number"
+                                       id="{{ form.identification_number.id_for_label }}" class="form-control"
+                                       placeholder="{% trans 'Identification Number' %}" required>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="text" name="phone_number" id="{{ form.phone_number.id_for_label }}"
+                                       class="form-control" placeholder="{% trans 'Phone Number' %}" required>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="text" name="brand_name" id="{{ form.brand_name.id_for_label }}"
+                                       class="form-control" placeholder="{% trans 'Brand Name' %}">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="password" name="password1" id="{{ form.password1.id_for_label }}"
+                                       class="form-control" placeholder="{% trans 'Password' %}">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="password" name="password2" id="{{ form.password2.id_for_label }}"
+                                       class="form-control" placeholder="{% trans 'Confirm Password' %}">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <button type="submit"
+                                        class="button button-register w-100">{% trans 'Register' %}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Login Box Area =================-->
 {% endblock %}

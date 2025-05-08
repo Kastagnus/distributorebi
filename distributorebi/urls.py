@@ -14,20 +14,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.i18n import i18n_patterns
+
+from distributorebi.views import redirect_to_default_language
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('users.urls')),
-    path('set-language/', include('django.conf.urls.i18n')),
+    path('i18n/', include('django.conf.urls.i18n')),
+    path('', redirect_to_default_language)
 ]
 
 urlpatterns += i18n_patterns(
-    path('', include('users.urls')),
-    path('', include('products.urls')),
-    path('', include('sellers.urls')),
-    # path('select2/', include('django_select2.urls')),
-    # Your app-specific URLs
+    path('', include('users.urls')),  # User-related URLs
+    path('', include('products.urls')),  # Product-related URLs
+    path('sellers/', include('sellers.urls')),  # Seller-related URLs
 )
 

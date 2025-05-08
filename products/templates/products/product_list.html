@@ -6,7 +6,7 @@
         {% for product in products %}
             <div class="card-cont">
                 <div class="card">
-                    <div class="discount">Product</div>
+                    <div class="discount">{% trans 'Product' %}</div>
                     <div class="image_container">
                         {% if product.image %}
                             <img src="{{ product.image.url }}" alt="{{ product.title }}" class="card-img">
@@ -15,9 +15,19 @@
                         {% endif %}
                     </div>
                     <div class="card-content">
-                        <h2 class="cp-name">{{ product.name }}</h2>
+                        <h2 class="cp-name">
+                            {% if language_code == 'ka' and product.name %}
+                                {{ product.name }}
+                            {% elif language_code == 'en' and product.name_en %}
+                                {{ product.name_en }}
+                            {% elif language_code == 'ru' and product.name_ru %}
+                                {{ product.name_ru }}
+                            {% else %}
+                                {{ product.name|default:"No name available" }}
+                            {% endif %}
+                        </h2>
                         <div class="price-section">
-                            <span class="new-price">{{ product.price }} GEL</span>
+                            <span class="new-price">{{ product.price }} {% trans 'GEL' %}</span>
 
                             <span class="size">{{ product.size }}</span>
                             <span class="unit">{{ product.unit }}</span>
@@ -45,7 +55,6 @@
     </div>
 </section>
 
-
 <div class="pagination-container">
     <nav>
         <ul class="pagination">
@@ -53,6 +62,7 @@
             {% if page_obj.has_previous %}
                 <li class="page-item">
                     <a class="page-link" href="?
+
                             {% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}"
                        aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
@@ -74,6 +84,7 @@
                     {% else %}
                         <li class="page-item">
                             <a class="page-link" href="?
+
                                     {% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ num }}">{{ num }}</a>
                         </li>
                     {% endif %}
@@ -84,6 +95,7 @@
             {% if page_obj.has_next %}
                 <li class="page-item">
                     <a class="page-link" href="?
+
                             {% if request.GET %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.next_page_number }}"
                        aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>

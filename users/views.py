@@ -57,9 +57,6 @@ class MyLoginView(LoginView):
     success_url = reverse_lazy('home')
     form_class = MyLoginForm
     def form_invalid(self, form):
-        print(form.cleaned_data)
-        print("Form is invalid")
-        print("Errors:", form.errors)
         return self.render_to_response(self.get_context_data(form=form))
 
 def home(request):

@@ -10,14 +10,14 @@ class UserForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Add custom attributes for styling
-        self.fields['email'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Email', 'required': True})
-        self.fields['full_name'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Full Name'})
-        self.fields['ltd_name'].widget.attrs.update({'class': 'form-control', 'placeholder': 'LTD Name', 'required': True})
-        self.fields['identification_number'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Identification Number', 'required': True})
-        self.fields['phone_number'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Phone Number', 'required': True})
-        self.fields['brand_name'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Brand Name'})
-        self.fields['password1'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Password'})
-        self.fields['password2'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Confirm Password'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control', 'required': True})
+        self.fields['full_name'].widget.attrs.update({'class': 'form-control',})
+        self.fields['ltd_name'].widget.attrs.update({'class': 'form-control', 'required': True})
+        self.fields['identification_number'].widget.attrs.update({'class': 'form-control', 'required': True})
+        self.fields['phone_number'].widget.attrs.update({'class': 'form-control', 'required': True})
+        self.fields['brand_name'].widget.attrs.update({'class': 'form-control',})
+        self.fields['password1'].widget.attrs.update({'class': 'form-control',})
+        self.fields['password2'].widget.attrs.update({'class': 'form-control',})
 
 class MyLoginForm(AuthenticationForm):
     class Meta:
@@ -25,5 +25,5 @@ class MyLoginForm(AuthenticationForm):
         fields = ('username', 'password')
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Email or Username'})
-        self.fields['password'].widget.attrs.update({'class': 'form-control', 'placeholder': 'password'})
+        self.fields['username'].widget.attrs.update({'class': 'form-control',})
+        self.fields['password'].widget.attrs.update({'class': 'form-control',})

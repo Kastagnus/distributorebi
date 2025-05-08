@@ -1,52 +1,655 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: moma\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-30 15:46+0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2025-05-08 17:58+0400\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Localazy (https://localazy.com)\n"
+"Plural-Forms: nplurals=3; plural=((n%10==1) && (n%100!=11)) ? 0 : ((n%10>=2 "
+"&& n%10<=4) && ((n%100<12 || n%100>14))) ? 1 : 2;\n"
+
+#: .\distributorebi\settings.py:64
+msgid "Georgian"
+msgstr "грузинский"
+
+#: .\distributorebi\settings.py:65
+msgid "English"
+msgstr "Английский"
+
+#: .\distributorebi\settings.py:66
+msgid "Russian"
+msgstr "Русский"
+
+#: .\products\models.py:116
+msgid "Piece"
+msgstr "Кусок"
+
+#: .\products\models.py:117
+msgid "Milliliter"
+msgstr "Миллилитр"
+
+#: .\products\models.py:118
+msgid "Gram"
+msgstr "Грамм"
+
+#: .\products\models.py:119
+msgid "Kilogram"
+msgstr "Килограмм"
+
+#: .\products\templates\products\filter_form.html:63
+#: .\sellers\templates\sellers\distributors.html:19
+msgid "Browse Categories"
+msgstr "Просмотреть категории"
+
+#: .\products\templates\products\filter_form.html:147
+msgid "Files"
+msgstr "Файлов"
+
+#: .\products\templates\products\filter_form.html:151
+#: .\sellers\templates\sellers\edit_info.html:122
+msgid "Catalogue"
+msgstr "Каталог"
+
+#: .\products\templates\products\filter_form.html:154
+msgid "View Catalogue"
+msgstr "Посмотреть каталог"
+
+#: .\products\templates\products\filter_form.html:157
+msgid "No catalogue"
+msgstr "Нет каталога"
+
+#: .\products\templates\products\filter_form.html:162
+#: .\sellers\templates\sellers\edit_info.html:134
+msgid "Presentation"
+msgstr "Презентация"
+
+#: .\products\templates\products\filter_form.html:165
+msgid "View Presentation"
+msgstr "Посмотреть презентацию"
+
+#: .\products\templates\products\filter_form.html:168
+msgid "No presentation"
+msgstr "Нет презентации"
+
+#: .\products\templates\products\filter_form.html:173
+#: .\sellers\templates\sellers\distributors.html:161
+msgid "Filter"
+msgstr "Фильтр"
+
+#: .\products\templates\products\filter_form.html:174
+#: .\sellers\templates\sellers\distributors.html:162
+msgid "Clear Filters"
+msgstr "Очистить фильтры"
+
+#: .\products\templates\products\product_create_form.html:27
+#: .\products\templates\products\products.html:35
+msgid "Add Product"
+msgstr "Добавить товар"
+
+#: .\products\templates\products\product_create_form.html:33
+#: .\products\templates\products\product_form.html:24
+msgid "Name (Georgian)"
+msgstr "Имя (грузинское)"
+
+#: .\products\templates\products\product_create_form.html:35
+#: .\products\templates\products\product_form.html:26
+msgid "Required"
+msgstr "Обязательно для заполнения"
+
+#: .\products\templates\products\product_create_form.html:38
+#: .\products\templates\products\product_form.html:29
+msgid "Name (English)"
+msgstr "Имя (на английском)"
+
+#: .\products\templates\products\product_create_form.html:40
+#: .\products\templates\products\product_create_form.html:45
+#: .\products\templates\products\product_form.html:31
+#: .\products\templates\products\product_form.html:36
+msgid "Optional"
+msgstr "Необязательный"
+
+#: .\products\templates\products\product_create_form.html:43
+#: .\products\templates\products\product_form.html:34
+msgid "Name (Russian)"
+msgstr "Имя (русское)"
+
+#: .\products\templates\products\product_create_form.html:48
+#: .\products\templates\products\product_form.html:39
+#: .\products\templates\products\product_form.html:43
+msgid "Price"
+msgstr "Цена"
+
+#: .\products\templates\products\product_create_form.html:55
+#: .\products\templates\products\product_form.html:50
+msgid "Unit"
+msgstr "единица"
+
+#: .\products\templates\products\product_create_form.html:59
+#: .\products\templates\products\product_form.html:54
+msgid "Size"
+msgstr "Размер"
+
+#: .\products\templates\products\product_create_form.html:64
+#: .\products\templates\products\product_form.html:59
+msgid "Product Image"
+msgstr "Изображение продукта"
+
+#: .\products\templates\products\product_create_form.html:68
+#: .\products\templates\products\product_form.html:63
+msgid "Description (Georgian)"
+msgstr "Описание (грузинский)"
+
+#: .\products\templates\products\product_create_form.html:70
+#: .\products\templates\products\product_create_form.html:76
+#: .\products\templates\products\product_create_form.html:81
+#: .\products\templates\products\product_form.html:66
+#: .\products\templates\products\product_form.html:72
+#: .\products\templates\products\product_form.html:78
+msgid "Optional, max 500 characters"
+msgstr "Необязательно, максимум 500 символов"
+
+#: .\products\templates\products\product_create_form.html:73
+#: .\products\templates\products\product_form.html:69
+msgid "Description (English)"
+msgstr "Описание (на английском)"
+
+#: .\products\templates\products\product_create_form.html:79
+#: .\products\templates\products\product_form.html:75
+msgid "Description (Russian)"
+msgstr "Описание (на русском)"
+
+#: .\products\templates\products\product_create_form.html:85
+#: .\products\templates\products\product_form.html:82
+msgid "Category"
+msgstr "Категория"
+
+#: .\products\templates\products\product_create_form.html:89
+#: .\products\templates\products\product_form.html:86
+msgid "Subcategory"
+msgstr "Подкатегория"
+
+#: .\products\templates\products\product_create_form.html:93
+#: .\products\templates\products\product_form.html:92
+msgid "Sub-Subcategory"
+msgstr "Под-Подкатегория"
+
+#: .\products\templates\products\product_create_form.html:99
+#: .\products\templates\products\product_form.html:97
+#: .\products\templates\products\product_form1.html:8
+#: .\sellers\templates\sellers\edit_info.html:149
+msgid "Save"
+msgstr "Сохраните"
+
+#: .\products\templates\products\product_create_form.html:101
+#: .\products\templates\products\product_form.html:99
+#: .\products\templates\products\product_form1.html:9
+#: .\sellers\templates\sellers\edit_info.html:150
+msgid "Cancel"
+msgstr "Отмена"
+
+#: .\products\templates\products\product_create_form.html:131
+#: .\products\templates\products\product_create_form.html:150
+#: .\products\templates\products\product_form.html:131
+#: .\products\templates\products\product_form.html:150
+msgid "Select Subcategory"
+msgstr "Выберите подкатегорию"
+
+#: .\products\templates\products\product_create_form.html:141
+#: .\products\templates\products\product_create_form.html:151
+#: .\products\templates\products\product_create_form.html:164
+#: .\products\templates\products\product_create_form.html:179
+#: .\products\templates\products\product_form.html:141
+#: .\products\templates\products\product_form.html:151
+#: .\products\templates\products\product_form.html:165
+#: .\products\templates\products\product_form.html:180
+msgid "Select Sub-subcategory"
+msgstr "Выберите подподкатегорию"
+
+#: .\products\templates\products\product_create_form.html:146
+#: .\products\templates\products\product_form.html:146
+msgid "No subcategories available"
+msgstr "Нет доступных подкатегорий"
+
+#: .\products\templates\products\product_create_form.html:175
+#: .\products\templates\products\product_form.html:176
+msgid "No sub-subcategories available"
+msgstr "Нет доступных подподкатегорий"
+
+#: .\products\templates\products\product_form.html:18
+msgid "Edit Product"
+msgstr "Изменить продукт"
+
+#: .\products\templates\products\product_list.html:9
+#: .\products\templates\products\products.html:22
+msgid "Product"
+msgstr "Продукт"
+
+#: .\products\templates\products\product_list.html:30
+msgid "GEL"
+msgstr "лари"
+
+#: .\products\templates\products\product_list.html:38
+#: .\sellers\templates\sellers\company_info.html:206
+msgid "Edit"
+msgstr "Редактировать"
+
+#: .\products\templates\products\product_list.html:45
+msgid "Delete"
+msgstr "Удалить"
+
+#: .\products\templates\products\products.html:28
+msgid "Company Info"
+msgstr "Информация о компании"
+
+#: .\products\templates\products\products.html:67
+#: .\sellers\templates\sellers\distributors.html:303 .\templates\home.html:131
+msgid "Get Update From Anywhere"
+msgstr "Получайте обновления из любой точки мира"
+
+#: .\products\templates\products\products.html:69
+#: .\sellers\templates\sellers\distributors.html:304 .\templates\home.html:132
+msgid "You can sign up for newsletter here"
+msgstr "Вы можете подписаться на рассылку здесь"
+
+#: .\products\templates\products\products.html:85
+msgid "Your Email Address "
+msgstr "Ваш электронный адрес"
+
+#: .\products\templates\products\products.html:90
+#: .\sellers\templates\sellers\distributors.html:316 .\templates\home.html:144
+msgid "Subscribe Now"
+msgstr "Подпишись сейчас"
+
+#: .\sellers\templates\sellers\company_info.html:203
+msgid "Company Information"
+msgstr "Информация о компании"
+
+#: .\sellers\templates\sellers\company_info.html:218
+#: .\sellers\templates\sellers\edit_info.html:40
+msgid "Description"
+msgstr "Описание"
+
+#: .\sellers\templates\sellers\company_info.html:222
+#: .\sellers\templates\sellers\edit_info.html:44
+msgid "Location"
+msgstr "Локация"
+
+#: .\sellers\templates\sellers\company_info.html:226 .\templates\base.html:46
+msgid "Contact"
+msgstr "обратитесь"
+
+#: .\sellers\templates\sellers\company_info.html:227
+#: .\sellers\templates\sellers\distributors.html:312
+#: .\sellers\templates\sellers\edit_info.html:27 .\templates\base.html:132
+#: .\templates\home.html:140 .\users\templates\users\register.html:38
+msgid "Email"
+msgstr "почта"
+
+#: .\sellers\templates\sellers\company_info.html:228
+msgid "Phone"
+msgstr "Телефон"
+
+#: .\sellers\templates\sellers\company_info.html:231
+#: .\sellers\templates\sellers\edit_info.html:82
+msgid "Operating Regions and Cities"
+msgstr "Регионы и города присутствия"
+
+#: .\sellers\templates\sellers\company_info.html:269
+#: .\sellers\templates\sellers\edit_info.html:99
+msgid "Branch Contacts"
+msgstr "Контакты филиала"
+
+#: .\sellers\templates\sellers\company_info.html:276
+msgid "No branch contacts available"
+msgstr "Нет доступных контактов филиала"
+
+#: .\sellers\templates\sellers\company_info.html:280
+#: .\sellers\templates\sellers\edit_info.html:48
+msgid "Website"
+msgstr "Веб-сайт"
+
+#: .\sellers\templates\sellers\company_info.html:285
+msgid "No website info"
+msgstr "Нет информации о сайте"
+
+#: .\sellers\templates\sellers\company_info.html:290
+#: .\sellers\templates\sellers\edit_info.html:68
+msgid "Social Media"
+msgstr "Социальные медиа"
+
+#: .\sellers\templates\sellers\distributors.html:106
+msgid "Browse Regions"
+msgstr "Просмотр регионов"
+
+#: .\sellers\templates\sellers\edit_info.html:9
+msgid "Edit Company Information"
+msgstr "Редактировать информацию о компании"
+
+#: .\sellers\templates\sellers\edit_info.html:17
+msgid "Company Basics"
+msgstr "Основы компании"
+
+#: .\sellers\templates\sellers\edit_info.html:19
+#: .\users\templates\users\register.html:59
+msgid "Brand Name"
+msgstr "Имя бренда"
+
+#: .\sellers\templates\sellers\edit_info.html:23
+#: .\users\templates\users\register.html:46
+msgid "LTD Name"
+msgstr "Название ООО"
+
+#: .\sellers\templates\sellers\edit_info.html:31
+#: .\sellers\templates\sellers\edit_info.html:108
+#: .\sellers\templates\sellers\edit_info.html:345 .\templates\base.html:123
+#: .\users\templates\users\register.html:55
+msgid "Phone Number"
+msgstr "Phone number"
+
+#: .\sellers\templates\sellers\edit_info.html:38
+msgid "Profile Details"
+msgstr "Данные профиля"
+
+#: .\sellers\templates\sellers\edit_info.html:52
+msgid "Company Logo"
+msgstr "Логотип компании"
+
+#: .\sellers\templates\sellers\edit_info.html:56
+msgid "Current logo"
+msgstr "Текущий логотип"
+
+#: .\sellers\templates\sellers\edit_info.html:63
+msgid "Remove Logo"
+msgstr "Удалить логотип"
+
+#: .\sellers\templates\sellers\edit_info.html:85
+msgid "Selected Cities"
+msgstr "Избранные города"
+
+#: .\sellers\templates\sellers\edit_info.html:87
+msgid "Clear All"
+msgstr "Очистить"
+
+#: .\sellers\templates\sellers\edit_info.html:104
+#: .\sellers\templates\sellers\edit_info.html:343
+msgid "Contact Name"
+msgstr "Контактное имя"
+
+#: .\sellers\templates\sellers\edit_info.html:106
+#: .\sellers\templates\sellers\edit_info.html:344
+msgid "Position"
+msgstr "Позиция"
+
+#: .\sellers\templates\sellers\edit_info.html:110
+#: .\sellers\templates\sellers\edit_info.html:346
+msgid "Region"
+msgstr "Область"
+
+#: .\sellers\templates\sellers\edit_info.html:111
+msgid "Remove"
+msgstr "Удалить"
+
+#: .\sellers\templates\sellers\edit_info.html:114
+msgid "No branch contacts yet."
+msgstr "Нет доступных контактов филиала"
+
+#: .\sellers\templates\sellers\edit_info.html:116
+msgid "Add Branch"
+msgstr "Добавить филиал"
+
+#: .\sellers\templates\sellers\edit_info.html:120
+msgid "Company Documents"
+msgstr "Документы компании"
+
+#: .\sellers\templates\sellers\edit_info.html:125
+msgid "Current file"
+msgstr "Текущий файл"
+
+#: .\sellers\templates\sellers\edit_info.html:129
+msgid "Remove Catalogue"
+msgstr "Удалить каталог"
+
+#: .\sellers\templates\sellers\edit_info.html:141
+msgid "Remove Presentation"
+msgstr "Удалить презентацию"
+
+#: .\sellers\templates\sellers\edit_info.html:199
+msgid "No cities selected"
+msgstr "Города не выбраны"
+
+#: .\sellers\templates\sellers\edit_info.html:248
+msgid "No matching cities"
+msgstr "Нет соответствующих городов"
+
+#: .\templates\base.html:43
+msgid "home"
+msgstr "Главная"
+
+#: .\templates\base.html:45 .\templates\home.html:30
+msgid "Company"
+msgstr "компанию"
+
+#: .\templates\base.html:52
+msgid "Dashboard"
+msgstr "Дашбоард"
+
+#: .\templates\base.html:59
+msgid "Logout"
+msgstr "Выйти"
+
+#: .\templates\base.html:65
+msgid "Login"
+msgstr "Авторизоваться"
+
+#: .\templates\base.html:103
+msgid "Our Mission"
+msgstr "Наша миссия"
+
+#: .\templates\base.html:105
+msgid ""
+"Our mission is to connect businesses with reliable distribution companies by "
+"providing a seamless platform for discovering products and suppliers. We aim "
+"to simplify the sourcing process, foster strong business relationships, and "
+"create opportunities for growth in various industries."
+msgstr ""
+"Наша миссия — связать бизнес с надежными дистрибьюторскими компаниями, "
+"предоставляя безупречную платформу для поиска продуктов и поставщиков. Мы "
+"стремимся упростить процесс поиска поставщиков, способствовать укреплению "
+"деловых отношений и создавать возможности для роста в различных отраслях."
+
+#: .\templates\base.html:108
+msgid "Make industry more flexible"
+msgstr "Сделать отрасль более гибкой"
+
+#: .\templates\base.html:119
+msgid "Contact Us"
+msgstr "Связаться с нами"
+
+#: .\templates\home.html:17
+msgid "Browse Distribution Companies and Their Products"
+msgstr "Просмотр дистрибьюторских компаний и их продукции"
+
+#: .\templates\home.html:19
+msgid ""
+"This platform allows you to easily find distribution companies and their "
+"products. Whether you are searching for specific goods or exploring new "
+"options, we provide a comprehensive selection to meet your needs. "
+msgstr ""
+"Эта платформа позволяет вам легко находить дистрибьюторские компании и их "
+"продукцию. Независимо от того, ищете ли вы конкретные товары или изучаете "
+"новые возможности, мы предоставляем полный выбор, чтобы удовлетворить ваши "
+"потребности. "
+
+#: .\templates\home.html:21
+msgid "Find a Company"
+msgstr "Найти компанию"
+
+#: .\templates\home.html:30
+msgid "New"
+msgstr "Новое"
+
+#: .\templates\home.html:36
+msgid "News"
+msgstr "Новое"
+
+#: .\templates\home.html:77
+msgid "An Efficient Sourcing Process for Growth"
+msgstr "Эффективный процесс поиска поставщиков для роста"
+
+#: .\templates\home.html:78
+msgid ""
+"We connect businesses with reliable distributors to simplify the sourcing "
+"process and open new opportunities for growth and development across "
+"industries."
+msgstr ""
+"Мы связываем предприятия с надежными дистрибьюторами, чтобы упростить "
+"процесс поиска поставщиков и открыть новые возможности для роста и развития "
+"в различных отраслях."
+
+#: .\templates\home.html:80
+msgid "Company list"
+msgstr "Список компаний"
+
+#: .\templates\home.html:92 .\templates\home.html:99
+msgid "Popular"
+msgstr "популярный"
+
+#: .\templates\home.html:92
+msgid "Categories"
+msgstr "Категории"
+
+#: .\templates\home.html:120
+msgid "No categories available."
+msgstr "Нет доступных категорий."
+
 #: .\users\templates\users\login.html:11
 msgid "New to our website?"
-msgstr ""
+msgstr "Впервые на нашем сайте?"
 
 #: .\users\templates\users\login.html:12
 msgid "Be a part of the biggest Distributor Marketplace"
-msgstr ""
+msgstr "Станьте частью крупнейшей дистрибьюторской торговой площадки"
 
-#: .\users\templates\users\login.html:13
+#: .\users\templates\users\login.html:14
 msgid "Create an Account"
-msgstr ""
+msgstr "Завести аккаунт"
 
-#: .\users\templates\users\login.html:19
+#: .\users\templates\users\login.html:20
 msgid "Log in to enter"
-msgstr ""
+msgstr "Авторизуйтесь, чтобы войти"
 
-#: .\users\templates\users\login.html:31
+#: .\users\templates\users\login.html:25
+msgid "Email or Username"
+msgstr "почта или имя пользователя"
+
+#: .\users\templates\users\login.html:29
+#: .\users\templates\users\register.html:63
+msgid "Password"
+msgstr "пароль"
+
+#: .\users\templates\users\login.html:34
 msgid "Keep me logged in"
-msgstr ""
+msgstr "Не выходить из системы"
 
-#: .\users\templates\users\login.html:35 .\users\views.py:67
+#: .\users\templates\users\login.html:39 .\users\views.py:82
 msgid "Log In"
-msgstr ""
+msgstr "Авторизоваться"
 
-#: .\users\templates\users\login.html:36
+#: .\users\templates\users\login.html:40
 msgid "Forgot Password?"
+msgstr "Забыли пароль?"
+
+#: .\users\templates\users\password_reset.html:10
+msgid "Reset Your Password"
+msgstr "Сбросьте свой пароль"
+
+#: .\users\templates\users\password_reset.html:14
+msgid "Enter your email"
+msgstr "Введите свой адрес электронной почты"
+
+#: .\users\templates\users\password_reset.html:17
+msgid "Send Reset Link"
+msgstr "Отправить ссылку сброса"
+
+#: .\users\templates\users\password_reset_complete.html:10
+msgid "Password Reset Successful"
+msgstr "Сброс пароля успешен"
+
+#: .\users\templates\users\password_reset_complete.html:11
+msgid ""
+"Your password has been reset. You can now log in with your new password."
+msgstr "Ваш пароль был сброшен. Теперь вы можете войти с новым паролем."
+
+#: .\users\templates\users\password_reset_complete.html:12
+#: .\users\templates\users\password_reset_done.html:12
+msgid "Back to Login"
+msgstr "Вернуться на страницу авторизации"
+
+#: .\users\templates\users\password_reset_confirm.html:10
+msgid "Set a New Password"
+msgstr "Установить новый пароль"
+
+#: .\users\templates\users\password_reset_confirm.html:26
+msgid "Reset Password"
+msgstr "Сброс пароля"
+
+#: .\users\templates\users\password_reset_done.html:10
+msgid "Password Reset Requested"
+msgstr "Требуется сброс пароля"
+
+#: .\users\templates\users\password_reset_done.html:11
+msgid ""
+"We have emailed you instructions for resetting your password. Please check "
+"your inbox."
 msgstr ""
+"Мы отправили вам инструкции по сбросу пароля. Проверьте свой почтовый ящик."
+
+#: .\users\templates\users\register.html:9
+#: .\users\templates\users\register.html:71
+msgid "Register"
+msgstr "Зарегистрироваться"
+
+#: .\users\templates\users\register.html:25
+msgid "Already have an account?"
+msgstr "У вас уже есть аккаунт?"
+
+#: .\users\templates\users\register.html:26
+msgid "Biggest marketplace of distributors, join us!"
+msgstr "Крупнейшая торговая площадка дистрибьюторов, присоединяйтесь к нам!"
+
+#: .\users\templates\users\register.html:27
+msgid "Login Now"
+msgstr "Войти сейчас"
+
+#: .\users\templates\users\register.html:33
+msgid "Create an account"
+msgstr "Завести аккаунт"
+
+#: .\users\templates\users\register.html:42
+msgid "Full Name"
+msgstr "Полное имя"
+
+#: .\users\templates\users\register.html:51
+msgid "Identification Number"
+msgstr "Идентификационный номер"
+
+#: .\users\templates\users\register.html:67
+msgid "Confirm Password"
+msgstr "Подтвердите пароль"
 
 #: .\users\tests.py:14
 msgid "This is a test translation."
-msgstr ""
+msgstr "Это тестовый перевод."
+
+#~ msgid "Your Email Address"
+#~ msgstr "Ваш электронный адрес"
+
+#~ msgid "Bearing Void gathering light light his eavening unto don afraid"
+#~ msgstr "Несущий Пустоту собирающий свет свет его восход к Дону боится"
+
+#~ msgid "Bearing Void gathering light light his eavening unto dont afraid"
+#~ msgstr ""
+#~ "Несущий Пустоту, собирающий свет, освещает его восход, чтобы не бояться"

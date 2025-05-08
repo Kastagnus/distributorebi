@@ -5,6 +5,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 {% endblock %}
+<style>
+    .edit-product-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .edit-product-group {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .form-hint {
+        font-size: 0.8rem;
+        color: #666;
+    }
+</style>
 
 <div class="edit-product-container">
     <h1 class="edit-product-header">{% trans 'Add Product' %}</h1>
@@ -13,8 +30,19 @@
 
         <div class="edit-product-row">
             <div class="edit-product-group">
-                <label for="edit-product-name"><i class="fas fa-user"></i> {% trans 'Name' %}</label>
+                <label for="id_name"><i class="fas fa-user"></i> {% trans 'Name (Georgian)' %}</label>
                 {{ form.name }}
+                <small class="form-hint">{% trans 'Required' %}</small>
+            </div>
+            <div class="edit-product-group">
+                <label for="id_name_en"><i class="fas fa-user"></i> {% trans 'Name (English)' %}</label>
+                {{ form.name_en }}
+                <small class="form-hint">{% trans 'Optional' %}</small>
+            </div>
+            <div class="edit-product-group">
+                <label for="id_name_ru"><i class="fas fa-user"></i> {% trans 'Name (Russian)' %}</label>
+                {{ form.name_ru }}
+                <small class="form-hint">{% trans 'Optional' %}</small>
             </div>
             <div class="edit-product-group">
                 <label for="edit-product-price"><i class="fas fa-dollar-sign"></i> {% trans 'Price' %}</label>
@@ -37,8 +65,20 @@
             {{ form.image }}
         </div>
         <div class="edit-product-group">
-            <label for="edit-product-description"><i class="fas fa-align-left"></i> {% trans 'Description' %}</label>
+            <label for="id_description"><i class="fas fa-align-left"></i> {% trans 'Description (Georgian)' %}</label>
             {{ form.description }}
+            <small class="form-hint">{% trans 'Optional, max 500 characters' %}</small>
+        </div>
+        <div class="edit-product-group">
+            <label for="id_description_en"><i class="fas fa-align-left"></i> {% trans 'Description (English)' %}
+            </label>
+            {{ form.description_en }}
+            <small class="form-hint">{% trans 'Optional, max 500 characters' %}</small>
+        </div>
+        <div class="edit-product-group">
+            <label for="id_description_ru"><i class="fas fa-align-left"></i> {% trans 'Description (Russian)' %}</label>
+            {{ form.description_ru }}
+            <small class="form-hint">{% trans 'Optional, max 500 characters' %}</small>
         </div>
 
         <div class="edit-product-group">
@@ -84,31 +124,31 @@
                     const categoryId = $(this).val();
                     console.log(categoryId, "category selected via NiceSelect");
                     if (categoryId) {
-                        fetch(`/load-subcategories/?category_id=${categoryId}&level=0`)
+                        fetch(`/load-subcategories/?category_id=${categoryId}&level=0&language_code={{ language_code }}`)
                             .then(response => response.json())
                             .then(data => {
                                 // Update level 1 options
-                                level1Select.innerHTML = '<option value="">Select Subcategory</option>';
+                                level1Select.innerHTML = '<option value="">{% trans 'Select Subcategory' %}</option>';
                                 data.forEach(subcategory => {
                                     const option = document.createElement('option');
                                     option.value = subcategory.id;
-                                    option.textContent = subcategory.name;
+                                    option.textContent = subcategory.name ;
                                     level1Select.appendChild(option);
                                 });
                                 // Update NiceSelect for level 1
                                 $(level1Select).niceSelect('update');
                                 // Reset level 2
-                                level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
+                                level2Select.innerHTML = '<option value="">{% trans 'Select Sub-subcategory' %}</option>';
                                 $(level2Select).niceSelect('update');
                             })
                             .catch(error => {
                                 console.error('Error loading subcategories:', error);
-                                level1Select.innerHTML = '<option value="">No subcategories available</option>';
+                                level1Select.innerHTML = '<option value="">{% trans 'No subcategories available' %}</option>';
                                 $(level1Select).niceSelect('update');
                             });
                     } else {
-                        level1Select.innerHTML = '<option value="">Select Subcategory</option>';
-                        level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
+                        level1Select.innerHTML = '<option value="">{% trans 'Select Subcategory' %}</option>';
+                        level2Select.innerHTML = '<option value="">{% trans 'Select Sub-subcategory' %}</option>';
                         $(level1Select).niceSelect('update');
                         $(level2Select).niceSelect('update');
                     }
@@ -118,10 +158,10 @@
                 $(level1Select).on('change', function () {
                     const subcategoryId = $(this).val();
                     if (subcategoryId) {
-                        fetch(`/load-subcategories/?category_id=${subcategoryId}&level=1`)
+                        fetch(`/load-subcategories/?category_id=${subcategoryId}&level=1&language_code={{ language_code }}`)
                             .then(response => response.json())
                             .then(data => {
-                                level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
+                                level2Select.innerHTML = '<option value="">{% trans 'Select Sub-subcategory' %}</option>';
                                 data.forEach(subSubcategory => {
                                     const option = document.createElement('option');
                                     option.value = subSubcategory.id;
@@ -132,11 +172,11 @@
                             })
                             .catch(error => {
                                 console.error('Error loading sub-subcategories:', error);
-                                level2Select.innerHTML = '<option value="">No sub-subcategories available</option>';
+                                level2Select.innerHTML = '<option value="">{% trans 'No sub-subcategories available' %}</option>';
                                 $(level2Select).niceSelect('update');
                             });
                     } else {
-                        level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
+                        level2Select.innerHTML = '<option value="">{% trans 'Select Sub-subcategory' %}</option>';
                         $(level2Select).niceSelect('update');
                     }
                 });

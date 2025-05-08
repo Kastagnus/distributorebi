@@ -1,41 +1,657 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
-#, fuzzy
-
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: moma\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-30 00:47+0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2025-05-08 17:58+0400\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: Localazy (https://localazy.com)\n"
+"Plural-Forms: nplurals=2; plural=(n==1) ? 0 : 1;\n"
 
+#: .\distributorebi\settings.py:64
+msgid "Georgian"
+msgstr "ქართული"
+
+#: .\distributorebi\settings.py:65
+msgid "English"
+msgstr "ინგლისური"
+
+#: .\distributorebi\settings.py:66
+msgid "Russian"
+msgstr "რუსული"
+
+#: .\products\models.py:116
+msgid "Piece"
+msgstr "ნაჭერი"
+
+#: .\products\models.py:117
+msgid "Milliliter"
+msgstr "მილილიტრი"
+
+#: .\products\models.py:118
+msgid "Gram"
+msgstr "გრამი"
+
+#: .\products\models.py:119
+msgid "Kilogram"
+msgstr "კილოგრამი"
+
+#: .\products\templates\products\filter_form.html:63
+#: .\sellers\templates\sellers\distributors.html:19
+msgid "Browse Categories"
+msgstr "კატეგორიების დათვალიერება"
+
+#: .\products\templates\products\filter_form.html:147
+msgid "Files"
+msgstr "ფაილები"
+
+#: .\products\templates\products\filter_form.html:151
+#: .\sellers\templates\sellers\edit_info.html:122
+msgid "Catalogue"
+msgstr "კატალოგი"
+
+#: .\products\templates\products\filter_form.html:154
+msgid "View Catalogue"
+msgstr "კატალოგის ნახვა"
+
+#: .\products\templates\products\filter_form.html:157
+msgid "No catalogue"
+msgstr "კატალოგი არ არის"
+
+#: .\products\templates\products\filter_form.html:162
+#: .\sellers\templates\sellers\edit_info.html:134
+msgid "Presentation"
+msgstr "პრეზენტაცია"
+
+#: .\products\templates\products\filter_form.html:165
+msgid "View Presentation"
+msgstr "პრეზენტაციის ნახვა"
+
+#: .\products\templates\products\filter_form.html:168
+msgid "No presentation"
+msgstr "პრეზენტაცია არ არის"
+
+#: .\products\templates\products\filter_form.html:173
+#: .\sellers\templates\sellers\distributors.html:161
+msgid "Filter"
+msgstr "ფილტრი"
+
+#: .\products\templates\products\filter_form.html:174
+#: .\sellers\templates\sellers\distributors.html:162
+msgid "Clear Filters"
+msgstr "ფილტრების გასუფთავება"
+
+#: .\products\templates\products\product_create_form.html:27
+#: .\products\templates\products\products.html:35
+msgid "Add Product"
+msgstr "პროდუქტის დამატება"
+
+#: .\products\templates\products\product_create_form.html:33
+#: .\products\templates\products\product_form.html:24
+msgid "Name (Georgian)"
+msgstr "სახელი (ქართული)"
+
+#: .\products\templates\products\product_create_form.html:35
+#: .\products\templates\products\product_form.html:26
+msgid "Required"
+msgstr "საჭირო"
+
+#: .\products\templates\products\product_create_form.html:38
+#: .\products\templates\products\product_form.html:29
+msgid "Name (English)"
+msgstr "სახელი (ინგლისური)"
+
+#: .\products\templates\products\product_create_form.html:40
+#: .\products\templates\products\product_create_form.html:45
+#: .\products\templates\products\product_form.html:31
+#: .\products\templates\products\product_form.html:36
+msgid "Optional"
+msgstr "სურვილისამებრ"
+
+#: .\products\templates\products\product_create_form.html:43
+#: .\products\templates\products\product_form.html:34
+msgid "Name (Russian)"
+msgstr "სახელი (რუსული)"
+
+#: .\products\templates\products\product_create_form.html:48
+#: .\products\templates\products\product_form.html:39
+#: .\products\templates\products\product_form.html:43
+msgid "Price"
+msgstr "ფასი"
+
+#: .\products\templates\products\product_create_form.html:55
+#: .\products\templates\products\product_form.html:50
+msgid "Unit"
+msgstr "ერთეული"
+
+#: .\products\templates\products\product_create_form.html:59
+#: .\products\templates\products\product_form.html:54
+msgid "Size"
+msgstr "ზომა"
+
+#: .\products\templates\products\product_create_form.html:64
+#: .\products\templates\products\product_form.html:59
+msgid "Product Image"
+msgstr "პროდუქტის სურათი"
+
+#: .\products\templates\products\product_create_form.html:68
+#: .\products\templates\products\product_form.html:63
+msgid "Description (Georgian)"
+msgstr "აღწერა (ქართული)"
+
+#: .\products\templates\products\product_create_form.html:70
+#: .\products\templates\products\product_create_form.html:76
+#: .\products\templates\products\product_create_form.html:81
+#: .\products\templates\products\product_form.html:66
+#: .\products\templates\products\product_form.html:72
+#: .\products\templates\products\product_form.html:78
+msgid "Optional, max 500 characters"
+msgstr "არასავალდებულო, მაქსიმუმ 500 სიმბოლო"
+
+#: .\products\templates\products\product_create_form.html:73
+#: .\products\templates\products\product_form.html:69
+msgid "Description (English)"
+msgstr "აღწერა (ინგლისური)"
+
+#: .\products\templates\products\product_create_form.html:79
+#: .\products\templates\products\product_form.html:75
+msgid "Description (Russian)"
+msgstr "აღწერა (რუსული)"
+
+#: .\products\templates\products\product_create_form.html:85
+#: .\products\templates\products\product_form.html:82
+msgid "Category"
+msgstr "კატეგორია"
+
+#: .\products\templates\products\product_create_form.html:89
+#: .\products\templates\products\product_form.html:86
+msgid "Subcategory"
+msgstr "ქვეკატეგორია"
+
+#: .\products\templates\products\product_create_form.html:93
+#: .\products\templates\products\product_form.html:92
+msgid "Sub-Subcategory"
+msgstr "ქვე-ქვეკატეგორია"
+
+#: .\products\templates\products\product_create_form.html:99
+#: .\products\templates\products\product_form.html:97
+#: .\products\templates\products\product_form1.html:8
+#: .\sellers\templates\sellers\edit_info.html:149
+msgid "Save"
+msgstr "შენახვა"
+
+#: .\products\templates\products\product_create_form.html:101
+#: .\products\templates\products\product_form.html:99
+#: .\products\templates\products\product_form1.html:9
+#: .\sellers\templates\sellers\edit_info.html:150
+msgid "Cancel"
+msgstr "გაუქმება"
+
+#: .\products\templates\products\product_create_form.html:131
+#: .\products\templates\products\product_create_form.html:150
+#: .\products\templates\products\product_form.html:131
+#: .\products\templates\products\product_form.html:150
+msgid "Select Subcategory"
+msgstr "ქვეკატეგორიის არჩევა"
+
+#: .\products\templates\products\product_create_form.html:141
+#: .\products\templates\products\product_create_form.html:151
+#: .\products\templates\products\product_create_form.html:164
+#: .\products\templates\products\product_create_form.html:179
+#: .\products\templates\products\product_form.html:141
+#: .\products\templates\products\product_form.html:151
+#: .\products\templates\products\product_form.html:165
+#: .\products\templates\products\product_form.html:180
+msgid "Select Sub-subcategory"
+msgstr "აირჩიეთ ქვე-ქვეკატეგორია"
+
+#: .\products\templates\products\product_create_form.html:146
+#: .\products\templates\products\product_form.html:146
+msgid "No subcategories available"
+msgstr "ქვეკატეგორიები არ არსებობს"
+
+#: .\products\templates\products\product_create_form.html:175
+#: .\products\templates\products\product_form.html:176
+msgid "No sub-subcategories available"
+msgstr "ქვე-ქვეკატეგორიები არ არსებობს"
+
+#: .\products\templates\products\product_form.html:18
+msgid "Edit Product"
+msgstr "პროდუქტის რედაქტირება"
+
+#: .\products\templates\products\product_list.html:9
+#: .\products\templates\products\products.html:22
+msgid "Product"
+msgstr "პროდუქტი"
+
+#: .\products\templates\products\product_list.html:30
+msgid "GEL"
+msgstr "ლარი"
+
+#: .\products\templates\products\product_list.html:38
+#: .\sellers\templates\sellers\company_info.html:206
+msgid "Edit"
+msgstr "რედაქტირება"
+
+#: .\products\templates\products\product_list.html:45
+msgid "Delete"
+msgstr "წაშლა"
+
+#: .\products\templates\products\products.html:28
+msgid "Company Info"
+msgstr "კომპანიის ინფორმაცია"
+
+#: .\products\templates\products\products.html:67
+#: .\sellers\templates\sellers\distributors.html:303 .\templates\home.html:131
+msgid "Get Update From Anywhere"
+msgstr "მიიღეთ განახლება ნებისმიერი ადგილიდან"
+
+#: .\products\templates\products\products.html:69
+#: .\sellers\templates\sellers\distributors.html:304 .\templates\home.html:132
+msgid "You can sign up for newsletter here"
+msgstr "შეგიძლიათ გამოიწეროთ საინფორმაციო ბიულეტენი აქ"
+
+#: .\products\templates\products\products.html:85
+msgid "Your Email Address "
+msgstr "თქვენი ელ-ფოსტა"
+
+#: .\products\templates\products\products.html:90
+#: .\sellers\templates\sellers\distributors.html:316 .\templates\home.html:144
+msgid "Subscribe Now"
+msgstr "გამოიწერეთ ახლავე"
+
+#: .\sellers\templates\sellers\company_info.html:203
+msgid "Company Information"
+msgstr "კომპანიის შესახებ"
+
+#: .\sellers\templates\sellers\company_info.html:218
+#: .\sellers\templates\sellers\edit_info.html:40
+msgid "Description"
+msgstr "აღწერა"
+
+#: .\sellers\templates\sellers\company_info.html:222
+#: .\sellers\templates\sellers\edit_info.html:44
+msgid "Location"
+msgstr "ადგილმდებარეობა"
+
+#: .\sellers\templates\sellers\company_info.html:226 .\templates\base.html:46
+msgid "Contact"
+msgstr "კონტაქტი"
+
+#: .\sellers\templates\sellers\company_info.html:227
+#: .\sellers\templates\sellers\distributors.html:312
+#: .\sellers\templates\sellers\edit_info.html:27 .\templates\base.html:132
+#: .\templates\home.html:140 .\users\templates\users\register.html:38
+msgid "Email"
+msgstr "ელ-ფოსტა"
+
+#: .\sellers\templates\sellers\company_info.html:228
+msgid "Phone"
+msgstr "ტელეფონი"
+
+#: .\sellers\templates\sellers\company_info.html:231
+#: .\sellers\templates\sellers\edit_info.html:82
+msgid "Operating Regions and Cities"
+msgstr "საოპერაციო რეგიონები და ქალაქები"
+
+#: .\sellers\templates\sellers\company_info.html:269
+#: .\sellers\templates\sellers\edit_info.html:99
+msgid "Branch Contacts"
+msgstr "ფილიალის საკონტქატო"
+
+#: .\sellers\templates\sellers\company_info.html:276
+msgid "No branch contacts available"
+msgstr "ფილიალის კონტაქტები არ არის ხელმისაწვდომი"
+
+#: .\sellers\templates\sellers\company_info.html:280
+#: .\sellers\templates\sellers\edit_info.html:48
+msgid "Website"
+msgstr "ვებ-საიტი"
+
+#: .\sellers\templates\sellers\company_info.html:285
+msgid "No website info"
+msgstr "ვებ-გვერდის ინფორმაცია არ არის ხელმისწავდომი"
+
+#: .\sellers\templates\sellers\company_info.html:290
+#: .\sellers\templates\sellers\edit_info.html:68
+msgid "Social Media"
+msgstr "სოციალური მედია"
+
+#: .\sellers\templates\sellers\distributors.html:106
+msgid "Browse Regions"
+msgstr "რეგიონების დათვალიერება"
+
+#: .\sellers\templates\sellers\edit_info.html:9
+msgid "Edit Company Information"
+msgstr "კომპანიის ინფორმაციის რედაქტირება"
+
+#: .\sellers\templates\sellers\edit_info.html:17
+msgid "Company Basics"
+msgstr "კომპანიის ზოგადი ინფორმაცია"
+
+#: .\sellers\templates\sellers\edit_info.html:19
+#: .\users\templates\users\register.html:59
+msgid "Brand Name"
+msgstr "ბრენდი"
+
+#: .\sellers\templates\sellers\edit_info.html:23
+#: .\users\templates\users\register.html:46
+msgid "LTD Name"
+msgstr "შპს-ს სახელი"
+
+#: .\sellers\templates\sellers\edit_info.html:31
+#: .\sellers\templates\sellers\edit_info.html:108
+#: .\sellers\templates\sellers\edit_info.html:345 .\templates\base.html:123
+#: .\users\templates\users\register.html:55
+msgid "Phone Number"
+msgstr "ტელეფონის ნომერი"
+
+#: .\sellers\templates\sellers\edit_info.html:38
+msgid "Profile Details"
+msgstr "პროფილის დეტალები"
+
+#: .\sellers\templates\sellers\edit_info.html:52
+msgid "Company Logo"
+msgstr "კომპანიის ლოგო"
+
+#: .\sellers\templates\sellers\edit_info.html:56
+msgid "Current logo"
+msgstr "აქტიური ლოგო"
+
+#: .\sellers\templates\sellers\edit_info.html:63
+msgid "Remove Logo"
+msgstr "ლოგოს წაშლა"
+
+#: .\sellers\templates\sellers\edit_info.html:85
+msgid "Selected Cities"
+msgstr "არჩეული ქალაქები"
+
+#: .\sellers\templates\sellers\edit_info.html:87
+msgid "Clear All"
+msgstr "გასუფთავება"
+
+#: .\sellers\templates\sellers\edit_info.html:104
+#: .\sellers\templates\sellers\edit_info.html:343
+msgid "Contact Name"
+msgstr "საკონტაქტო პირი"
+
+#: .\sellers\templates\sellers\edit_info.html:106
+#: .\sellers\templates\sellers\edit_info.html:344
+msgid "Position"
+msgstr "პოზიცია"
+
+#: .\sellers\templates\sellers\edit_info.html:110
+#: .\sellers\templates\sellers\edit_info.html:346
+msgid "Region"
+msgstr "რეგიონები"
+
+#: .\sellers\templates\sellers\edit_info.html:111
+msgid "Remove"
+msgstr "წაშლა"
+
+#: .\sellers\templates\sellers\edit_info.html:114
+msgid "No branch contacts yet."
+msgstr "ფილიალის კონტაქტები არ არის დამატებული"
+
+#: .\sellers\templates\sellers\edit_info.html:116
+msgid "Add Branch"
+msgstr "ფილიალის დამატება"
+
+#: .\sellers\templates\sellers\edit_info.html:120
+msgid "Company Documents"
+msgstr "კომპანიის ფაილები"
+
+#: .\sellers\templates\sellers\edit_info.html:125
+msgid "Current file"
+msgstr "აქტიური ფაილი"
+
+#: .\sellers\templates\sellers\edit_info.html:129
+msgid "Remove Catalogue"
+msgstr "კატალოგის წაშლა"
+
+#: .\sellers\templates\sellers\edit_info.html:141
+msgid "Remove Presentation"
+msgstr "პრეზენტაციის წაშლა"
+
+#: .\sellers\templates\sellers\edit_info.html:199
+msgid "No cities selected"
+msgstr "ქალაქები არ არის არჩეული"
+
+#: .\sellers\templates\sellers\edit_info.html:248
+msgid "No matching cities"
+msgstr "შესაბამისი ქალაქი არ მოიძებნა"
+
+#: .\templates\base.html:43
+msgid "home"
+msgstr "მთავარი"
+
+#: .\templates\base.html:45 .\templates\home.html:30
+msgid "Company"
+msgstr "კომპანია"
+
+#: .\templates\base.html:52
+msgid "Dashboard"
+msgstr "პანელი"
+
+#: .\templates\base.html:59
+msgid "Logout"
+msgstr "გასვლა"
+
+#: .\templates\base.html:65
+msgid "Login"
+msgstr "შესვლა"
+
+#: .\templates\base.html:103
+msgid "Our Mission"
+msgstr "ჩვენი მისია"
+
+#: .\templates\base.html:105
+msgid ""
+"Our mission is to connect businesses with reliable distribution companies by "
+"providing a seamless platform for discovering products and suppliers. We aim "
+"to simplify the sourcing process, foster strong business relationships, and "
+"create opportunities for growth in various industries."
+msgstr ""
+"ჩვენი მისიაა დავაკავშიროთ ბიზნესები საიმედო სადისტრიბუციო კომპანიებთან, "
+"პროდუქტებისა და მომწოდებლების აღმოჩენის უწყვეტი პლატფორმის შეთავაზებით. "
+"ჩვენი მიზანია გავამარტივოთ მომარაგების პროცესი, განვავითაროთ ძლიერი ბიზნეს "
+"ურთიერთობები და შევქმნათ ზრდის შესაძლებლობები სხვადასხვა ინდუსტრიაში."
+
+#: .\templates\base.html:108
+msgid "Make industry more flexible"
+msgstr "გახადეთ ინდუსტრია უფრო მოქნილი"
+
+#: .\templates\base.html:119
+msgid "Contact Us"
+msgstr "დაგვიკავშირდით"
+
+#: .\templates\home.html:17
+msgid "Browse Distribution Companies and Their Products"
+msgstr "დაათვალიერეთ სადისტრიბუციო კომპანიები და მათი პროდუქტები"
+
+#: .\templates\home.html:19
+msgid ""
+"This platform allows you to easily find distribution companies and their "
+"products. Whether you are searching for specific goods or exploring new "
+"options, we provide a comprehensive selection to meet your needs. "
+msgstr ""
+"ეს პლატფორმა საშუალებას გაძლევთ მარტივად იპოვოთ სადისტრიბუციო კომპანიები და "
+"მათი პროდუქცია. ეძებთ თუ არა კონკრეტულ საქონელს თუ იკვლევთ ახალ ვარიანტებს, "
+"ჩვენ გთავაზობთ ყოვლისმომცველ არჩევანს რომელიც თქვენს საჭიროებებზეა მორგებული"
+
+#: .\templates\home.html:21
+msgid "Find a Company"
+msgstr "მოძებნე კომპანია"
+
+#: .\templates\home.html:30
+msgid "New"
+msgstr "ახალი"
+
+#: .\templates\home.html:36
+msgid "News"
+msgstr "ახალი"
+
+#: .\templates\home.html:77
+msgid "An Efficient Sourcing Process for Growth"
+msgstr "ეფექტური ძიების პროცესი"
+
+#: .\templates\home.html:78
+msgid ""
+"We connect businesses with reliable distributors to simplify the sourcing "
+"process and open new opportunities for growth and development across "
+"industries."
+msgstr ""
+"ჩვენ ვაკავშირებთ ბიზნესებს საიმედო დისტრიბუტორებთან, რათა გავამარტივოთ "
+"მომარაგების პროცესი და გავხსნათ ახალი შესაძლებლობები ზრდისა და "
+"განვითარებისთვის სხვადასხვა ინდუსტრიაში."
+
+#: .\templates\home.html:80
+msgid "Company list"
+msgstr "კომპანიების სია"
+
+#: .\templates\home.html:92 .\templates\home.html:99
+msgid "Popular"
+msgstr "პოპულარული"
+
+#: .\templates\home.html:92
+msgid "Categories"
+msgstr "კატეგორიები"
+
+#: .\templates\home.html:120
+msgid "No categories available."
+msgstr "კატეგორიები მიუწვდომელია."
+
+#: .\users\templates\users\login.html:11
 msgid "New to our website?"
 msgstr "ახალი ხართ ჩვენს ვებსაიტზე?"
 
+#: .\users\templates\users\login.html:12
 msgid "Be a part of the biggest Distributor Marketplace"
-msgstr "იყავით დისტრიბუტორთა ყველაზე დიდი ბაზრის ნაწილი"
+msgstr "გახდი უდიდესი დისტრიბუტორული ბაზრის ნაწილი"
 
+#: .\users\templates\users\login.html:14
 msgid "Create an Account"
-msgstr "შექმენით ანგარიში"
+msgstr "ანგარიშის შექმნა"
 
+#: .\users\templates\users\login.html:20
 msgid "Log in to enter"
-msgstr "შესვლისთვის ავტორიზაცია"
+msgstr "შესასვლელად შედით სისტემაში"
 
+#: .\users\templates\users\login.html:25
+msgid "Email or Username"
+msgstr "ელ-ფოსტა ან მომხმარებლის სახელი"
+
+#: .\users\templates\users\login.html:29
+#: .\users\templates\users\register.html:63
+msgid "Password"
+msgstr "პაროლი"
+
+#: .\users\templates\users\login.html:34
 msgid "Keep me logged in"
-msgstr "დატოვეთ ავტორიზაცია"
+msgstr "შემაჩერეთ სისტემაში"
 
+#: .\users\templates\users\login.html:39 .\users\views.py:82
 msgid "Log In"
-msgstr "შესვლა"
+msgstr "Შესვლა"
 
+#: .\users\templates\users\login.html:40
 msgid "Forgot Password?"
-msgstr "დაგავიწყდათ პაროლი?"
+msgstr "დაგავიწყდა შენი პაროლი?"
+
+#: .\users\templates\users\password_reset.html:10
+msgid "Reset Your Password"
+msgstr "გადააყენეთ თქვენი პაროლი"
+
+#: .\users\templates\users\password_reset.html:14
+msgid "Enter your email"
+msgstr "შეიყვანეთ თქვენი ელ-ფოსტა"
+
+#: .\users\templates\users\password_reset.html:17
+msgid "Send Reset Link"
+msgstr "გადატვირთვის ბმულის გაგზავნა"
+
+#: .\users\templates\users\password_reset_complete.html:10
+msgid "Password Reset Successful"
+msgstr "პაროლის აღდგენა წარმატებით დასრულდა"
+
+#: .\users\templates\users\password_reset_complete.html:11
+msgid ""
+"Your password has been reset. You can now log in with your new password."
+msgstr ""
+"თქვენი პაროლი გადაყენებულია. ახლა შეგიძლიათ შეხვიდეთ თქვენი ახალი პაროლით."
+
+#: .\users\templates\users\password_reset_complete.html:12
+#: .\users\templates\users\password_reset_done.html:12
+msgid "Back to Login"
+msgstr "დაბრუნება შესვლაზე"
+
+#: .\users\templates\users\password_reset_confirm.html:10
+msgid "Set a New Password"
+msgstr "ახალი პაროლის დაყენება"
+
+#: .\users\templates\users\password_reset_confirm.html:26
+msgid "Reset Password"
+msgstr "პაროლის აღდგენა"
+
+#: .\users\templates\users\password_reset_done.html:10
+msgid "Password Reset Requested"
+msgstr "პაროლის აღდგენა მოთხოვნილია"
+
+#: .\users\templates\users\password_reset_done.html:11
+msgid ""
+"We have emailed you instructions for resetting your password. Please check "
+"your inbox."
+msgstr ""
+"პაროლის გადაყენების ინსტრუქციები ელექტრონული ფოსტით გამოგიგზავნეთ. გთხოვთ, "
+"შეამოწმოთ თქვენი შემოსულები."
+
+#: .\users\templates\users\register.html:9
+#: .\users\templates\users\register.html:71
+msgid "Register"
+msgstr "რეგისტრაცია"
+
+#: .\users\templates\users\register.html:25
+msgid "Already have an account?"
+msgstr "უკვე გაქვთ ანგარიში?"
+
+#: .\users\templates\users\register.html:26
+msgid "Biggest marketplace of distributors, join us!"
+msgstr "დისტრიბუტორების უდიდესი ბაზარი, შემოგვიერთდით!"
+
+#: .\users\templates\users\register.html:27
+msgid "Login Now"
+msgstr "შესვლა ახლავე"
+
+#: .\users\templates\users\register.html:33
+msgid "Create an account"
+msgstr "ანგარიშის შექმნა"
+
+#: .\users\templates\users\register.html:42
+msgid "Full Name"
+msgstr "სახელი & გვარი"
+
+#: .\users\templates\users\register.html:51
+msgid "Identification Number"
+msgstr "საიდენტიფიკაციო ნომერი"
+
+#: .\users\templates\users\register.html:67
+msgid "Confirm Password"
+msgstr "გაიმეორეთ პაროლი"
+
+#: .\users\tests.py:14
+msgid "This is a test translation."
+msgstr "ეს სატესტო თარგმანია."
+
+#~ msgid "Your Email Address"
+#~ msgstr "თქვენი ელ-ფოსტა"
+
+#~ msgid "Bearing Void gathering light light his eavening unto don afraid"
+#~ msgstr ""
+#~ "სიცარიელის ტარება შუქს აგროვებს, ანათებს თავის საღამოს, რათა დონ შეშინდეს"
+
+#~ msgid "Bearing Void gathering light light his eavening unto dont afraid"
+#~ msgstr ""
+#~ "სიცარიელის ტარება, სინათლის შეგროვება, მისი საღამოს გაბრწყინება, რათა არ "
+#~ "შეგეშინდეთ"

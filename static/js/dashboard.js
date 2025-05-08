@@ -11,44 +11,44 @@ function toggleSubcategories(element) {
     }
 }
 
-function selectSubcategories(checkbox) {
-    const level = parseInt(checkbox.getAttribute('data-level'));
-    const isChecked = checkbox.checked;
-
-    if (level === 0) {
-        // If a level 0 category is selected, select all level 1 and level 2 subcategories
-        const subcategories = checkbox.closest('li').querySelectorAll('input[data-level="1"], input[data-level="2"]');
-        subcategories.forEach(function (subCheckbox) {
-            subCheckbox.checked = isChecked;
-        });
-    } else if (level === 1) {
-        // If a level 1 category is selected, select all level 2 subcategories
-        const subSubcategories = checkbox.closest('li').querySelectorAll('input[data-level="2"]');
-        subSubcategories.forEach(function (subSubCheckbox) {
-            subSubCheckbox.checked = isChecked;
-        });
-
-        // If a level 1 category is being selected, do not automatically select its level 0 parent
-        if (!isChecked) {
-            updateParentState(checkbox);
-        }
-    } else if (level === 2) {
-        // If a level 2 category is selected, do not automatically select its parent categories
-        if (!isChecked) {
-            const parentCheckbox = document.querySelector('input[data-level="1"][value="' + checkbox.getAttribute('data-parent') + '"]');
-            if (parentCheckbox) {
-                updateParentState(parentCheckbox);
-                const grandParent = parentCheckbox.getAttribute('data-parent');
-                if (grandParent) {
-                    const grandParentCheckbox = document.querySelector('input[data-level="0"][value="' + grandParent + '"]');
-                    if (grandParentCheckbox) {
-                        updateParentState(grandParentCheckbox);
-                    }
-                }
-            }
-        }
-    }
-}
+// function selectSubcategories(checkbox) {
+//     const level = parseInt(checkbox.getAttribute('data-level'));
+//     const isChecked = checkbox.checked;
+//
+//     if (level === 0) {
+//         // If a level 0 category is selected, select all level 1 and level 2 subcategories
+//         const subcategories = checkbox.closest('li').querySelectorAll('input[data-level="1"], input[data-level="2"]');
+//         subcategories.forEach(function (subCheckbox) {
+//             subCheckbox.checked = isChecked;
+//         });
+//     } else if (level === 1) {
+//         // If a level 1 category is selected, select all level 2 subcategories
+//         const subSubcategories = checkbox.closest('li').querySelectorAll('input[data-level="2"]');
+//         subSubcategories.forEach(function (subSubCheckbox) {
+//             subSubCheckbox.checked = isChecked;
+//         });
+//
+//         // If a level 1 category is being selected, do not automatically select its level 0 parent
+//         if (!isChecked) {
+//             updateParentState(checkbox);
+//         }
+//     } else if (level === 2) {
+//         // If a level 2 category is selected, do not automatically select its parent categories
+//         if (!isChecked) {
+//             const parentCheckbox = document.querySelector('input[data-level="1"][value="' + checkbox.getAttribute('data-parent') + '"]');
+//             if (parentCheckbox) {
+//                 updateParentState(parentCheckbox);
+//                 const grandParent = parentCheckbox.getAttribute('data-parent');
+//                 if (grandParent) {
+//                     const grandParentCheckbox = document.querySelector('input[data-level="0"][value="' + grandParent + '"]');
+//                     if (grandParentCheckbox) {
+//                         updateParentState(grandParentCheckbox);
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
 // Function to update the state of the parent checkboxes
 function updateParentState(parentCheckbox) {
@@ -86,113 +86,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
-// document.addEventListener('DOMContentLoaded', function () {
-//     const level0Select = document.getElementById('id_level_0_category');
-//     const level1Select = document.getElementById('id_level_1_category');
-//     const level2Select = document.getElementById('id_level_2_category');
-//
-//     // Initialize selects
-//     if (level0Select && level1Select && level2Select) {
-//         // Handle level 0 category change
-//         level0Select.addEventListener('change', function () {
-//             const categoryId = this.value;
-//             if (categoryId) {
-//                 fetch(`/load-subcategories/?category_id=${categoryId}&level=0`)
-//                     .then(response => response.json())
-//                     .then(data => {
-//                         level1Select.innerHTML = '<option value="">Select Subcategory</option>';
-//                         data.forEach(subcategory => {
-//                             const option = document.createElement('option');
-//                             option.value = subcategory.id;
-//                             option.textContent = subcategory.name;
-//                             level1Select.appendChild(option);
-//                         });
-//                         level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
-//                     })
-//                     .catch(error => {
-//                         console.error('Error loading subcategories:', error);
-//                         level1Select.innerHTML = '<option value="">No subcategories available</option>';
-//                     });
-//             } else {
-//                 level1Select.innerHTML = '<option value="">Select Subcategory</option>';
-//                 level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
-//             }
-//         });
-//
-//         // Handle level 1 category change
-//         level1Select.addEventListener('change', function () {
-//             const subcategoryId = this.value;
-//             if (subcategoryId
-//         )
-//             {
-//                 fetch(`/load-subcategories/?category_id=${subcategoryId}&level=1`)
-//                     .then(response => response.json())
-//                     .then(data => {
-//                         level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
-//                         data.forEach(subSubcategory => {
-//                             const option = document.createElement('option');
-//                             option.value = subSubcategory.id;
-//                             option.textContent = subSubcategory.name;
-//                             level2Select.appendChild(option);
-//                         });
-//                     })
-//                     .catch(error => {
-//                         console.error('Error loading sub-subcategories:', error);
-//                         level2Select.innerHTML = '<option value="">No sub-subcategories available</option>';
-//                     });
-//             }
-//         else
-//             {
-//                 level2Select.innerHTML = '<option value="">Select Sub-subcategory</option>';
-//             }
-//         });
-//     }
-// });
-
-
-// document.addEventListener('DOMContentLoaded', function () {
-//     // Level 0 category checkbox change event
-//     document.getElementById('id_level_0_category').addEventListener('change', function () {
-//         let categoryId = this.value;
-//         console.log(categoryId);
-//         if (categoryId) {
-//             fetch(`/load-subcategories/?category_id=${categoryId}&level=0`)
-//                 .then(response => response.json())
-//                 .then(data => {
-//                     let subcategorySelect = document.getElementById('id_level_1_category');
-//                     subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
-//                     data.forEach(function (subcategory) {
-//                         let option = document.createElement('option');
-//                         option.value = subcategory.id;
-//                         option.textContent = subcategory.name;
-//                         subcategorySelect.appendChild(option);
-//                     });
-//
-//                     // Automatically check subcategories and clear lower-level sub-subcategories
-//                     document.getElementById('id_level_2_category').innerHTML = '<option value="">Select Sub-subcategory</option>';
-//                 });
-//         }
-//     });
-//
-//     // Level 1 category checkbox change event
-//     document.getElementById('id_level_1_category').addEventListener('change', function () {
-//         let subcategoryId = this.value;
-//
-//         if (subcategoryId) {
-//             fetch(`/load-subcategories/?category_id=${subcategoryId}&level=1`)
-//                 .then(response => response.json())
-//                 .then(data => {
-//                     let subSubcategorySelect = document.getElementById('id_level_2_category');
-//                     subSubcategorySelect.innerHTML = '<option value="">Select Sub-subcategory</option>';
-//                     data.forEach(function (subSubcategory) {
-//                         let option = document.createElement('option');
-//                         option.value = subSubcategory.id;
-//                         option.textContent = subSubcategory.name;
-//                         subSubcategorySelect.appendChild(option);
-//                     });
-//                 });
-//         }
-//     });
-// });
-

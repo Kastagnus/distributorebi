@@ -1,3 +1,4 @@
+{% load i18n %}
 <style>
     /* General Styles */
     .info-container {
@@ -199,10 +200,10 @@
 
 </style>
 <div class="info-container">
-    <h2>Company Information
+    <h2>{% trans 'Company Information' %}
         {% if request.user == user %}
             <a href="{% url 'edit_company_profile' user.pk %}">
-                <button id="edit-btn" class="edit-btn">Edit</button>
+                <button id="edit-btn" class="edit-btn">{% trans 'Edit' %}</button>
             </a>
         {% endif %}
     </h2>
@@ -214,30 +215,49 @@
             <div class="info-content">{{ user.ltd_name|default:'' }}</div>
         </div>
         <div class="info-section">
-            <div class="info-title">Description</div>
+            <div class="info-title">{% trans 'Description' %}</div>
             <div class="info-content">{{ company_info.about_us|default:'' }}</div>
         </div>
         <div class="info-section">
-            <div class="info-title">Location</div>
+            <div class="info-title">{% trans 'Location' %}</div>
             <div class="info-content">{{ company_info.address|default:'' }}</div>
         </div>
         <div class="info-section">
-            <div class="info-title">Contact</div>
-            <div class="info-content">Email: {{ user.email|default:'' }}</div>
-            <div class="info-content">Phone: {{ user.phone_number|default:'12345' }}</div>
+            <div class="info-title">{% trans 'Contact' %}</div>
+            <div class="info-content">{% trans 'Email' %}: {{ user.email|default:'' }}</div>
+            <div class="info-content">{% trans 'Phone' %}: {{ user.phone_number|default:'12345' }}</div>
         </div>
         <div class="info-section">
-            <div class="info-title">Operating Regions and Cities</div>
+            <div class="info-title">{% trans 'Operating Regions and Cities' %}</div>
             <div id="cities-preview" class="info-content">
                 <!-- Preview of selected regions and cities -->
                 <div class="preview-container">
                     {% regroup company_info.cities.all by region as regions %}
                     {% for region in regions %}
                         <div class="region-preview">
-                            <h4>{{ region.grouper.name }}</h4>
+                            <h4>
+                                {% if language_code == 'ka' %}
+                                    {{ region.grouper.name }}
+                                {% elif language_code == 'en' %}
+                                    {{ region.grouper.name_en }}
+                                {% elif language_code == 'ru' %}
+                                    {{ region.grouper.name_ru }}
+                                {% else %}
+                                    {{ region.grouper.name }}
+                                {% endif %}</h4>
                             <ul>
                                 {% for city in region.list %}
-                                    <li>{{ city.name }}</li>
+                                    <li>
+                                        {% if language_code == 'ka' %}
+                                            {{ city.name }}
+                                        {% elif language_code == 'en' %}
+                                            {{ city.name_en }}
+                                        {% elif language_code == 'ru' %}
+                                            {{ city.name_ru }}
+                                        {% else %}
+                                            {{ city.name }}
+                                        {% endif %}
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -246,28 +266,28 @@
             </div>
         </div>
         <div class="info-section">
-            <div class="info-title">Branch Contacts</div>
+            <div class="info-title">{% trans 'Branch Contacts' %}</div>
             {% for branch in company_info.branch_contacts.all %}
                 <div class="info-content">
                     {{ branch.contact_name|default:'' }} ({{ branch.position|default:'' }})
                     - {{ branch.phone_number|default:'' }} - {{ branch.region|default:'' }}
                 </div>
             {% empty %}
-                <div class="info-content">No branch contacts available.</div>
+                <div class="info-content">{% trans 'No branch contacts available' %}.</div>
             {% endfor %}
         </div>
         <div class="info-section">
-            <div class="info-title">Website</div>
+            <div class="info-title">{% trans 'Website' %}</div>
             <div class="info-content">
                 {% if company_info.website %}
                     <a href="{{ company_info.website }}" target="_blank">{{ company_info.website }}</a>
                 {% else %}
-                    <a href="#">No website info</a>
+                    <a href="#">{% trans 'No website info' %}</a>
                 {% endif %}
             </div>
         </div>
         <div class="info-section">
-            <div class="info-title">Social Media</div>
+            <div class="info-title">{% trans 'Social Media' %}</div>
             <div class="info-content">
                 {% if company_info.facebook %}
                     <a href="{{ company_info.facebook }}" target="_blank">Facebook</a>

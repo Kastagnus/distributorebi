@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, get_language
 from django.conf import settings
 from users.models import CustomUser
 import os
@@ -9,8 +9,10 @@ from django.core.files import File
 from PIL import Image
 
 class Category(models.Model):
-    max_depth = 3
+    max_depth = 2
     name = models.CharField(max_length=100, unique=True)
+    name_en = models.CharField(max_length=100, unique=True, blank=True, null=True)
+    name_ru = models.CharField(max_length=100, unique=True, blank=True, null=True)
     parent = models.ForeignKey('self',
                                on_delete=models.CASCADE,
                                related_name='subcategories',
@@ -29,6 +31,13 @@ class Category(models.Model):
 
     def __str__(self):
         return f"{self.parent.name} > {self.name}" if self.parent else self.name
+    def get_translated_name(self):
+        lang = get_language()
+        if lang == 'ru' and self.name_ru:
+            return self.name_ru
+        elif lang == 'en' and self.name_en:
+            return self.name_en
+        return self.name if self.name else "here"  # default language
 
     def get_all_descendants(self):
         """Return a list of this category and all its descendants."""
@@ -71,14 +80,25 @@ class Category(models.Model):
         buffer.close()
     def save(self, *args, **kwargs):
         if self.parent:
-            if self.parent.level >= self.max_depth:
-                raise ValidationError('Reached max depth of subcategories')
-            self.level = self.level + 1
-            if self.parent.parent:
-                if self.parent.level >= self.max_depth:
+            if self.pk:
+                if self.parent.level == self.max_depth:
+                    raise ValidationError('Reached max depth of subcategories')
+                if not self.parent.parent:
+                    self.level = 1
+                else:
+                    self.level = 2
+            else:
+                if self.parent.level == self.max_depth:
                     raise ValidationError('Reached max depth of subcategories')
                 self.level = self.level + 1
+                if self.parent.parent:
+                    if self.parent.level == self.max_depth:
+                        raise ValidationError('Reached max depth of subcategories')
+                    self.level = self.level + 1
+
         if self.pk:  # If the object already exists
+            if not self.parent:
+                self.level = 0
             old_instance = Category.objects.get(pk=self.pk)
             if old_instance.image and self.image != old_instance.image:
                 # Delete the old image if a new one is uploaded
@@ -99,13 +119,17 @@ class Product(models.Model):
         ('kg', _('Kilogram')),
     ]
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='products')
-    name = models.CharField(max_length=200,)
+    name = models.CharField(max_length=200, blank=True, null=True)
+    name_en = models.CharField(max_length=200, blank=True, null=True)
+    name_ru = models.CharField(max_length=200, blank=True, null=True)
     category = models.ForeignKey(
         'Category',
         on_delete=models.CASCADE,
         related_name='products'
     )
     description = models.TextField(max_length=500, blank=True, null=True)
+    description_en = models.TextField(max_length=500, blank=True, null=True)
+    description_ru = models.TextField(max_length=500, blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     unit = models.CharField(max_length=10, choices=UNIT_CHOICES, default='piece')
     size = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
