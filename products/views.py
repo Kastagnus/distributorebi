@@ -12,7 +12,6 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from .models import CustomUser, Product, Category, TranslationCache
 from sellers.models import CompanyProfile
-from google.cloud import translate_v2 as translate
 from django.utils.translation import get_language
 
 
@@ -103,24 +102,8 @@ def dashboard(request, company_id):
         "form": form,
         "language_code": get_language(),
     }
-
-    langg = get_language()
-    print(langg)
-    print(request.META.get('HTTP_ACCEPT_LANGUAGE'))
-    print(request.session.get('django_language'))
-    print(f"Middleware: Path={request.path}, Session Language={request.session.get('django_language')}")
     return render(request, 'products/products.html', context)
 
-# View to load subcategories dynamically
-# def load_subcategories(request):
-#     category_id = request.GET.get('category_id')
-#     level = int(request.GET.get('level', 0))
-#     subcategories = []
-#     if category_id:
-#         subcategories = Category.objects.filter(parent_id=category_id).values('id', 'name')
-#         return JsonResponse(list(subcategories), safe=False)
-#
-#     return JsonResponse({'subcategories': []})
 @require_GET
 def load_subcategories(request):
     category_id = request.GET.get('category_id')
